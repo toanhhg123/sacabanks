@@ -91,8 +91,8 @@ public class ProductService {
       throw new CustomException("not found product");
     }
 
-    if (productDto.getSlug() != null && !repository.existsBySlug(productDto.getSlug(), id)) {
-      throw new CustomException("slog is exist");
+    if (productDto.getSlug() != null && repository.existsBySlug(productDto.getSlug(), id)) {
+      throw new CustomException("slug is exist");
     }
 
     product.get().updateFromDTO(productDto);

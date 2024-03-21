@@ -47,14 +47,14 @@ Authorization: Bearer {{token}}
 
 ###
 
-PATCH  {{url}}/5710d238-d815-4f72-880a-c1f8a79ee848 HTTP/1.1
+PATCH  {{url}}/184357c3-aa2a-46d8-9e0d-7c954da10680 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
 
 {
 "title": "sản phẩm 123324",
-"slug": "sản phẩm 1232",
+"slug": "https://secoin.com/gach-bong-200x200/gach-bong-a405.html",
 "itemNumber": "sản phẩm 123",
 "material": "sản phẩm 123",
 "finishing": "sản phẩm 123",

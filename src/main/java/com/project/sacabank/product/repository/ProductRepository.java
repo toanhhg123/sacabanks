@@ -26,8 +26,6 @@ public interface ProductRepository extends BaseRepository<Product, UUID> {
   @Query("UPDATE Product p SET p.category = null WHERE p.category.id = :categoryId")
   void updateCategoryAssociationToNull(UUID categoryId);
 
-  @Transactional
-  @Modifying
   @Query("SELECT COUNT(p) > 0 FROM Product p WHERE p.slug = :slug AND p.id != :id")
   boolean existsBySlug(@Param("slug") String slug, @Param("id") UUID id);
 }
