@@ -32,7 +32,8 @@ public class ProductService {
   public List<?> getAll(Optional<String> search, Optional<Integer> page, Optional<UUID> category_id) {
     Specification<Product> spec = Specification.where(null);
     var pageNumber = page.isPresent() ? page.get() : 0;
-    if (!search.isEmpty()) {
+
+    if (search.isPresent()) {
       spec = spec.or(ProductSpecifications.titleIsLike(search.get()));
       spec = spec.or(ProductSpecifications.itemNumberIsLike(search.get()));
     }
