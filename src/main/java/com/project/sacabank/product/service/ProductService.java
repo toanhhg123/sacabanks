@@ -73,6 +73,16 @@ public class ProductService {
     return product.get();
   }
 
+  public Product findBySlug(String slug) {
+    var product = repository.findBySlug(slug);
+
+    if (!product.isPresent() || product.get() == null) {
+      throw new CustomException("not find product");
+    }
+
+    return product.get();
+  }
+
   @Transactional
   public Product update(UUID id, ProductDto productDto) {
     var product = repository.findById(id);

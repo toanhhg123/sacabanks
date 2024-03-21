@@ -13,7 +13,7 @@ public class Constants {
     public static final String AUTH_PATH = "/api/auth/**";
     public static final String ROLE_PATH = "/api/role/**";
     public static final String USER_VENDOR = "/api/user/vendor";
-    public static final String PRODUCT_PUBLIC = "/api/product/public";
+    public static final String PRODUCT_PUBLIC = "/api/product/public/**";
 
     public static final String API_REGISTER_VENDOR_PATH = "/api/register_vendor/register";
   }

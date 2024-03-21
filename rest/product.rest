@@ -1,6 +1,6 @@
 ###
 
-@url = http://sacabanks.vn:8080/api/product
+@url = http://localhost:8080/api/product
 
 @token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcxMDg3NjQ4NCwiZXhwIjoxNzExNzQwNDg0fQ.JLTGgwNe4_-t0bVoFtJuwGl0q1OS89d_1LpPiefdPcU
 ###
@@ -12,8 +12,11 @@ Authorization: Bearer {{token}}
 GET {{url}}/my_product?page=0 HTTP/1.1
 Authorization: Bearer {{token}}
 
-###
+###find by slug
 
+GET {{url}}/public/test-demo HTTP/1.1
+
+### 
 GET {{url}}/0475046a-4430-4713-8933-f7160c0bc32b HTTP/1.1
 Authorization: Bearer {{token}}
 

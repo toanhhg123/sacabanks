@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sacabank.base.BaseController;
-import com.project.sacabank.category.model.Category;
 import com.project.sacabank.product.dto.ProductDto;
 import com.project.sacabank.product.model.Product;
 import com.project.sacabank.product.service.ProductService;
@@ -43,6 +42,11 @@ public class ProductController extends BaseController {
   public ResponseEntity<?> getAllProduct(@RequestParam Optional<String> search, @RequestParam Optional<Integer> page,
       @RequestParam Optional<UUID> category_id) {
     return this.onSuccess(service.getAll(search, page, category_id));
+  }
+
+  @GetMapping("public/{slug}")
+  public ResponseEntity<?> getAllProduct(@PathVariable String slug) {
+    return this.onSuccess(service.findBySlug(slug));
   }
 
   @GetMapping("{id}")
