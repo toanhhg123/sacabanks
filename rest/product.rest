@@ -1,0 +1,75 @@
+###
+
+@url = http://localhost:8080/api/product
+
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcxMDg3NjQ4NCwiZXhwIjoxNzExNzQwNDg0fQ.JLTGgwNe4_-t0bVoFtJuwGl0q1OS89d_1LpPiefdPcU
+###
+GET {{url}}/public HTTP/1.1
+Authorization: Bearer {{token}}
+
+
+### get my product
+GET {{url}}/my_product?page=0 HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+
+GET {{url}}/0475046a-4430-4713-8933-f7160c0bc32b HTTP/1.1
+Authorization: Bearer {{token}}
+
+
+
+###
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+"title": "sản phẩm user 2",
+"slug": "sanphamuser2",
+"itemNumber": "sản phẩm 123",
+"material": "sản phẩm 123",
+"finishing": "sản phẩm 123",
+  "dimensionL": 100,
+  "dimensionW": 100,
+  "dimensionH": 100,
+   "netWeight": 100,
+   "price": 100,
+  "quantity": 100,
+"mainPhoto": "sản phẩm 123",
+"categoryId":"3a980623-d335-486a-aa13-b4efaee33e3e"
+}
+
+
+###
+
+PATCH  {{url}}/5710d238-d815-4f72-880a-c1f8a79ee848 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+"title": "sản phẩm 123324",
+"slug": "sản phẩm 1232",
+"itemNumber": "sản phẩm 123",
+"material": "sản phẩm 123",
+"finishing": "sản phẩm 123",
+  "dimensionL": 100,
+  "dimensionW": 100,
+  "dimensionH": 100,
+   "netWeight": 100,
+   "price": 100,
+  "quantity": 100,
+"mainPhoto": "sản phẩm 123"
+}
+
+
+###
+
+DELETE  {{url}}/0475046a-4430-4713-8933-f7160c0bc32b HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+

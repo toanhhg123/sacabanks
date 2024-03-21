@@ -1,0 +1,88 @@
+###
+
+@url = http://localhost:8080/api/user
+
+
+@token =eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcxMDc2MzUwNywiZXhwIjoxNzExNjI3NTA3fQ.YpFC7BEEGXHsuKAHHYx2H7TA-UCC8iy_Zsz3hljzpYE
+###
+GET {{url}}?search=&role=&page=0 HTTP/1.1
+Authorization: Bearer {{token}}
+
+
+### get info user
+GET {{url}}/me HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+### create user
+POST  {{url}} HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+"username": "vendor1.7",
+"email": "vendor1.7@gmail.com",
+"password": "1234562789",
+"phoneNumber": "0917891232",
+"role": "VENDOR",
+"companyName": "",
+"address": "",
+"fullNameOwnerCompany": "",
+"companyGroup": "",
+"mainProductGroup": "",
+"numberProductService": "",
+"revenueEachYear": "",
+"description": "",
+"listCertificate": "",
+"listLinkProduct": "",
+"companyWishesCooperate": "",
+"linkProfile": "",
+"implementerName": "",
+"implementerPhone": "",
+"linkWebsite": "",
+"collab": "MEDIA",
+"profits": "UNDER5_PER"
+}
+
+### update user
+PATCH   {{url}}/93484f48-59a9-4f9b-8c84-04223d128f95 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+"username": "vendor1.6",
+"email": "vendor1.6@gmail.com",
+"password": "1234562789",
+"phoneNumber": "0917891234",
+"role": "VENDOR",
+"companyName": "12312",
+"address": "12312"
+}
+
+###
+DELETE   {{url}}/5e152789-aae4-4d2c-a1d9-d57852c1edb9 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### get vendor
+
+GET   {{url}}/vendor HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### update role
+
+PATCH  {{url}}/role/0e1b32ee-296d-4b0c-b342-20d71fbfdc04 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "role":"ADMIN"
+}

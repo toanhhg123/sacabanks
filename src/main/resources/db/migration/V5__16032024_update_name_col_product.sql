@@ -1,0 +1,1 @@
+ALTER TABLE product CHANGE COLUMN netWeight net_weight float;

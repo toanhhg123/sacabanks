@@ -1,0 +1,32 @@
+###
+
+@url = http://localhost:8080/api/order
+
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2ZW5kb3IxLjYiLCJpYXQiOjE3MTA2MTAwMTYsImV4cCI6MTcxMDY5NjQxNn0.Z_83kb_d6JMlIG5OiWn8n0G99k5ULI17wTxB9TbbLiY
+###
+GET {{url}} HTTP/1.1
+Authorization: Bearer {{token}}
+
+
+### get my product
+GET {{url}}/my_order?page=0 HTTP/1.1
+Authorization: Bearer {{token}}
+
+
+
+
+###
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+"orderItemDtos": [{"productId": "5710d238-d815-4f72-880a-c1f8a79ee848", "quantity": 10},{"productId": "5710d238-d815-4f72-880a-c1f8a79ee848", "quantity": 20}]
+}
+
+
+###
+
+DELETE  {{url}}/d8970c6d-aa2c-4fe8-81ee-bdcf2d578780 HTTP/1.1
+Authorization: Bearer {{token}}

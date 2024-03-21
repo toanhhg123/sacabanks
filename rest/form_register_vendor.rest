@@ -1,0 +1,77 @@
+###
+
+@url = http://localhost:8080/api/register_vendor
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcxMDUyMzg3NywiZXhwIjoxNzEwNjEwMjc3fQ.n6ot2QVvMv3CYRVz1T22JlVF5gwOvrjM_6qBBRxvWY0
+###
+GET {{url}}?page=0&search=2 HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+
+GET {{url}}/3e7ef598-3e10-4fb9-a886-d2d936dbba43 HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+
+
+
+
+
+POST  {{url}}/register HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+"companyName":"2",
+"address":"1",
+"email":"1",
+"phone":"1",
+"fullNameOwnerCompany":"1",
+"companyGroup":"1",
+"mainProductGroup":"1",
+"numberProductService":"1",
+"revenueEachYear":"1",
+"description":"1",
+"listCertificate":"1",
+"listLinkProduct":"1",
+"companyWishesCooperate":"1",
+"linkProfile":"1",
+"implementerName":"1",
+"implementerPhone":"1",
+"linkWebsite": "",
+"collab": "MEDIA",
+"profits": "UNDER5_PER"
+}
+
+###
+
+PATCH  {{url}}/cf40dc62-1af5-40f3-ab3f-1a2183f9d616 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+"companyName":"1",
+"address":"2",
+"email":"1",
+"phone":"1",
+"fullNameOwnerCompany":"1",
+"companyGroup":"1",
+"mainProductGroup":"1",
+"numberProductService":"1",
+"revenueEachYear":"1",
+"description":"1",
+"listCertificate":"1",
+"listLinkProduct":"1",
+"companyWishesCooperate":"1",
+"linkProfile":"1",
+"implementerName":"1",
+"implementerPhone":"1"
+}
+
+###
+
+DELETE   {{url}}/cf40dc62-1af5-40f3-ab3f-1a2183f9d616 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 
