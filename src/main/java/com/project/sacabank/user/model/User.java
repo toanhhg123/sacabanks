@@ -75,6 +75,8 @@ public class User extends BaseModel {
   private String implementerPhone;
   private String linkWebsite;
   private String shortNameCompany;
+  private String avatar;
+
   @Enumerated(EnumType.STRING)
   ECollab collab;
 
@@ -144,6 +146,10 @@ public class User extends BaseModel {
     }
     if (userDto.getShortNameCompany() != null) {
       this.setShortNameCompany(userDto.getShortNameCompany());
+    }
+
+    if (userDto.getAvatar() != null) {
+      this.setShortNameCompany(userDto.getAvatar());
     }
   }
 

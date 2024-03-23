@@ -47,6 +47,7 @@ public class CategoryService {
 
     category.get().setName(categoryDto.getName());
     category.get().setImage(categoryDto.getImage());
+    category.get().setRank(categoryDto.getRank());
 
     return categoryRepository.save(category.get());
   }

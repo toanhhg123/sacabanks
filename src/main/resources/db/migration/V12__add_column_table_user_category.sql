@@ -1,0 +1,2 @@
+ALTER TABLE user ADD COLUMN avatar VARCHAR(250);
+ALTER TABLE `category` ADD `rank` INT

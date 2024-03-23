@@ -16,4 +16,5 @@ import lombok.Setter;
 public class Category extends BaseModel {
   private String name;
   private String image;
+  private Integer rank;
 }
