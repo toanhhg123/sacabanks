@@ -20,8 +20,6 @@ public class CategoryDto extends BaseDto {
   @NotBlank(message = "name can not blank")
   @NotNull(message = "name is not null")
   private String name;
-
   private String image;
   private Integer rank;
-
 }

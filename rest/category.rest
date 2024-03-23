@@ -15,3 +15,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcxMDE2N
   "name": "cửa sat"
 }
 
+
+
+###
+PATCH  {{url}}/046e9331-b65f-4afc-9029-535b65971430 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcxMTE4Mzc2MCwiZXhwIjoxNzEyMDQ3NzYwfQ.bxc9Vw-tVHBR_VnpdvQ-tofNn5CBtRbfnHlcHWC7v6E
+
+{
+   "name": "Gỗ, Nhựa và Vật liệu tổng hợp",
+   "image": "https://sanf.vn/wp-content/uploads/2023/03/Go-nhua-op-tuong-tran-2-lop-phu-asa.jpg",
+  "rank": 1
+}

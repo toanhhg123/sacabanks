@@ -40,8 +40,9 @@ public class ProductController extends BaseController {
 
   @GetMapping("public")
   public ResponseEntity<?> getAllProduct(@RequestParam Optional<String> search, @RequestParam Optional<Integer> page,
-      @RequestParam Optional<UUID> category_id) {
-    return this.onSuccess(service.getAll(search, page, category_id));
+      @RequestParam Optional<UUID> category_id, @RequestParam Optional<UUID> user_id,
+      @RequestParam Optional<Boolean> isNullQuantity) {
+    return this.onSuccess(service.getAll(search, page, category_id, user_id, isNullQuantity));
   }
 
   @GetMapping("public/{slug}")

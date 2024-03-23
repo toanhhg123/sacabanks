@@ -12,7 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.sacabank.base.PaginationResponse;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.product.ProductSpecifications;
 import com.project.sacabank.product.dto.ProductDto;
@@ -29,7 +31,8 @@ public class ProductService {
   @Autowired
   ModelMapper mapper;
 
-  public List<?> getAll(Optional<String> search, Optional<Integer> page, Optional<UUID> category_id) {
+  public PaginationResponse getAll(Optional<String> search, Optional<Integer> page, Optional<UUID> category_id,
+      Optional<UUID> userId, @RequestParam Optional<Boolean> isNullQuantity) {
     Specification<Product> spec = Specification.where(null);
     var pageNumber = page.isPresent() ? page.get() : 0;
 
@@ -38,11 +41,21 @@ public class ProductService {
       spec = spec.or(ProductSpecifications.itemNumberIsLike(search.get()));
     }
 
+    if (userId.isPresent()) {
+      spec = spec.and(ProductSpecifications.isEqualUserId(userId.get()));
+    }
+
     if (!category_id.isEmpty()) {
       spec = spec.and(ProductSpecifications.isEqualCategoryId(category_id.get()));
     }
 
-    return repository.findAll(spec, PageRequest.of(pageNumber, PAGE_SIZE));
+    if (isNullQuantity.isPresent()) {
+      spec = spec.and(ProductSpecifications.isNullQuantity());
+    }
+
+    var count = repository.count(spec);
+    var list = repository.findAll(spec, PageRequest.of(pageNumber, PAGE_SIZE));
+    return PaginationResponse.builder().count(count).list(list).build();
 
   }
 

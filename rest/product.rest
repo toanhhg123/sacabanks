@@ -4,8 +4,8 @@
 
 @token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcxMDg3NjQ4NCwiZXhwIjoxNzExNzQwNDg0fQ.JLTGgwNe4_-t0bVoFtJuwGl0q1OS89d_1LpPiefdPcU
 ###
-GET {{url}}/public?search=&category_id=4409668b-b5a5-4d1b-8d71-480931ead72f HTTP/1.1
-Authorization: Bearer {{token}}
+GET {{url}}/public?search=&category_id=&user_id=&isNullQuantity=true HTTP/1.1
+
 
 
 ### get my product
@@ -34,12 +34,12 @@ Authorization: Bearer {{token}}
 "itemNumber": "sản phẩm 123",
 "material": "sản phẩm 123",
 "finishing": "sản phẩm 123",
-  "dimensionL": 100,
-  "dimensionW": 100,
-  "dimensionH": 100,
-   "netWeight": 100,
-   "price": 100,
-  "quantity": 100,
+"dimensionL": 100,
+"dimensionW": 100,
+"dimensionH": 100,
+"netWeight": 100,
+"price": 100,
+"quantity": 100,
 "mainPhoto": "sản phẩm 123",
 "categoryId":"3a980623-d335-486a-aa13-b4efaee33e3e"
 }

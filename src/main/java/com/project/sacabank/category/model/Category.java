@@ -2,6 +2,7 @@ package com.project.sacabank.category.model;
 
 import com.project.sacabank.base.BaseModel;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,5 +17,6 @@ import lombok.Setter;
 public class Category extends BaseModel {
   private String name;
   private String image;
+  @Column(name = "`rank`")
   private Integer rank;
 }

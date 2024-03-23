@@ -24,4 +24,12 @@ public class ProductSpecifications {
     return (root, query, builder) -> builder.equal(root.get("category").get("id"), category_id);
   }
 
+  public static Specification<Product> isEqualUserId(UUID id) {
+    return (root, query, builder) -> builder.equal(root.get("user").get("id"), id);
+  }
+
+  public static Specification<Product> isNullQuantity() {
+    return (root, query, builder) -> builder.isNull(root.get("quantity"));
+  }
+
 }
