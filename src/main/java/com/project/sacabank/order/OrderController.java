@@ -1,4 +1,4 @@
-package com.project.sacabank.order.controller;
+package com.project.sacabank.order;
 
 import static com.project.sacabank.utils.Constants.API_ORDER_PATH;
 
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sacabank.base.BaseController;
 import com.project.sacabank.order.dto.OrderDto;
-import com.project.sacabank.order.service.OrderService;
 import com.project.sacabank.user.model.User;
 
 @RestController

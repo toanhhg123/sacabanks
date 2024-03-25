@@ -8,6 +8,7 @@ public class Constants {
   public static final String API_REGISTER_VENDOR_PATH = "/api/register_vendor";
   public static final String API_PRODUCT_PATH = "/api/product";
   public static final String API_ORDER_PATH = "/api/order";
+  public static final String API_MAIL_PATH = "/api/mail";
 
   public static class AuthPermissionAll {
     public static final String AUTH_PATH = "/api/auth/**";

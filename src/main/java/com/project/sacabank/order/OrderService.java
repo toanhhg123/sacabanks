@@ -1,4 +1,4 @@
-package com.project.sacabank.order.service;
+package com.project.sacabank.order;
 
 import static com.project.sacabank.utils.Constants.PAGE_SIZE;
 
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.sacabank.exception.CustomException;
-import com.project.sacabank.order.OrderSpecifications;
 import com.project.sacabank.order.dto.OrderDto;
 import com.project.sacabank.order.model.Order;
 import com.project.sacabank.order.model.OrderItem;
