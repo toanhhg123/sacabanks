@@ -27,6 +27,7 @@ public class ProductDto extends BaseDto {
   private Integer dimensionW;
   private Integer dimensionH;
   private Float netWeight;
+
   private Double price;
   private Integer quantity;
   private String mainPhoto;
