@@ -32,4 +32,8 @@ public class ProductSpecifications {
     return (root, query, builder) -> builder.isNull(root.get("quantity"));
   }
 
+  public static Specification<Product> isNotNullQuantity() {
+    return (root, query, builder) -> builder.isNotNull(root.get("quantity"));
+  }
+
 }

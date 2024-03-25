@@ -5,14 +5,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.project.sacabank.auth.UserDetailsImpl;
-import com.project.sacabank.auth.dto.UserRegisterDto;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.user.model.User;
 import com.project.sacabank.user.repository.UserRepository;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
+@SecurityRequirement(name = "Bearer Authentication")
 public class BaseController {
 
   @Autowired

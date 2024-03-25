@@ -50,7 +50,8 @@ public class ProductService {
     }
 
     if (isNullQuantity.isPresent()) {
-      spec = spec.and(ProductSpecifications.isNullQuantity());
+      spec = isNullQuantity.get() == true ? spec.and(ProductSpecifications.isNullQuantity())
+          : spec.and(ProductSpecifications.isNotNullQuantity());
     }
 
     var count = repository.count(spec);

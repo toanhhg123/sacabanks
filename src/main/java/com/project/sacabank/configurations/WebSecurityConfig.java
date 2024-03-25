@@ -70,7 +70,17 @@ public class WebSecurityConfig {
         .authorizeHttpRequests(
             auth -> auth
                 .requestMatchers(AUTH_PATH, API_REGISTER_VENDOR_PATH, ROLE_PATH, USER_VENDOR, PRODUCT_PUBLIC,
-                    "/api/upload", "/api/upload/callback")
+                    "/api/upload", "/api/upload/callback",
+                    "/v2/api-docs",
+                    "/v3/api-docs",
+                    "/v3/api-docs/**",
+                    "/swagger-resources",
+                    "/swagger-ui.html",
+                    "/swagger-resources/**",
+                    "/configuration/ui",
+                    "/configuration/security",
+                    "/webjars/**",
+                    "/swagger-ui/**")
                 .permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/category").permitAll()
                 .anyRequest().authenticated());

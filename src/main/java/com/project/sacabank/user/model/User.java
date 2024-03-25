@@ -149,7 +149,7 @@ public class User extends BaseModel {
     }
 
     if (userDto.getAvatar() != null) {
-      this.setShortNameCompany(userDto.getAvatar());
+      this.setAvatar(userDto.getAvatar());
     }
   }
 
