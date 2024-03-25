@@ -33,6 +33,7 @@ public class Product extends BaseModel {
   private Double price;
   private Integer quantity;
   private String mainPhoto;
+  private String tags;
 
   @ManyToOne()
   @JoinColumn(name = "user_id", nullable = true, referencedColumnName = "id")
@@ -81,6 +82,9 @@ public class Product extends BaseModel {
     }
     if (productDTO.getMainPhoto() != null) {
       this.setMainPhoto(productDTO.getMainPhoto());
+    }
+    if (productDTO.getTags() != null) {
+      this.setTags(productDTO.getTags());
     }
   }
 }

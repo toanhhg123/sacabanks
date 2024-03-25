@@ -30,6 +30,7 @@ public class ProductDto extends BaseDto {
   private Double price;
   private Integer quantity;
   private String mainPhoto;
+  private String tags;
 
   private UUID categoryId;
 
