@@ -1,0 +1,2 @@
+ALTER TABLE product ADD COLUMN tags VARCHAR(250);
+
