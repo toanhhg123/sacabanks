@@ -1,16 +1,14 @@
 package com.project.sacabank.product.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import java.util.UUID;
+
+import com.project.sacabank.base.BaseDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.UUID;
-
-import com.project.sacabank.base.BaseDto;
 
 @AllArgsConstructor
 @Builder
@@ -27,12 +25,10 @@ public class ProductDto extends BaseDto {
   private Integer dimensionW;
   private Integer dimensionH;
   private Float netWeight;
-
   private Double price;
   private Integer quantity;
   private String mainPhoto;
   private String tags;
-
   private UUID categoryId;
 
 }

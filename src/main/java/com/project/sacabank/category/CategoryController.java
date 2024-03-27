@@ -2,11 +2,11 @@ package com.project.sacabank.category;
 
 import static com.project.sacabank.utils.Constants.API_CATEGORY_PATH;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.project.sacabank.base.BaseController;
 import com.project.sacabank.category.dto.CategoryDto;
 import com.project.sacabank.services.CategoryService;
@@ -36,8 +35,8 @@ public class CategoryController extends BaseController {
   }
 
   @GetMapping("")
-  public ResponseEntity<?> get() {
-    return this.onSuccess(service.gets());
+  public ResponseEntity<?> get(@RequestParam Optional<String> name) {
+    return this.onSuccess(service.gets(name));
   }
 
   @PatchMapping("{id}")
@@ -47,6 +46,7 @@ public class CategoryController extends BaseController {
 
   @GetMapping("{id}")
   public ResponseEntity<?> findOne(@PathVariable UUID id) {
+
     return this.onSuccess(service.findById(id));
   }
 

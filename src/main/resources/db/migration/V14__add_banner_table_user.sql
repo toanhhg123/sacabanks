@@ -1,0 +1,2 @@
+ALTER TABLE user ADD COLUMN banner VARCHAR(250);
+

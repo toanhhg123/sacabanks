@@ -52,7 +52,7 @@ public class UserService {
     var user = userRepository.findByUsername(username);
 
     if (user.isEmpty()) {
-      CustomException.throwError("not found user");
+      CustomException.throwError("tên đăng nhập không chính xác");
     }
 
     return user.get();
@@ -100,15 +100,15 @@ public class UserService {
     boolean existsByUsername = userRepository.existsByEmail(userCreate.getUsername());
 
     if (existsByEmail) {
-      CustomException.throwError("email have exist");
+      CustomException.throwError("Địa chỉ email đã tồn tại");
     }
 
     if (existsByPhoneNumber) {
-      CustomException.throwError("phone number have exist");
+      CustomException.throwError("Số điện thoại đã tồn tại");
     }
 
     if (existsByUsername) {
-      CustomException.throwError("username have exist");
+      CustomException.throwError("Tên đăng nhập đã tồn tại");
     }
 
     userCreate.setPassword(encoder.encode(userCreate.getPassword()));

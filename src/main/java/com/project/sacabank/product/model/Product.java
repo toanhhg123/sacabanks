@@ -1,13 +1,20 @@
 package com.project.sacabank.product.model;
 
+import java.util.List;
+
 import com.project.sacabank.base.BaseModel;
 import com.project.sacabank.category.model.Category;
+import com.project.sacabank.listPhoto.ListPhoto;
 import com.project.sacabank.product.dto.ProductDto;
 import com.project.sacabank.user.model.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,6 +49,10 @@ public class Product extends BaseModel {
   @ManyToOne()
   @JoinColumn(name = "category_id", nullable = true, referencedColumnName = "id")
   private Category category;
+
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinTable(name = "list_photo", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "id"))
+  private List<ListPhoto> listPhoto;
 
   public void updateFromDTO(ProductDto productDTO) {
     if (productDTO.getTitle() != null) {
@@ -86,5 +97,6 @@ public class Product extends BaseModel {
     if (productDTO.getTags() != null) {
       this.setTags(productDTO.getTags());
     }
+
   }
 }

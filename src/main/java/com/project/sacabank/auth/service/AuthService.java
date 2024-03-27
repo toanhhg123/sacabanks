@@ -59,15 +59,15 @@ public class AuthService {
     var role = roleRepository.findByName(EnumNameRole.CLIENT);
 
     if (existsByEmail) {
-      CustomException.throwError("email have exist");
+      CustomException.throwError("email đã tồn tại");
     }
 
     if (existsByPhoneNumber) {
-      CustomException.throwError("phone number have exist");
+      CustomException.throwError("số điện thoại đã tồn tại");
     }
 
     if (existsByUsername) {
-      CustomException.throwError("username have exist");
+      CustomException.throwError("tên đăng nhập đã tồn tại");
     }
 
     User user = mapper.map(userRegisterDto, User.class);

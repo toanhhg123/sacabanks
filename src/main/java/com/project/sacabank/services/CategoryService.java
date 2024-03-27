@@ -1,13 +1,17 @@
 package com.project.sacabank.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
+import org.checkerframework.checker.units.qual.s;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.sacabank.category.CategorySpecifications;
 import com.project.sacabank.category.dto.CategoryDto;
 import com.project.sacabank.category.model.Category;
 import com.project.sacabank.exception.CustomException;
@@ -35,8 +39,14 @@ public class CategoryService {
     return categoryRepository.save(category);
   }
 
-  public List<?> gets() {
-    return categoryRepository.findAll();
+  public List<?> gets(Optional<String> name) {
+    Specification<Category> spec = Specification.where(null);
+
+    if (name.isPresent()) {
+      spec = spec.and(CategorySpecifications.nameIsLike(name.get()));
+    }
+
+    return categoryRepository.findAll(spec);
   }
 
   public Category update(UUID id, CategoryDto categoryDto) {

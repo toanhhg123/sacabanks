@@ -56,5 +56,6 @@ public class UserDto extends BaseDto {
   private EProfits profits;
   private String shortNameCompany;
   private String avatar;
+  private String banner;
 
 }
