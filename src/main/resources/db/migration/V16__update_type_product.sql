@@ -1,0 +1,4 @@
+ALTER TABLE product
+MODIFY COLUMN dimensionL FLOAT,
+MODIFY COLUMN dimensionW FLOAT,
+MODIFY COLUMN dimensionH FLOAT;

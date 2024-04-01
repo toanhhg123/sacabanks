@@ -21,14 +21,13 @@ public class ProductDto extends BaseDto {
   private String itemNumber;
   private String material;
   private String finishing;
-  private Integer dimensionL;
-  private Integer dimensionW;
-  private Integer dimensionH;
+  private Float dimensionL;
+  private Float dimensionW;
+  private Float dimensionH;
   private Float netWeight;
   private Double price;
   private Integer quantity;
   private String mainPhoto;
   private String tags;
   private UUID categoryId;
-
 }
