@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.sacabank.base.PaginationResponse;
 import com.project.sacabank.exception.CustomException;
+import com.project.sacabank.listPhoto.ListPhotoRepository;
 import com.project.sacabank.product.ProductSpecifications;
 import com.project.sacabank.product.dto.ProductDto;
 import com.project.sacabank.product.model.Product;
@@ -27,6 +28,9 @@ import com.project.sacabank.user.model.User;
 public class ProductService {
   @Autowired
   ProductRepository repository;
+
+  @Autowired
+  ListPhotoRepository listPhotoRepository;
 
   @Autowired
   ModelMapper mapper;
@@ -122,6 +126,7 @@ public class ProductService {
       throw new CustomException("not find product");
     }
 
+    listPhotoRepository.deleteByProductId(id);
     repository.delete(product.get());
     return product.get();
 
