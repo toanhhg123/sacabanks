@@ -70,7 +70,7 @@ public class ControllerExceptionHandler {
     ErrorMessage message = new ErrorMessage(
         HttpStatus.BAD_REQUEST.value(),
         new Date(),
-        "",
+        ex.getMessage(),
         request.getDescription(false), null);
     return new ResponseEntity<ErrorMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
   }

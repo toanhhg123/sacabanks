@@ -50,7 +50,7 @@ public class Product extends BaseModel {
   @JoinColumn(name = "category_id", nullable = true, referencedColumnName = "id")
   private Category category;
 
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "list_photo", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "id"))
   private List<ListPhoto> listPhoto;
 
