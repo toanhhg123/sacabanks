@@ -38,7 +38,6 @@ import lombok.Setter;
 public class User extends BaseModel {
 
   @NotBlank
-  @Size(max = 20)
   private String username;
 
   @NotBlank
