@@ -11,8 +11,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MailDto {
+public class MailUserNamePasswordDto {
   String to;
   String subject;
-  String body;
+  String username;
+  String password;
+
 }

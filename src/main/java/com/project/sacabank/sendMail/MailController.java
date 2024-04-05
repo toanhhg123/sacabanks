@@ -11,15 +11,35 @@ import com.project.sacabank.base.BaseController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import org.thymeleaf.context.Context;
+
 @RestController
 @RequestMapping(path = API_MAIL_PATH)
 public class MailController extends BaseController {
   @Autowired
   SendMailService sendMailService;
 
-  @PostMapping()
-  public ResponseEntity<?> sendMail(@RequestBody MailDto mailDto) {
-    sendMailService.sendEmail(mailDto.getTo(), mailDto.getSubject(), mailDto.getBody());
+  // @PostMapping()
+  // public ResponseEntity<?> sendMail(@RequestBody MailUserNamePasswordDto
+  // mailDto) {
+
+  // Context context = new Context();
+  // context.setVariable("username", mailDto.getUsername());
+  // context.setVariable("password", mailDto.getPassword());
+
+  // sendMailService.sendEmail(mailDto.getTo(), mailDto.getSubject(),
+  // "email-template", context);
+  // return this.onSuccess(mailDto);
+  // }
+
+  @PostMapping("send_mail_create_account")
+  public ResponseEntity<?> sendMailCreateAccount(@RequestBody MailUserNamePasswordDto mailDto) {
+
+    Context context = new Context();
+    context.setVariable("username", mailDto.getUsername());
+    context.setVariable("password", mailDto.getPassword());
+
+    sendMailService.sendEmail(mailDto.getTo(), mailDto.getSubject(), "email-template", context);
     return this.onSuccess(mailDto);
   }
 

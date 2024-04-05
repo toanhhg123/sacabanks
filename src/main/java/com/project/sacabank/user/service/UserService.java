@@ -90,7 +90,7 @@ public class UserService {
     var role_db = roleRepository.findByName(EnumNameRole.VENDOR);
     spec = spec.and(UserSpecifications.roleIsEqual(role_db.get()));
 
-    return userRepository.findAll(spec, PageRequest.of(pageNumber, PAGE_SIZE));
+    return userRepository.findAll(spec, PageRequest.of(pageNumber, 9999999));
 
   }
 
