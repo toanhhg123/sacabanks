@@ -29,5 +29,7 @@ public class ProductDto extends BaseDto {
   private Integer quantity;
   private String mainPhoto;
   private String tags;
+  private String desc;
   private UUID categoryId;
+
 }

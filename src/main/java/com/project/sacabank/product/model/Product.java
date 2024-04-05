@@ -9,6 +9,7 @@ import com.project.sacabank.product.dto.ProductDto;
 import com.project.sacabank.user.model.User;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -41,6 +42,8 @@ public class Product extends BaseModel {
   private Integer quantity;
   private String mainPhoto;
   private String tags;
+  @Column(name = "description")
+  private String desc;
 
   @ManyToOne()
   @JoinColumn(name = "user_id", nullable = true, referencedColumnName = "id")
@@ -96,6 +99,9 @@ public class Product extends BaseModel {
     }
     if (productDTO.getTags() != null) {
       this.setTags(productDTO.getTags());
+    }
+    if (productDTO.getDesc() != null) {
+      this.setDesc(productDTO.getDesc());
     }
 
   }
