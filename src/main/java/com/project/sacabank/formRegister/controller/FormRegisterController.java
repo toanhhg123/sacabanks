@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.sacabank.auth.dto.UserRegisterDto;
 import com.project.sacabank.base.BaseController;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.exception.ResourceNotFoundException;
@@ -27,6 +28,8 @@ import com.project.sacabank.formRegister.dto.FormRegisterDto;
 import com.project.sacabank.formRegister.model.FormRegister;
 import com.project.sacabank.formRegister.repository.FormRegisterRepository;
 import com.project.sacabank.user.model.User;
+import com.project.sacabank.user.repository.UserRepository;
+
 import static com.project.sacabank.utils.Constants.PAGE_SIZE;
 
 import jakarta.transaction.Transactional;
@@ -37,6 +40,9 @@ public class FormRegisterController extends BaseController {
 
   @Autowired
   FormRegisterRepository formRegisterRepository;
+
+  @Autowired
+  UserRepository userRepository;
 
   @Autowired
   private ModelMapper mapper;
@@ -71,6 +77,16 @@ public class FormRegisterController extends BaseController {
     var formRegister = mapper.map(formRegisterCreate, FormRegister.class);
     if (formRegister == null) {
       throw new CustomException("Not map model");
+    }
+
+    boolean existsByEmail = userRepository.existsByEmail(formRegister.getEmail());
+    boolean existsByPhoneNumber = userRepository.existsByPhoneNumber(formRegister.getPhone());
+    if (existsByEmail) {
+      CustomException.throwError("Địa chỉ email đã tồn tại");
+    }
+
+    if (existsByPhoneNumber) {
+      CustomException.throwError("Số điện thoại đã tồn tại");
     }
     var data = formRegisterRepository.save(formRegister);
     return this.onSuccess(data);
