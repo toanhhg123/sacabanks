@@ -1,8 +1,10 @@
 package com.project.sacabank.product.dto;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.project.sacabank.base.BaseDto;
+import com.project.sacabank.product.model.DetailItem;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,5 +33,6 @@ public class ProductDto extends BaseDto {
   private String tags;
   private String desc;
   private UUID categoryId;
+  private List<DetailItem> listDetails;
 
 }

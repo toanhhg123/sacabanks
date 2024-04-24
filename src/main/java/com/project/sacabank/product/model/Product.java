@@ -10,6 +10,7 @@ import com.project.sacabank.user.model.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -56,6 +57,10 @@ public class Product extends BaseModel {
   @OneToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "list_photo", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "id"))
   private List<ListPhoto> listPhoto;
+
+  @Convert(converter = ListDetailsAttributeConverter.class)
+  @Column(name = "list_details")
+  private List<DetailItem> listDetails;
 
   public void updateFromDTO(ProductDto productDTO) {
     if (productDTO.getTitle() != null) {

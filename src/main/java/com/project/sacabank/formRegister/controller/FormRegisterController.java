@@ -75,9 +75,6 @@ public class FormRegisterController extends BaseController {
   @PostMapping("/register")
   public ResponseEntity<?> create(@RequestBody FormRegisterDto formRegisterCreate) {
     var formRegister = mapper.map(formRegisterCreate, FormRegister.class);
-    if (formRegister == null) {
-      throw new CustomException("Not map model");
-    }
 
     boolean existsByEmail = userRepository.existsByEmail(formRegister.getEmail());
     boolean existsByPhoneNumber = userRepository.existsByPhoneNumber(formRegister.getPhone());
