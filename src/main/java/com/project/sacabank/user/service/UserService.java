@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.sacabank.Role.repository.RoleRepository;
+import com.project.sacabank.base.PaginationResponse;
 import com.project.sacabank.enums.EnumNameRole;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.order.repository.OrderRepository;
@@ -58,7 +59,7 @@ public class UserService {
     return user.get();
   }
 
-  public List<User> getAllUser(String keyword, EnumNameRole role, Optional<Integer> page) {
+  public PaginationResponse getAllUser(String keyword, EnumNameRole role, Optional<Integer> page) {
     Specification<User> spec = Specification.where(null);
     var pageNumber = page.isPresent() ? page.get() : 0;
 
@@ -73,7 +74,11 @@ public class UserService {
       spec = spec.and(UserSpecifications.roleIsEqual(role_db.get()));
     }
 
-    return userRepository.findAll(spec, PageRequest.of(pageNumber, PAGE_SIZE));
+    var count = userRepository.count(spec);
+    var data = userRepository.findAll(spec, PageRequest.of(pageNumber, PAGE_SIZE));
+
+    return PaginationResponse.builder().count(count).totalPage((int) Math.ceil((double) count / PAGE_SIZE)).list(data)
+        .build();
 
   }
 

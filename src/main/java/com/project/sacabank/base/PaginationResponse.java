@@ -14,4 +14,5 @@ import lombok.Setter;
 public class PaginationResponse {
   private Object list;
   private Integer count;
+  private Integer totalPage;
 }
