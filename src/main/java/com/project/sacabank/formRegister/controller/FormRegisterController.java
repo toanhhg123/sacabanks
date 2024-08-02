@@ -1,7 +1,9 @@
 package com.project.sacabank.formRegister.controller;
 
 import static com.project.sacabank.utils.Constants.API_REGISTER_VENDOR_PATH;
+import static com.project.sacabank.utils.Constants.PAGE_SIZE;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
@@ -19,18 +21,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.sacabank.auth.dto.UserRegisterDto;
 import com.project.sacabank.base.BaseController;
+import com.project.sacabank.base.PaginationResponse;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.exception.ResourceNotFoundException;
 import com.project.sacabank.formRegister.FormRegisterSpecifications;
 import com.project.sacabank.formRegister.dto.FormRegisterDto;
 import com.project.sacabank.formRegister.model.FormRegister;
 import com.project.sacabank.formRegister.repository.FormRegisterRepository;
-import com.project.sacabank.user.model.User;
 import com.project.sacabank.user.repository.UserRepository;
-
-import static com.project.sacabank.utils.Constants.PAGE_SIZE;
 
 import jakarta.transaction.Transactional;
 
@@ -48,9 +47,14 @@ public class FormRegisterController extends BaseController {
   private ModelMapper mapper;
 
   @GetMapping("")
-  public ResponseEntity<?> gets(@RequestParam(defaultValue = "") String search,
-      @RequestParam(defaultValue = "0") Integer page) {
+  public ResponseEntity<?> gets(
+      @RequestParam(defaultValue = "") String search,
+      @RequestParam(defaultValue = "0") Integer page,
+      @RequestParam Optional<Integer> limit) {
     Specification<FormRegister> spec = Specification.where(null);
+
+    var pageNumber = page > 0 ? page - 1 : 0;
+    var size = limit.isPresent() ? limit.get() : PAGE_SIZE;
 
     if (!search.isEmpty()) {
       spec = spec.or(FormRegisterSpecifications.companyGroupIsLike(search));
@@ -59,7 +63,12 @@ public class FormRegisterController extends BaseController {
       spec = spec.or(FormRegisterSpecifications.companyNameIsLike(search));
     }
 
-    var data = formRegisterRepository.findAll(spec, PageRequest.of(page, PAGE_SIZE));
+    var count = formRegisterRepository.count(spec);
+    var list = formRegisterRepository.findAll(spec, PageRequest.of(pageNumber, size));
+    var totalPage = (int) Math.ceil((double) count / size);
+
+    var data = PaginationResponse.builder().totalPage(totalPage).count(count).list(list).build();
+
     return this.onSuccess(data);
   }
 

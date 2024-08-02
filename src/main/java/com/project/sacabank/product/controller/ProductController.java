@@ -39,10 +39,14 @@ public class ProductController extends BaseController {
   ModelMapper mapper;
 
   @GetMapping("public")
-  public ResponseEntity<?> getAllProduct(@RequestParam Optional<String> search, @RequestParam Optional<Integer> page,
-      @RequestParam Optional<UUID> category_id, @RequestParam Optional<UUID> user_id,
+  public ResponseEntity<?> getAllProduct(
+      @RequestParam Optional<String> search,
+      @RequestParam Optional<Integer> page,
+      @RequestParam Optional<Integer> limit,
+      @RequestParam Optional<UUID> category_id,
+      @RequestParam Optional<UUID> user_id,
       @RequestParam Optional<Boolean> isNullQuantity) {
-    return this.onSuccess(service.getAll(search, page, category_id, user_id, isNullQuantity));
+    return this.onSuccess(service.getAll(search, page, limit, category_id, user_id, isNullQuantity));
   }
 
   @GetMapping("public/{slug}")
@@ -56,9 +60,13 @@ public class ProductController extends BaseController {
   }
 
   @GetMapping("my_product")
-  public ResponseEntity<?> getMyProduct(@RequestParam Optional<String> search, @RequestParam Optional<Integer> page) {
+  public ResponseEntity<?> getMyProduct(
+      @RequestParam Optional<String> search,
+      @RequestParam Optional<Integer> page,
+      @RequestParam Optional<Integer> limit) {
+
     User user = this.getUserInfo();
-    return this.onSuccess(service.getByUserId(user, search, page));
+    return this.onSuccess(service.getByUserId(user, search, page, limit));
   }
 
   @PostMapping("")

@@ -26,6 +26,7 @@ import com.project.sacabank.user.dto.UserUpdateRole;
 import com.project.sacabank.user.model.User;
 import com.project.sacabank.user.service.UserService;
 
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -36,9 +37,12 @@ public class UserController extends BaseController {
   UserService service;
 
   @GetMapping("")
-  public ResponseEntity<?> gets(@RequestParam(defaultValue = "") String search,
-      @RequestParam Optional<EnumNameRole> role, @RequestParam Optional<Integer> page) {
-    var data = this.service.getAllUser(search, role.isEmpty() ? null : role.get(), page);
+  public ResponseEntity<?> gets(
+      @RequestParam(defaultValue = "") String search,
+      @RequestParam Optional<EnumNameRole> role,
+      @RequestParam Optional<Integer> page,
+      @RequestParam Optional<Integer> limit) {
+    var data = this.service.getAllUser(search, role.isEmpty() ? null : role.get(), page, limit);
     return this.onSuccess(data);
   }
 
@@ -64,7 +68,7 @@ public class UserController extends BaseController {
   }
 
   @PostMapping("")
-  public ResponseEntity<?> create(@Valid @RequestBody UserDto userCreate) {
+  public ResponseEntity<?> create(@Valid @RequestBody UserDto userCreate) throws MessagingException {
     User user = service.create(userCreate);
     return this.onSuccess(user);
   }

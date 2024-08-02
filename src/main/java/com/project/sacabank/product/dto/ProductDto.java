@@ -34,5 +34,4 @@ public class ProductDto extends BaseDto {
   private String desc;
   private UUID categoryId;
   private List<DetailItem> listDetails;
-
 }

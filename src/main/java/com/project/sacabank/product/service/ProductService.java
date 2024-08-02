@@ -2,7 +2,6 @@ package com.project.sacabank.product.service;
 
 import static com.project.sacabank.utils.Constants.PAGE_SIZE;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -35,10 +34,17 @@ public class ProductService {
   @Autowired
   ModelMapper mapper;
 
-  public PaginationResponse getAll(Optional<String> search, Optional<Integer> page, Optional<UUID> category_id,
-      Optional<UUID> userId, @RequestParam Optional<Boolean> isNullQuantity) {
+  public PaginationResponse getAll(
+      Optional<String> search,
+      Optional<Integer> page,
+      Optional<Integer> pageSize,
+      Optional<UUID> category_id,
+      Optional<UUID> userId,
+      @RequestParam Optional<Boolean> isNullQuantity) {
+
     Specification<Product> spec = Specification.where(null);
-    var pageNumber = page.isPresent() ? page.get() : 0;
+    var pageNumber = page.isPresent() && page.get() > 0 ? page.get() - 1 : 0;
+    var size = pageSize.isPresent() ? pageSize.get() : PAGE_SIZE;
 
     if (search.isPresent()) {
       spec = spec.or(ProductSpecifications.titleIsLike(search.get()));
@@ -59,21 +65,29 @@ public class ProductService {
     }
 
     var count = repository.count(spec);
-    var list = repository.findAll(spec, PageRequest.of(pageNumber, PAGE_SIZE));
-    return PaginationResponse.builder().count(count).list(list).build();
+    var list = repository.findAll(spec, PageRequest.of(pageNumber, size));
+    var totalPage = (int) Math.ceil((double) count / size);
+
+    return PaginationResponse.builder().totalPage(totalPage).count(count).list(list).build();
 
   }
 
-  public List<?> getByUserId(User user, Optional<String> search, Optional<Integer> page) {
+  public PaginationResponse getByUserId(User user, Optional<String> search, Optional<Integer> page,
+      Optional<Integer> limit) {
     Specification<Product> spec = Specification.where(null);
     var pageNumber = page.isPresent() ? page.get() : 0;
+    var size = limit.isPresent() ? limit.get() : PAGE_SIZE;
+
     if (!search.isEmpty()) {
       spec = spec.or(ProductSpecifications.titleIsLike(search.get()));
       spec = spec.or(ProductSpecifications.itemNumberIsLike(search.get()));
     }
 
     spec = spec.and(ProductSpecifications.isEqualUser(user));
-    return repository.findAll(spec, PageRequest.of(pageNumber, PAGE_SIZE));
+    Integer count = repository.count(spec);
+    Integer totalPage = (int) Math.ceil((double) count / size);
+    var list = repository.findAll(spec, PageRequest.of(pageNumber, size));
+    return PaginationResponse.builder().totalPage(totalPage).count(count).list(list).build();
 
   }
 

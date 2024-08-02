@@ -21,11 +21,15 @@ import com.project.sacabank.enums.EnumNameRole;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.order.repository.OrderRepository;
 import com.project.sacabank.product.repository.ProductRepository;
+import com.project.sacabank.sendMail.MailUserNamePasswordDto;
+import com.project.sacabank.sendMail.SendMailService;
 import com.project.sacabank.user.UserSpecifications;
 import com.project.sacabank.user.dto.UserDto;
 import com.project.sacabank.user.dto.UserUpdateRole;
 import com.project.sacabank.user.model.User;
-import com.project.sacabank.user.repository.UserRepository;;
+import com.project.sacabank.user.repository.UserRepository;
+
+import jakarta.mail.MessagingException;;
 
 @Service
 public class UserService {
@@ -49,6 +53,9 @@ public class UserService {
   @Autowired
   OrderRepository orderRepository;
 
+  @Autowired
+  SendMailService mailService;
+
   public User getUserByUsername(String username) {
     var user = userRepository.findByUsername(username);
 
@@ -59,9 +66,13 @@ public class UserService {
     return user.get();
   }
 
-  public PaginationResponse getAllUser(String keyword, EnumNameRole role, Optional<Integer> page) {
+  public PaginationResponse getAllUser(
+      String keyword, EnumNameRole role,
+      Optional<Integer> page,
+      Optional<Integer> limit) {
     Specification<User> spec = Specification.where(null);
-    var pageNumber = page.isPresent() ? page.get() : 0;
+    var pageNumber = page.isPresent() && page.get() > 0 ? page.get() - 1 : 0;
+    var size = limit.isPresent() ? limit.get() : PAGE_SIZE;
 
     if (keyword != null && !keyword.isEmpty()) {
       spec = spec.or(UserSpecifications.usernameIsLike(keyword));
@@ -75,16 +86,16 @@ public class UserService {
     }
 
     var count = userRepository.count(spec);
-    var data = userRepository.findAll(spec, PageRequest.of(pageNumber, PAGE_SIZE));
+    var data = userRepository.findAll(spec, PageRequest.of(pageNumber, size));
+    var totalPage = (int) Math.ceil((double) count / size);
 
-    return PaginationResponse.builder().count(count).totalPage((int) Math.ceil((double) count / PAGE_SIZE)).list(data)
-        .build();
+    return PaginationResponse.builder().count(count).totalPage(totalPage).list(data).build();
 
   }
 
   public List<User> getAllUserVendor(String keyword, Optional<Integer> page) {
     Specification<User> spec = Specification.where(null);
-    var pageNumber = page.isPresent() ? page.get() : 0;
+    var pageNumber = page.isPresent() && page.get() > 0 ? page.get() - 1 : 0;
 
     if (keyword != null && !keyword.isEmpty()) {
       spec = spec.and(UserSpecifications.usernameIsLike(keyword));
@@ -99,7 +110,7 @@ public class UserService {
 
   }
 
-  public User create(UserDto userCreate) {
+  public User create(UserDto userCreate) throws MessagingException {
     boolean existsByEmail = userRepository.existsByEmail(userCreate.getEmail());
     boolean existsByPhoneNumber = userRepository.existsByPhoneNumber(userCreate.getPhoneNumber());
     boolean existsByUsername = userRepository.existsByEmail(userCreate.getUsername());
@@ -116,8 +127,8 @@ public class UserService {
       CustomException.throwError("Tên đăng nhập đã tồn tại");
     }
 
-    userCreate.setPassword(encoder.encode(userCreate.getPassword()));
     var user = mapper.map(userCreate, User.class);
+    user.setPassword(encoder.encode(userCreate.getPassword()));
     var role = roleRepository.findByName(userCreate.getRole());
 
     if (user == null || role == null) {
@@ -125,8 +136,16 @@ public class UserService {
     }
 
     user.setRole(role.get());
+    var data = userRepository.save(user);
 
-    return userRepository.save(user);
+    mailService.sendMailUserNamePassword(
+        MailUserNamePasswordDto.builder()
+            .to(userCreate.getEmail())
+            .username(userCreate.getEmail())
+            .password(userCreate.getPassword())
+            .subject("Tạo thành công cho người dùng " + userCreate.getEmail())
+            .build());
+    return data;
   }
 
   public User update(UUID id, UserDto userDto) {
