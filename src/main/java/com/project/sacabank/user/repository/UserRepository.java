@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.sacabank.base.BaseRepository;
+import com.project.sacabank.enums.EnumNameRole;
 import com.project.sacabank.user.model.User;
 
 @Primary
@@ -34,5 +35,8 @@ public interface UserRepository extends BaseRepository<User, UUID> {
 
   @Query("SELECT COUNT(u) > 0 FROM User u WHERE u.phoneNumber = :phone AND u.id != :userId")
   boolean existsByPhoneNumberAndNotUserId(@Param("phone") String phone, @Param("userId") UUID userId);
+
+  @Query("SELECT COUNT(*) FROM User u WHERE u.role.name = :role")
+  Long countByRoleName(@Param("role") EnumNameRole role);
 
 }

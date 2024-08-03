@@ -10,6 +10,7 @@ public class Constants {
   public static final String API_ORDER_PATH = "/api/order";
   public static final String API_MAIL_PATH = "/api/mail";
   public static final String API_LIST_PHOTO = "/api/list_photo";
+  public static final String REPORT_API = "/api/report";
 
   public static class AuthPermissionAll {
     public static final String AUTH_PATH = "/api/auth/**";

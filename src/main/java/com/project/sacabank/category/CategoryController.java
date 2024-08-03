@@ -39,6 +39,21 @@ public class CategoryController extends BaseController {
     return this.onSuccess(service.gets(name));
   }
 
+  @GetMapping("white_list")
+  public ResponseEntity<?> getWhiteList() {
+    return this.onSuccess(service.getCategoryWhiteList());
+  }
+
+  @PostMapping("white_list/{id}")
+  public ResponseEntity<?> getWhiteList(@PathVariable UUID id) {
+    return this.onSuccess(service.addToWhiteList(id));
+  }
+
+  @DeleteMapping("white_list/{id}")
+  public ResponseEntity<?> removeWhiteList(@PathVariable UUID id) {
+    return this.onSuccess(service.removeWhiteList(id));
+  }
+
   @PatchMapping("{id}")
   public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody CategoryDto categoryDto) {
     return this.onSuccess(service.update(id, categoryDto));
@@ -46,7 +61,6 @@ public class CategoryController extends BaseController {
 
   @GetMapping("{id}")
   public ResponseEntity<?> findOne(@PathVariable UUID id) {
-
     return this.onSuccess(service.findById(id));
   }
 

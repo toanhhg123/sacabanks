@@ -70,6 +70,22 @@ public class CategoryService {
     return category.get();
   }
 
+  public Category addToWhiteList(UUID id) {
+    var category = findById(id);
+    category.setRank(1);
+    return categoryRepository.save(category);
+  }
+
+  public Category removeWhiteList(UUID id) {
+    var category = findById(id);
+    category.setRank(0);
+    return categoryRepository.save(category);
+  }
+
+  public List<Category> getCategoryWhiteList() {
+    return categoryRepository.getWhiteList();
+  }
+
   @Transactional
   public Category remove(UUID id) {
     var category = categoryRepository.findById(id);
@@ -78,7 +94,6 @@ public class CategoryService {
     }
     productRepository.updateCategoryAssociationToNull(id);
     categoryRepository.delete(category.get());
-
     return category.get();
   }
 
