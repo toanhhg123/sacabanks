@@ -75,7 +75,7 @@ public class ProductService {
   public PaginationResponse getByUserId(User user, Optional<String> search, Optional<Integer> page,
       Optional<Integer> limit) {
     Specification<Product> spec = Specification.where(null);
-    var pageNumber = page.isPresent() ? page.get() : 0;
+    var pageNumber = page.isPresent() && page.get() > 0 ? page.get() - 1 : 0;
     var size = limit.isPresent() ? limit.get() : PAGE_SIZE;
 
     if (!search.isEmpty()) {
