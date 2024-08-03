@@ -28,4 +28,7 @@ public interface ProductRepository extends BaseRepository<Product, UUID> {
 
   @Query("SELECT COUNT(p) > 0 FROM Product p WHERE p.slug = :slug AND p.id != :id")
   boolean existsBySlug(@Param("slug") String slug, @Param("id") UUID id);
+
+  @Query("SELECT COUNT(p)  FROM Product p WHERE p.user.id=:id")
+  Long countByUserId(@Param("id") UUID id);
 }

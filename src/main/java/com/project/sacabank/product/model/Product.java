@@ -8,7 +8,6 @@ import com.project.sacabank.listPhoto.ListPhoto;
 import com.project.sacabank.product.dto.ProductDto;
 import com.project.sacabank.user.model.User;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;

@@ -18,8 +18,9 @@ public class ReportController extends BaseController {
   ReportService service;
 
   @GetMapping("")
-  public ResponseEntity<?> getMethodName() {
-    return this.onSuccess(service.getReport());
+  public ResponseEntity<?> getReport() {
+    var user = this.getUserInfo();
+    return this.onSuccess(service.getReport(user));
   }
 
 }
