@@ -1,23 +1,24 @@
 package com.project.sacabank.base;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
+import com.project.sacabank.exception.CustomException;
+
+@SuppressWarnings("unchecked")
 public class BaseService<TModel extends BaseModel> {
 
-  @Autowired
   BaseRepository<TModel, UUID> nBaseRepository;
 
   @Autowired
   private ModelMapper mapper;
 
-  public BaseService(BaseRepository<TModel, UUID> nBaseRepository) {
-    this.nBaseRepository = nBaseRepository;
+  public void InJectRepository(BaseRepository<TModel, UUID> repo) {
+    this.nBaseRepository = repo;
   }
 
   public List<TModel> getAll() {
@@ -25,10 +26,32 @@ public class BaseService<TModel extends BaseModel> {
     return data;
   }
 
-  @SuppressWarnings("null")
-  public <TYPE_DTO extends BaseDto> TModel create(TYPE_DTO dto, Class<TModel> returnType) {
-    var body = mapper.map(dto, returnType);
-    return nBaseRepository.save(body);
+  public TModel create(BaseDto dto) {
+    Class<TModel> modelClass = (Class<TModel>) ((ParameterizedType) getClass()
+        .getGenericSuperclass()).getActualTypeArguments()[0];
+    TModel entity = mapper.map(dto, modelClass);
+    return nBaseRepository.save(entity);
+  }
+
+  public TModel removeById(UUID id) {
+    var model = nBaseRepository.findById(id);
+    if (!model.isPresent())
+      throw new CustomException("không tìm thấy phần tử");
+
+    nBaseRepository.delete(model.get());
+    return model.get();
+  }
+
+  public TModel update(UUID id, BaseDto baseDto) {
+    var model = nBaseRepository.findById(id);
+    if (!model.isPresent())
+      throw new CustomException("không tìm thấy phần tử");
+
+    var data = model.get();
+
+    data = (TModel) data.fromDto(baseDto);
+
+    return nBaseRepository.save(data);
   }
 
 }

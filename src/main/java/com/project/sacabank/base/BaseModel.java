@@ -40,4 +40,8 @@ public class BaseModel {
   @Column(name = "updated_at")
   protected Date updatedAt;
 
+  public BaseModel fromDto(BaseDto baseDto) {
+    return this;
+  }
+
 }
