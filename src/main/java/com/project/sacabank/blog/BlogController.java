@@ -30,6 +30,11 @@ public class BlogController extends BaseController {
     return this.onSuccess(service.getAll());
   }
 
+  @GetMapping("{id}")
+  public ResponseEntity<?> findOne(@PathVariable UUID id) {
+    return this.onSuccess(service.getById(id));
+  }
+
   @PostMapping("")
   public ResponseEntity<?> create(@RequestBody BlogDto body) {
     return this.onSuccess(service.create(body));

@@ -26,6 +26,13 @@ public class BaseService<TModel extends BaseModel> {
     return data;
   }
 
+  public TModel getById(UUID id) {
+    var data = this.nBaseRepository.findById(id);
+    if (!data.isPresent())
+      throw new CustomException("không tìm thấy phần tử");
+    return data.get();
+  }
+
   public TModel create(BaseDto dto) {
     Class<TModel> modelClass = (Class<TModel>) ((ParameterizedType) getClass().getGenericSuperclass())
         .getActualTypeArguments()[0];

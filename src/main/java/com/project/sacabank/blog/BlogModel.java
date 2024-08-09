@@ -14,6 +14,7 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "blog")
 public class BlogModel extends BaseModel {
+  @Lob
+  @Column(columnDefinition = "LONGTEXT")
   private String content;
   private String title;
 
