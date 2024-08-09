@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: toanhhg123/sacabanks-dev:latest
+    volumes:
+      - /tmp/uploads:/app/uploads
+    ports:
+      - "8080:8080"
+
+volumes:
+  maven-repo:
+
+networks:
+  app-network:
+    driver: bridge

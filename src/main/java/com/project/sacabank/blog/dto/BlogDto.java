@@ -20,4 +20,7 @@ public class BlogDto extends BaseDto {
   private String title;
   private List<String> focusKeywords;
   private String slug;
+  private String image;
+  private String shortDesc;
+
 }

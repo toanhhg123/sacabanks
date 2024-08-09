@@ -2,12 +2,10 @@ package com.project.sacabank.blog;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.project.sacabank.base.BaseDto;
 import com.project.sacabank.base.BaseModel;
 import com.project.sacabank.blog.dto.BlogDto;
 
-import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -32,6 +30,9 @@ public class BlogModel extends BaseModel {
   @Column(columnDefinition = "LONGTEXT")
   private String content;
   private String title;
+
+  private String image;
+  private String shortDesc;
 
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "blog_focus_keywords", joinColumns = @JoinColumn(name = "blog_id"))
@@ -58,6 +59,14 @@ public class BlogModel extends BaseModel {
 
     if (dto.getSlug() != null) {
       this.setSlug(dto.getSlug());
+    }
+
+    if (dto.getImage() != null) {
+      this.setImage(dto.getImage());
+    }
+
+    if (dto.getShortDesc() != null) {
+      this.setShortDesc(dto.getShortDesc());
     }
 
     return this;
