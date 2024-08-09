@@ -83,7 +83,9 @@ public class WebSecurityConfig {
                     "/swagger-ui/**",
                     "/static/**")
                 .permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/category", "/api/product_category").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/category", "/api/product_category",
+                    "/api/blog")
+                .permitAll()
                 .anyRequest().authenticated());
 
     http.authenticationProvider(authenticationProvider());

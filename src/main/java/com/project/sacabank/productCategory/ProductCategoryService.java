@@ -7,8 +7,8 @@ import com.project.sacabank.base.BaseService;
 @Service
 public class ProductCategoryService extends BaseService<ProductCategoryModel> {
 
-  public ProductCategoryService(ProductCategoryRepository repository) {
-    super.InJectRepository(repository);
+  public ProductCategoryService(ProductCategoryRepository productCategoryRepository) {
+    super.InJectRepository(productCategoryRepository);
   }
 
 }

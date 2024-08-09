@@ -27,8 +27,8 @@ public class BaseService<TModel extends BaseModel> {
   }
 
   public TModel create(BaseDto dto) {
-    Class<TModel> modelClass = (Class<TModel>) ((ParameterizedType) getClass()
-        .getGenericSuperclass()).getActualTypeArguments()[0];
+    Class<TModel> modelClass = (Class<TModel>) ((ParameterizedType) getClass().getGenericSuperclass())
+        .getActualTypeArguments()[0];
     TModel entity = mapper.map(dto, modelClass);
     return nBaseRepository.save(entity);
   }
