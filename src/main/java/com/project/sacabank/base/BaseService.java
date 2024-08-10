@@ -17,6 +17,9 @@ public class BaseService<TModel extends BaseModel> {
   @Autowired
   private ModelMapper mapper;
 
+  @Autowired
+  protected FullRepo repositories;
+
   public void InJectRepository(BaseRepository<TModel, UUID> repo) {
     this.nBaseRepository = repo;
   }

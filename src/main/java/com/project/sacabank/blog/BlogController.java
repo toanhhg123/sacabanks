@@ -30,6 +30,11 @@ public class BlogController extends BaseController {
     return this.onSuccess(service.getAll());
   }
 
+  @GetMapping("/slug/{slug}")
+  public ResponseEntity<?> getBySlug(@PathVariable String slug) {
+    return this.onSuccess(service.getBySlug(slug));
+  }
+
   @GetMapping("{id}")
   public ResponseEntity<?> findOne(@PathVariable UUID id) {
     return this.onSuccess(service.getById(id));
@@ -37,6 +42,7 @@ public class BlogController extends BaseController {
 
   @PostMapping("")
   public ResponseEntity<?> create(@RequestBody BlogDto body) {
+    service.IsValidSlug(body.getSlug());
     return this.onSuccess(service.create(body));
   }
 
