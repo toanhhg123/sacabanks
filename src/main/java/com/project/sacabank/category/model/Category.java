@@ -1,5 +1,7 @@
 package com.project.sacabank.category.model;
 
+import java.util.UUID;
+
 import com.project.sacabank.base.BaseModel;
 
 import jakarta.persistence.Column;
@@ -19,4 +21,6 @@ public class Category extends BaseModel {
   private String image;
   @Column(name = "`rank`")
   private Integer rank;
+  private UUID categoryId;
+
 }

@@ -1,5 +1,7 @@
 package com.project.sacabank.category.dto;
 
+import java.util.UUID;
+
 import com.project.sacabank.base.BaseDto;
 
 import jakarta.validation.constraints.NotBlank;
@@ -22,4 +24,6 @@ public class CategoryDto extends BaseDto {
   private String name;
   private String image;
   private Integer rank;
+  private UUID categoryId;
+
 }
