@@ -32,7 +32,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
   @Override
   public String save(MultipartFile file) {
     try {
-      String fileExtension = getFileExtension(file.getOriginalFilename());
+      String fileExtension = file.getOriginalFilename();
       String uuidFileName = UUID.randomUUID().toString() + fileExtension;
       Files.copy(file.getInputStream(), this.root.resolve(uuidFileName));
       return uuidFileName;

@@ -84,6 +84,7 @@ public class WebSecurityConfig {
                     "/static/**")
                 .permitAll()
                 .requestMatchers(HttpMethod.GET,
+                    "/uploads/**",
                     "/api/category",
                     "/api/category/white_list",
                     "/api/product_category",
