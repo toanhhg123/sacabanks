@@ -6,6 +6,7 @@ import com.project.sacabank.base.BaseModel;
 import com.project.sacabank.category.model.Category;
 import com.project.sacabank.listPhoto.ListPhoto;
 import com.project.sacabank.product.dto.ProductDto;
+import com.project.sacabank.productCategory.ProductCategoryModel;
 import com.project.sacabank.user.model.User;
 
 import jakarta.persistence.Column;
@@ -56,6 +57,10 @@ public class Product extends BaseModel {
   @OneToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "list_photo", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "id"))
   private List<ListPhoto> listPhoto;
+
+  @OneToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "category_product", joinColumns = @JoinColumn(name = "productId"), inverseJoinColumns = @JoinColumn(name = "id"))
+  private List<ProductCategoryModel> productCategories;
 
   @Convert(converter = ListDetailsAttributeConverter.class)
   @Column(name = "list_details")

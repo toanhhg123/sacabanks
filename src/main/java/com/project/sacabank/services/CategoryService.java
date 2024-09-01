@@ -30,6 +30,10 @@ public class CategoryService {
   @Autowired
   ModelMapper mapper;
 
+  public List<UUID> findFullCategoriesParentId(UUID id) {
+    return categoryRepository.findCategoryHierarchy(id);
+  }
+
   public Category create(CategoryDto categoryCreate) {
     Category category = mapper.map(categoryCreate, Category.class);
 

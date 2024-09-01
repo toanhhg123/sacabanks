@@ -56,7 +56,7 @@ public class ProductService {
     }
 
     if (!category_id.isEmpty()) {
-      spec = spec.and(ProductSpecifications.isEqualCategoryId(category_id.get()));
+      spec = spec.and(ProductSpecifications.belongsToCategory(category_id.get()));
     }
 
     if (isNullQuantity.isPresent()) {

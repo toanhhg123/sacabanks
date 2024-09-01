@@ -12,7 +12,7 @@ import com.project.sacabank.exception.CustomException;
 @SuppressWarnings("unchecked")
 public class BaseService<TModel extends BaseModel> {
 
-  BaseRepository<TModel, UUID> nBaseRepository;
+  protected BaseRepository<TModel, UUID> nBaseRepository;
 
   @Autowired
   private ModelMapper mapper;

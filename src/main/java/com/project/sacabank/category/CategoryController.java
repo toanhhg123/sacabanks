@@ -54,6 +54,11 @@ public class CategoryController extends BaseController {
     return this.onSuccess(service.removeWhiteList(id));
   }
 
+  @GetMapping("parent/{id}")
+  public ResponseEntity<?> getFullParent(@PathVariable UUID id) {
+    return this.onSuccess(service.findFullCategoriesParentId(id));
+  }
+
   @PatchMapping("{id}")
   public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody CategoryDto categoryDto) {
     return this.onSuccess(service.update(id, categoryDto));

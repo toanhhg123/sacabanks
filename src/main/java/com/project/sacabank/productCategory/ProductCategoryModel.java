@@ -9,6 +9,7 @@ import com.project.sacabank.productCategory.dto.ProductCategoryCreate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,9 +19,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
 @Table(name = "category_product")
 public class ProductCategoryModel extends BaseModel {
   private UUID categoryId;
+
   private UUID productId;
 
   @Override
