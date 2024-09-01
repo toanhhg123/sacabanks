@@ -71,16 +71,7 @@ public class ProductController extends BaseController {
 
   @PostMapping("")
   public ResponseEntity<?> create(@RequestBody ProductDto productDto) {
-    var user = this.getUserInfo();
-    Product product = mapper.map(productDto, Product.class);
-    product.setUser(user);
-
-    if (productDto.getCategoryId() != null) {
-      var category = categoryRepository.findById(productDto.getCategoryId());
-      product.setCategory(category.get());
-    }
-
-    return this.onSuccess(service.create(product));
+    return this.onSuccess(service.create(this.getUserInfo(), productDto));
   }
 
   @PatchMapping("{id}")

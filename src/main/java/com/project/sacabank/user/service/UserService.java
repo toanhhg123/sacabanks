@@ -163,6 +163,11 @@ public class UserService {
 
     var user = userRepository.findById(id);
     user.get().updateUserDto(userDto);
+
+    if (userDto.getPassword() != null) {
+      user.get().setPassword(encoder.encode(userDto.getPassword()));
+    }
+
     return userRepository.save(user.get());
 
   }

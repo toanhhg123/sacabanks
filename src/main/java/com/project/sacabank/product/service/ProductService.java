@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.mapping.model.ClassGeneratingPropertyAccessorFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,10 @@ import com.project.sacabank.product.ProductSpecifications;
 import com.project.sacabank.product.dto.ProductDto;
 import com.project.sacabank.product.model.Product;
 import com.project.sacabank.product.repository.ProductRepository;
+import com.project.sacabank.productCategory.ProductCategoryRepository;
+import com.project.sacabank.productCategory.ProductCategoryService;
+import com.project.sacabank.productCategory.dto.ProductCategoryCreate;
+import com.project.sacabank.repositories.CategoryRepository;
 import com.project.sacabank.user.model.User;
 
 @Service
@@ -30,6 +35,15 @@ public class ProductService {
 
   @Autowired
   ListPhotoRepository listPhotoRepository;
+
+  @Autowired
+  ProductCategoryRepository productCategoryRepository;
+
+  @Autowired
+  CategoryRepository categoryRepository;
+
+  @Autowired
+  ProductCategoryService productCategoryService;
 
   @Autowired
   ModelMapper mapper;
@@ -91,8 +105,28 @@ public class ProductService {
 
   }
 
-  public Product create(Product product) {
-    return repository.save(product);
+  @Transactional
+  public Product create(User user, ProductDto productDto) {
+    Product product = mapper.map(productDto, Product.class);
+    product.setUser(user);
+
+    if (productDto.getCategoryId() != null) {
+      var category = categoryRepository.findById(productDto.getCategoryId());
+      product.setCategory(category.get());
+    }
+
+    product = repository.save(product);
+
+    if (product.getCategory() != null) {
+      ProductCategoryCreate pCategoryCreate = ProductCategoryCreate.builder()
+          .categoryId(product.getCategory().getId())
+          .productId(product.getId())
+          .build();
+
+      productCategoryService.create(pCategoryCreate);
+    }
+
+    return product;
   }
 
   public Product findOne(UUID id) {
@@ -128,6 +162,21 @@ public class ProductService {
     }
 
     product.get().updateFromDTO(productDto);
+
+    if (productDto.getCategoryId() != null && !productDto.getCategoryId().equals(product.get().getCategory().getId())) {
+      var category = categoryRepository.findById(productDto.getCategoryId()).get();
+      product.get().setCategory(category);
+
+      productCategoryRepository.deleteByProductId(product.get().getId());
+
+      ProductCategoryCreate pCategoryCreate = ProductCategoryCreate.builder()
+          .categoryId(productDto.getCategoryId())
+          .productId(id)
+          .build();
+
+      productCategoryService.create(pCategoryCreate);
+    }
+
     return repository.save(product.get());
 
   }
@@ -141,6 +190,7 @@ public class ProductService {
     }
 
     listPhotoRepository.deleteByProductId(id);
+    productCategoryRepository.deleteByProductId(id);
     repository.delete(product.get());
     return product.get();
 

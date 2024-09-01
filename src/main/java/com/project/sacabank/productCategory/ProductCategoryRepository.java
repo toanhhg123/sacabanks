@@ -8,5 +8,5 @@ import com.project.sacabank.base.BaseRepository;
 
 @Repository
 public interface ProductCategoryRepository extends BaseRepository<ProductCategoryModel, UUID> {
-
+    void deleteByProductId(UUID productId);
 }
