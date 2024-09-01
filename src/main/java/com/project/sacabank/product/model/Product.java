@@ -58,8 +58,8 @@ public class Product extends BaseModel {
   @JoinTable(name = "list_photo", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "id"))
   private List<ListPhoto> listPhoto;
 
-  @OneToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "category_product", joinColumns = @JoinColumn(name = "productId"), inverseJoinColumns = @JoinColumn(name = "id"))
+  @OneToMany()
+  @JoinTable(name = "category_product", joinColumns = @JoinColumn(name = "productId", insertable = false, updatable = false), inverseJoinColumns = @JoinColumn(name = "id"))
   private List<ProductCategoryModel> productCategories;
 
   @Convert(converter = ListDetailsAttributeConverter.class)

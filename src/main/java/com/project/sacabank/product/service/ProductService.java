@@ -163,12 +163,10 @@ public class ProductService {
 
     product.get().updateFromDTO(productDto);
 
-    if (productDto.getCategoryId() != null && !productDto.getCategoryId().equals(product.get().getCategory().getId())) {
+    if (productDto.getCategoryId() != null) {
       var category = categoryRepository.findById(productDto.getCategoryId()).get();
       product.get().setCategory(category);
-
-      productCategoryRepository.deleteByProductId(product.get().getId());
-
+      productCategoryRepository.deleteByProductId(id);
       ProductCategoryCreate pCategoryCreate = ProductCategoryCreate.builder()
           .categoryId(productDto.getCategoryId())
           .productId(id)
@@ -177,7 +175,9 @@ public class ProductService {
       productCategoryService.create(pCategoryCreate);
     }
 
-    return repository.save(product.get());
+    repository.save(product.get());
+
+    return product.get();
 
   }
 
