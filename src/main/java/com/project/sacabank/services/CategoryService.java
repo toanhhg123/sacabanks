@@ -11,8 +11,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.sacabank.base.FullRepo;
 import com.project.sacabank.category.CategorySpecifications;
 import com.project.sacabank.category.dto.CategoryDto;
+import com.project.sacabank.category.dto.CategoryWithCountProduct;
 import com.project.sacabank.category.model.Category;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.product.repository.ProductRepository;
@@ -30,6 +32,9 @@ public class CategoryService {
   @Autowired
   ModelMapper mapper;
 
+  @Autowired
+  FullRepo fullRepo;
+
   public List<UUID> findFullCategoriesParentId(UUID id) {
     return categoryRepository.findCategoryHierarchy(id);
   }
@@ -43,14 +48,16 @@ public class CategoryService {
     return categoryRepository.save(category);
   }
 
-  public List<?> gets(Optional<String> name) {
-    Specification<Category> spec = Specification.where(null);
+  @SuppressWarnings("unchecked")
+  public List<CategoryWithCountProduct> gets(Optional<String> name) {
 
-    if (name.isPresent()) {
-      spec = spec.and(CategorySpecifications.nameIsLike(name.get()));
-    }
+    String nativeQuery = "SELECT c.*, COUNT(cp.id) as product_quantity " +
+        "FROM category c " +
+        "LEFT JOIN category_product cp ON c.id = cp.category_id " +
+        "GROUP BY c.id";
 
-    return categoryRepository.findAll(spec);
+    return fullRepo.entityManager.createNativeQuery(nativeQuery, CategoryWithCountProduct.class).getResultList();
+
   }
 
   public Category update(UUID id, CategoryDto categoryDto) {

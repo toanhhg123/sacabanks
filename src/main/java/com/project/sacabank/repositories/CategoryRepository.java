@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.sacabank.base.BaseRepository;
+import com.project.sacabank.category.dto.CategoryWithCountProduct;
 import com.project.sacabank.category.model.Category;
 
 @Repository
@@ -36,6 +37,12 @@ public interface CategoryRepository extends BaseRepository<Category, UUID> {
       ORDER BY LENGTH(path) DESC, path;
       """, nativeQuery = true)
   List<UUID> findCategoryHierarchy(@Param("uuid") UUID uuid);
+
+  @Query(value = "SELECT c.*, COUNT(cp.id) as product_quantity " +
+      "FROM category c " +
+      "LEFT JOIN category_product cp ON c.id = cp.category_id " +
+      "GROUP BY c.id", nativeQuery = true)
+  List<CategoryWithCountProduct> findAllCategoriesWithProductCount();
 
 }
 

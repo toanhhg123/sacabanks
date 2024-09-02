@@ -9,6 +9,8 @@ import com.project.sacabank.blog.BlogRepository;
 import com.project.sacabank.product.repository.ProductRepository;
 import com.project.sacabank.productCategory.ProductCategoryRepository;
 
+import jakarta.persistence.EntityManager;
+
 @Component
 public class FullRepo {
   @Autowired
@@ -20,7 +22,9 @@ public class FullRepo {
   @Autowired
   public BlogRepository blogRepository;
 
-
   @Autowired
   public BannerRepository bannerRepository;
+
+  @Autowired
+  public EntityManager entityManager;
 }

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sacabank.banner.dto.BannerDto;
 import com.project.sacabank.base.BaseController;
-import com.project.sacabank.blog.dto.BlogDto;
 
 @RestController
 @RequestMapping(path = BANNER_API)

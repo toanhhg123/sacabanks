@@ -29,9 +29,9 @@ public class BannerModel extends BaseModel {
     public BaseModel fromDto(BaseDto baseDto) {
         BannerDto bannerDto = (BannerDto) baseDto;
 
-        // if (bannerDto.getIsActive() != null) {
-        // this.setIsActive(bannerDto.getIsActive());
-        // }
+        if (bannerDto.getIsActive() != null) {
+            this.setIsActive(bannerDto.getIsActive());
+        }
 
         if (bannerDto.getImage() != null) {
             this.setImage(bannerDto.getImage());
