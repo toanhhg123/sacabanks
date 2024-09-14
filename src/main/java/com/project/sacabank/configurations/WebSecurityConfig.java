@@ -92,6 +92,7 @@ public class WebSecurityConfig {
                     "/api/blog",
                     "/api/blog/**",
                     "/api/blog/**",
+                    "/api/banner/**",
                     "/api/product_comment/product/preview/**")
                 .permitAll()
                 .anyRequest().authenticated());
