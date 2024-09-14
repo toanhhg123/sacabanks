@@ -35,8 +35,10 @@ public class CategoryController extends BaseController {
   }
 
   @GetMapping("")
-  public ResponseEntity<?> get(@RequestParam Optional<String> name) {
-    return this.onSuccess(service.gets(name));
+  public ResponseEntity<?> get(@RequestParam Optional<String> name,
+      @RequestParam Optional<Integer> page,
+      @RequestParam Optional<Integer> pageSize) {
+    return this.onSuccess(service.gets(name, page, pageSize));
   }
 
   @GetMapping("white_list")

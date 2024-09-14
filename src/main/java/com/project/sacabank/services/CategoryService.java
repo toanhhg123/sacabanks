@@ -1,18 +1,20 @@
 package com.project.sacabank.services;
 
+import static com.project.sacabank.utils.Constants.PAGE_SIZE;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.checkerframework.checker.units.qual.s;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.sacabank.base.FullRepo;
-import com.project.sacabank.category.CategorySpecifications;
+import com.project.sacabank.base.PaginationResponse;
 import com.project.sacabank.category.dto.CategoryDto;
 import com.project.sacabank.category.dto.CategoryWithCountProduct;
 import com.project.sacabank.category.model.Category;
@@ -20,7 +22,11 @@ import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.product.repository.ProductRepository;
 import com.project.sacabank.repositories.CategoryRepository;
 
+import jakarta.persistence.Query;
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class CategoryService {
 
   @Autowired
@@ -49,14 +55,30 @@ public class CategoryService {
   }
 
   @SuppressWarnings("unchecked")
-  public List<CategoryWithCountProduct> gets(Optional<String> name) {
+  public PaginationResponse gets(Optional<String> name, Optional<Integer> page,
+      Optional<Integer> pageSize) {
+
+    var pageNumber = page.isPresent() && page.get() > 0 ? page.get() - 1 : 0;
+    var size = pageSize.isPresent() ? pageSize.get() : PAGE_SIZE;
+
+    Pageable pageable = PageRequest.of(pageNumber, size);
+
+    String countQuery = "SELECT COUNT(DISTINCT c.id) " +
+        "FROM category c ";
 
     String nativeQuery = "SELECT c.*, COUNT(cp.id) as product_quantity " +
         "FROM category c " +
         "LEFT JOIN category_product cp ON c.id = cp.category_id " +
-        "GROUP BY c.id";
+        "GROUP BY c.id " +
+        "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset();
 
-    return fullRepo.entityManager.createNativeQuery(nativeQuery, CategoryWithCountProduct.class).getResultList();
+    Query query = fullRepo.entityManager.createNativeQuery(nativeQuery, CategoryWithCountProduct.class);
+    List<CategoryWithCountProduct> results = query.getResultList();
+
+    var countQueryObj = (Number) fullRepo.entityManager.createNativeQuery(countQuery).getSingleResult();
+    var totalPage = (int) Math.ceil(countQueryObj.doubleValue() / size);
+
+    return PaginationResponse.builder().totalPage(totalPage).count(countQueryObj.intValue()).list(results).build();
 
   }
 
