@@ -2,12 +2,12 @@ package com.project.sacabank.base;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.project.sacabank.banner.BannerRepository;
 import com.project.sacabank.blog.BlogRepository;
 import com.project.sacabank.product.repository.ProductRepository;
 import com.project.sacabank.productCategory.ProductCategoryRepository;
+import com.project.sacabank.productComment.ProductCommentRepository;
 
 import jakarta.persistence.EntityManager;
 
@@ -27,4 +27,7 @@ public class FullRepo {
 
   @Autowired
   public EntityManager entityManager;
+
+  @Autowired
+  public ProductCommentRepository productCommentRepository;
 }

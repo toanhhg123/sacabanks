@@ -90,7 +90,9 @@ public class WebSecurityConfig {
                     "/api/category/white_list",
                     "/api/product_category",
                     "/api/blog",
-                    "/api/blog/**")
+                    "/api/blog/**",
+                    "/api/blog/**",
+                    "/api/product_comment/product/preview/**")
                 .permitAll()
                 .anyRequest().authenticated());
 

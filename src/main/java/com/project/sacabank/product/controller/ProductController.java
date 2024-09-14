@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sacabank.base.BaseController;
 import com.project.sacabank.product.dto.ProductDto;
-import com.project.sacabank.product.model.Product;
 import com.project.sacabank.product.service.ProductService;
 import com.project.sacabank.repositories.CategoryRepository;
 import com.project.sacabank.user.model.User;
