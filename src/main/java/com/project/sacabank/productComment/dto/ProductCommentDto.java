@@ -20,4 +20,6 @@ public class ProductCommentDto extends BaseDto {
     private String title;
     private UUID userId;
     private UUID productId;
+    private Boolean isActive;
+
 }

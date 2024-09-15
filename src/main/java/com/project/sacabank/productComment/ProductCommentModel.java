@@ -2,7 +2,6 @@ package com.project.sacabank.productComment;
 
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.auto.value.AutoValue.Builder;
 import com.project.sacabank.base.BaseDto;
 import com.project.sacabank.base.BaseModel;
@@ -12,9 +11,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,6 +43,7 @@ public class ProductCommentModel extends BaseModel {
     private String title;
     private UUID userId;
     private UUID productId;
+    private Boolean isActive;
 
     @Override
     public BaseModel fromDto(BaseDto baseDto) {
@@ -57,6 +55,10 @@ public class ProductCommentModel extends BaseModel {
 
         if (dto.getTitle() != null) {
             this.setTitle(dto.getTitle());
+        }
+
+        if (dto.getIsActive() != null) {
+            this.setIsActive(dto.getIsActive());
         }
 
         return this;

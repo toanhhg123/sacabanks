@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +42,20 @@ public class ProductCommentController extends BaseController {
             @RequestParam Optional<Integer> page,
             @RequestParam Optional<Integer> limit) {
         return this.onSuccess(service.getByProductId(id, page, limit));
+    }
+
+    @PatchMapping("{id}")
+    public ResponseEntity<?> updateProductComment(
+            @PathVariable UUID id,
+            @RequestBody ProductCommentDto body) {
+        return this.onSuccess(service.update(id, body));
+    }
+
+    @GetMapping("manager")
+    public ResponseEntity<?> getProductCommentManager(
+            @RequestParam Optional<Integer> page,
+            @RequestParam Optional<Integer> limit) {
+        return this.onSuccess(service.getProductCommentManager(page, limit));
 
     }
 
@@ -50,4 +65,5 @@ public class ProductCommentController extends BaseController {
         return this.onSuccess(service.getByProductId(id, Optional.of(0), Optional.of(2)));
 
     }
+
 }
