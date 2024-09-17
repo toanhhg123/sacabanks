@@ -1,4 +1,4 @@
-package com.project.sacabank.cart;
+package com.project.sacabank.wishlist;
 
 import static com.project.sacabank.utils.Constants.PAGE_SIZE;
 
@@ -13,23 +13,26 @@ import com.project.sacabank.base.BaseService;
 import com.project.sacabank.base.FullRepo;
 import com.project.sacabank.base.PaginationResponse;
 
-@Service
-public class CartService extends BaseService<CartModel> {
+import lombok.extern.slf4j.Slf4j;
 
-    public CartService(FullRepo repositories) {
-        super.InJectRepository(repositories.cartRepository);
+@Slf4j
+@Service
+public class WishlistService extends BaseService<WishlistModel> {
+
+    public WishlistService(FullRepo fullRepo) {
+        super.InJectRepository(fullRepo.wishlistRepository);
     }
 
-    public PaginationResponse getCartPagination(
+    public PaginationResponse getWishlistPagination(
             UUID userId,
             Optional<String> search,
             Optional<Integer> page,
             Optional<Integer> limit) {
 
-        Specification<CartModel> spec = Specification.where(CartSpecifications.equalUserId(userId));
+        Specification<WishlistModel> spec = Specification.where(WishlistSpecifications.equalUserId(userId));
 
         if (search.isPresent()) {
-            spec = spec.and(CartSpecifications.searchByProduct(search.get()));
+            spec = spec.and(WishlistSpecifications.searchByProduct(search.get()));
         }
 
         var pageNumber = page.isPresent() && page.get() > 0 ? page.get() - 1 : 0;

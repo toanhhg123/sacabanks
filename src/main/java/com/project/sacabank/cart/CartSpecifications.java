@@ -12,4 +12,8 @@ public class CartSpecifications {
     public static Specification<CartModel> equalProductId(UUID productId) {
         return (root, query, builder) -> builder.equal(root.get("productId"), productId);
     }
+
+    public static Specification<CartModel> searchByProduct(String search) {
+        return (root, query, builder) -> builder.like(root.get("product").get("name"), "%" + search + "%");
+    }
 }

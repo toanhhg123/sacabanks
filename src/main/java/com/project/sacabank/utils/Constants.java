@@ -17,8 +17,8 @@ public class Constants {
   public static final String VENDOR_DOCUMENT_API = "/api/vendor_document";
   public static final String PRODUCT_DOCUMENT_API = "/api/product_document";
   public static final String CART_API = "/api/cart";
-
   public static final String BANNER_API = "/api/banner";
+  public static final String WISHLIST_API = "/api/wishlist";
 
   public static class AuthPermissionAll {
     public static final String AUTH_PATH = "/api/auth/**";

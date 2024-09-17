@@ -11,6 +11,7 @@ import com.project.sacabank.product.repository.ProductRepository;
 import com.project.sacabank.productCategory.ProductCategoryRepository;
 import com.project.sacabank.productComment.ProductCommentRepository;
 import com.project.sacabank.vendorDocument.VendorDocumentRepository;
+import com.project.sacabank.wishlist.WishlistRepository;
 
 import jakarta.persistence.EntityManager;
 
@@ -42,4 +43,7 @@ public class FullRepo {
 
   @Autowired
   public CartRepository cartRepository;
+
+  @Autowired
+  public WishlistRepository wishlistRepository;
 }
