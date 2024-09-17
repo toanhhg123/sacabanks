@@ -7,3 +7,6 @@ CREATE TABLE product_document (
     updated_at DATETIME(6),
     FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE
 );
+
+
+

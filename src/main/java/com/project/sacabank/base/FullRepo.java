@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import com.project.sacabank.ProductDocument.ProductDocumentRepository;
 import com.project.sacabank.banner.BannerRepository;
 import com.project.sacabank.blog.BlogRepository;
+import com.project.sacabank.cart.CartRepository;
 import com.project.sacabank.product.repository.ProductRepository;
 import com.project.sacabank.productCategory.ProductCategoryRepository;
 import com.project.sacabank.productComment.ProductCommentRepository;
@@ -38,4 +39,7 @@ public class FullRepo {
 
   @Autowired
   public ProductDocumentRepository productDocumentRepository;
+
+  @Autowired
+  public CartRepository cartRepository;
 }

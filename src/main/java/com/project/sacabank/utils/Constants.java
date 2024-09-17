@@ -16,6 +16,7 @@ public class Constants {
   public static final String PRODUCT_COMMENT_API = "/api/product_comment";
   public static final String VENDOR_DOCUMENT_API = "/api/vendor_document";
   public static final String PRODUCT_DOCUMENT_API = "/api/product_document";
+  public static final String CART_API = "/api/cart";
 
   public static final String BANNER_API = "/api/banner";
 
