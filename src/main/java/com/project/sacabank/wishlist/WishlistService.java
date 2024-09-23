@@ -9,9 +9,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.project.sacabank.base.BaseDto;
 import com.project.sacabank.base.BaseService;
 import com.project.sacabank.base.FullRepo;
 import com.project.sacabank.base.PaginationResponse;
+import com.project.sacabank.wishlist.dto.WishlistDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,6 +45,17 @@ public class WishlistService extends BaseService<WishlistModel> {
         var totalPage = (int) Math.ceil((double) count / size);
 
         return PaginationResponse.builder().totalPage(totalPage).count(count).list(list).build();
+    }
+
+    @Override
+    public WishlistModel create(BaseDto dto) {
+        var wishlistDto = (WishlistDto) dto;
+        var wishlist = repositories.wishlistRepository.findByProductIdAndUserId(wishlistDto.getProductId(),
+                wishlistDto.getUserId());
+        if (wishlist.isPresent()) {
+            return wishlist.get();
+        }
+        return super.create(dto);
     }
 
 }

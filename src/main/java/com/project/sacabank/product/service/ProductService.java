@@ -2,6 +2,7 @@ package com.project.sacabank.product.service;
 
 import static com.project.sacabank.utils.Constants.PAGE_SIZE;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -193,5 +194,9 @@ public class ProductService {
     repository.delete(product.get());
     return product.get();
 
+  }
+
+  public List<Product> findInIds(List<UUID> ids) {
+    return repository.findInIds(ids);
   }
 }

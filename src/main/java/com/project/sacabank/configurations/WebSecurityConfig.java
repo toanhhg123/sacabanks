@@ -86,6 +86,7 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.GET,
                     "/uploads/**",
                     "/api/category/parent/**",
+                    "/api/product/public/list",
                     "/api/category",
                     "/api/category/white_list",
                     "/api/product_category",

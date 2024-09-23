@@ -1,5 +1,6 @@
 package com.project.sacabank.product.repository;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.Modifying;
@@ -31,4 +32,7 @@ public interface ProductRepository extends BaseRepository<Product, UUID> {
 
   @Query("SELECT COUNT(p)  FROM Product p WHERE p.user.id=:id")
   Long countByUserId(@Param("id") UUID id);
+
+  @Query("SELECT p FROM Product p WHERE p.id IN (:ids)")
+  List<Product> findInIds(@Param("ids") List<UUID> ids);
 }

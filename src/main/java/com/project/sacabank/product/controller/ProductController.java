@@ -2,6 +2,7 @@ package com.project.sacabank.product.controller;
 
 import static com.project.sacabank.utils.Constants.API_PRODUCT_PATH;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -81,6 +82,11 @@ public class ProductController extends BaseController {
   @DeleteMapping("{id}")
   public ResponseEntity<?> delete(@PathVariable("id") UUID id) {
     return this.onSuccess(service.remove(id));
+  }
+
+  @GetMapping("public/list")
+  public ResponseEntity<?> getListProduct(@RequestParam List<UUID> ids) {
+    return this.onSuccess(service.findInIds(ids));
   }
 
 }
