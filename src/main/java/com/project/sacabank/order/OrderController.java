@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sacabank.base.BaseController;
+import com.project.sacabank.base.ResponseObject;
 import com.project.sacabank.order.dto.OrderDto;
 import com.project.sacabank.user.model.User;
 
@@ -27,8 +28,9 @@ public class OrderController extends BaseController {
   OrderService service;
 
   @GetMapping("")
-  public ResponseEntity<?> gets(@RequestParam Optional<Integer> page) {
-    return this.onSuccess(service.gets(page));
+  public ResponseEntity<ResponseObject> gets(@RequestParam Optional<UUID> userId, @RequestParam Optional<Integer> page,
+      @RequestParam Optional<Integer> pageSize) {
+    return this.onSuccess(service.getPagination(userId, page, pageSize));
   }
 
   @GetMapping("/my_order")

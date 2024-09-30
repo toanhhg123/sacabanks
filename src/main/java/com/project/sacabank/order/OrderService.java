@@ -9,10 +9,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.sacabank.base.PaginationResponse;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.order.dto.OrderDto;
 import com.project.sacabank.order.model.Order;
@@ -43,6 +45,23 @@ public class OrderService {
     Specification<Order> spec = Specification.where(null);
     var pageNumber = page.isPresent() ? page.get() : 0;
     return orderRepository.findAll(spec, PageRequest.of(pageNumber, PAGE_SIZE));
+  }
+
+  public PaginationResponse getByUserId(Optional<UUID> userId, Optional<Integer> page, Optional<Integer> pageSize) {
+    var pageNumber = page.isPresent() && page.get() > 0 ? page.get() - 1 : 0;
+    var size = pageSize.isPresent() ? pageSize.get() : PAGE_SIZE;
+    Pageable pageable = PageRequest.of(pageNumber, size);
+
+    Specification<Order> spec = Specification.where(null);
+    if (userId.isPresent()) {
+      spec = spec.and(OrderSpecifications.userIdIsEqual(userId.get()));
+    }
+
+    var count = orderRepository.count(spec);
+    var list = orderRepository.findAll(spec, pageable);
+    var totalPage = (int) Math.ceil((double) count / size);
+
+    return PaginationResponse.builder().totalPage(totalPage).count(count).list(list).build();
   }
 
   public List<Order> getByUserId(UUID userId, Optional<Integer> page) {
