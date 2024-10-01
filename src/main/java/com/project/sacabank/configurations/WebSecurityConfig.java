@@ -29,8 +29,9 @@ import static com.project.sacabank.utils.Constants.AuthPermissionAll.ROLE_PATH;;
 @Configuration
 @EnableMethodSecurity
 public class WebSecurityConfig {
+
   @Autowired
-  UserDetailsServiceImpl userDetailsService;
+  private UserDetailsServiceImpl userDetailsService;
 
   @Autowired
   private AuthEntryPointJwt unauthorizedHandler;

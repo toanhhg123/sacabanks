@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sacabank.base.BaseController;
+import com.project.sacabank.base.ResponseObject;
 import com.project.sacabank.enums.EnumNameRole;
 import com.project.sacabank.user.dto.UserDto;
 import com.project.sacabank.user.dto.UserUpdateRole;
@@ -37,7 +38,7 @@ public class UserController extends BaseController {
   UserService service;
 
   @GetMapping("")
-  public ResponseEntity<?> gets(
+  public ResponseEntity<ResponseObject> gets(
       @RequestParam(defaultValue = "") String search,
       @RequestParam Optional<EnumNameRole> role,
       @RequestParam Optional<Integer> page,
@@ -47,20 +48,20 @@ public class UserController extends BaseController {
   }
 
   @GetMapping("/vendor")
-  public ResponseEntity<?> getsVendor(@RequestParam(defaultValue = "") String search,
+  public ResponseEntity<ResponseObject> getsVendor(@RequestParam(defaultValue = "") String search,
       @RequestParam Optional<Integer> page) {
     var data = this.service.getAllUserVendor(search, page);
     return this.onSuccess(data);
   }
 
   @GetMapping("{id}")
-  public ResponseEntity<?> findById(@PathVariable("id") UUID id) {
+  public ResponseEntity<ResponseObject> findById(@PathVariable("id") UUID id) {
     var data = this.service.findById(id);
     return this.onSuccess(data);
   }
 
   @GetMapping("me")
-  public ResponseEntity<?> getMe() {
+  public ResponseEntity<ResponseObject> getMe() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String currentPrincipalName = authentication.getName();
     User user = service.getUserByUsername(currentPrincipalName);
@@ -68,25 +69,25 @@ public class UserController extends BaseController {
   }
 
   @PostMapping("")
-  public ResponseEntity<?> create(@Valid @RequestBody UserDto userCreate) throws MessagingException {
+  public ResponseEntity<ResponseObject> create(@Valid @RequestBody UserDto userCreate) throws MessagingException {
     User user = service.create(userCreate);
     return this.onSuccess(user);
   }
 
   @PatchMapping("{id}")
-  public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody UserDto userDto) {
+  public ResponseEntity<ResponseObject> update(@PathVariable UUID id, @RequestBody UserDto userDto) {
     User user = service.update(id, userDto);
     return this.onSuccess(user);
   }
 
   @PatchMapping("role/{id}")
-  public ResponseEntity<?> updateRole(@PathVariable UUID id, @RequestBody UserUpdateRole role) {
+  public ResponseEntity<ResponseObject> updateRole(@PathVariable UUID id, @RequestBody UserUpdateRole role) {
     User user = service.updateRole(id, role);
     return this.onSuccess(user);
   }
 
   @DeleteMapping("{id}")
-  public ResponseEntity<?> delete(@PathVariable UUID id) {
+  public ResponseEntity<ResponseObject> delete(@PathVariable UUID id) {
     User user = service.remove(id);
     return this.onSuccess(user);
   }
