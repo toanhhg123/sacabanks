@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,25 +20,20 @@ import com.project.sacabank.order.model.Order;
 import com.project.sacabank.order.model.OrderItem;
 import com.project.sacabank.order.repository.OrderItemRepository;
 import com.project.sacabank.order.repository.OrderRepository;
-import com.project.sacabank.product.model.Product;
 import com.project.sacabank.product.repository.ProductRepository;
 import com.project.sacabank.user.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @SuppressWarnings("null")
 @Service
+@RequiredArgsConstructor
 public class OrderService {
 
-  @Autowired
-  UserRepository userRepository;
-
-  @Autowired
-  OrderRepository orderRepository;
-
-  @Autowired
-  OrderItemRepository orderItemRepository;
-
-  @Autowired
-  ProductRepository productRepository;
+  private final UserRepository userRepository;
+  private final OrderRepository orderRepository;
+  private final OrderItemRepository orderItemRepository;
+  private final ProductRepository productRepository;
 
   public List<Order> gets(Optional<Integer> page) {
     Specification<Order> spec = Specification.where(null);
@@ -47,7 +41,7 @@ public class OrderService {
     return orderRepository.findAll(spec, PageRequest.of(pageNumber, PAGE_SIZE));
   }
 
-  public PaginationResponse getByUserId(Optional<UUID> userId, Optional<Integer> page, Optional<Integer> pageSize) {
+  public PaginationResponse getPagination(Optional<UUID> userId, Optional<Integer> page, Optional<Integer> pageSize) {
     var pageNumber = page.isPresent() && page.get() > 0 ? page.get() - 1 : 0;
     var size = pageSize.isPresent() ? pageSize.get() : PAGE_SIZE;
     Pageable pageable = PageRequest.of(pageNumber, size);
@@ -90,6 +84,7 @@ public class OrderService {
     return order;
   }
 
+  @Transactional
   public Order delete(UUID id) {
 
     var order = orderRepository.findById(id);
