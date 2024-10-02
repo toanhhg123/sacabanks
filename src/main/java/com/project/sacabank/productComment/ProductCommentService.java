@@ -77,9 +77,9 @@ public class ProductCommentService extends BaseService<ProductCommentModel> {
 
         String mainQuery = """
                 SELECT
-                	BIN_TO_UUID(p.id) as id,
-                	main_photo,
-                	p.title,
+                    p.id as id,
+                    main_photo,
+                    p.title,
                 	price,
                 	quantity,
                     p.created_at,
