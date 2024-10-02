@@ -33,6 +33,9 @@ public class ProductCommentQueryDto extends BaseModel {
     private UUID userId;
     private UUID productId;
 
+    @Column(name = "is_active")
+    private Boolean isActive;
+
     @Type(JsonType.class)
     @Column(columnDefinition = "jsonb")
     private UserInfo user;

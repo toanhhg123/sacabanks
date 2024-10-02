@@ -43,6 +43,8 @@ public class ProductCommentModel extends BaseModel {
     private String title;
     private UUID userId;
     private UUID productId;
+
+    @Column(name = "is_active")
     private Boolean isActive;
 
     @Override
