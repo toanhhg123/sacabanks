@@ -86,16 +86,13 @@ public class ProductCommentService extends BaseService<ProductCommentModel> {
                     p.updated_at,
                 	slug,
                 	JSON_OBJECT("id", BIN_TO_UUID(u.id), "username", u.username, "email", u.email, "avatar", u.avatar) as `user`,
-                	COUNT(pc.id) AS quantity_comment_active,
-                	COUNT(pc1.id) AS quantity_comment_no_active
+                	COUNT(CASE WHEN pc.id IS NOT NULL AND pc.is_active = 1 THEN 1 END) AS quantity_comment_active,
+                    COUNT(CASE WHEN pc.id IS NOT NULL AND (pc.is_active = 0 OR pc.is_active IS NULL) THEN 1 END) AS quantity_comment_no_active
+
                 FROM
                 	product p
-                	LEFT JOIN product_comment pc ON pc.product_id = p.id
-                		AND pc.is_active = 1
-                	LEFT JOIN product_comment pc1 ON pc1.product_id = p.id
-                		AND pc1.is_active IS NULL
-                		OR pc1.is_active != 1
-                	LEFT JOIN `user` u on u.id = p.user_id
+                    LEFT JOIN product_comment pc ON pc.product_id = p.id
+                    LEFT JOIN `user` u ON u.id = p.user_id
                 	GROUP BY
                 		p.id
                     LIMIT
