@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.sacabank.base.PaginationResponse;
+import com.project.sacabank.cart.CartModel;
+import com.project.sacabank.cart.CartRepository;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.order.dto.OrderDto;
 import com.project.sacabank.order.model.Order;
@@ -34,6 +36,7 @@ public class OrderService {
   private final OrderRepository orderRepository;
   private final OrderItemRepository orderItemRepository;
   private final ProductRepository productRepository;
+  private final CartRepository cartRepository;
 
   public List<Order> gets(Optional<Integer> page) {
     Specification<Order> spec = Specification.where(null);
@@ -82,6 +85,30 @@ public class OrderService {
     orderItemRepository.saveAll(orderItems);
 
     return order;
+  }
+
+  @Transactional
+  public Order addOrderAllCart(UUID userId) {
+    var user = userRepository.findById(userId).orElseThrow(() -> new CustomException("Không tim thấy user"));
+
+    List<CartModel> carts = cartRepository.findByUserId(userId);
+
+    if (carts.isEmpty()) {
+      throw new CustomException("Không có sản phẩm trong giỏ hàng");
+    }
+
+    Order order = orderRepository.save(Order.builder().user(user).build());
+
+    var orderItems = carts.stream().map((var cart) -> {
+      var product = productRepository.findById(cart.getProductId());
+      return OrderItem.builder().product(product.get()).quantity(cart.getQuantity()).order(order).build();
+    }).collect(Collectors.toList());
+
+    orderItemRepository.saveAll(orderItems);
+    cartRepository.deleteAll(carts);
+
+    return order;
+
   }
 
   @Transactional

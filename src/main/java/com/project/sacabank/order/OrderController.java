@@ -48,6 +48,12 @@ public class OrderController extends BaseController {
     return this.onSuccess(service.create(orderDto));
   }
 
+  @PostMapping("/add_all_cart")
+  public ResponseEntity<ResponseObject> addAllCart() {
+    User user = this.getUserInfo();
+    return this.onSuccess(service.addOrderAllCart(user.getId()));
+  }
+
   @DeleteMapping("{id}")
   public ResponseEntity<ResponseObject> delete(@PathVariable("id") UUID id) {
     return this.onSuccess(service.delete(id));

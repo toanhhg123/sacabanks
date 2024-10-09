@@ -3,8 +3,6 @@ package com.project.sacabank.order.model;
 import java.util.List;
 
 import com.project.sacabank.base.BaseModel;
-import com.project.sacabank.product.dto.ProductDto;
-import com.project.sacabank.product.model.Product;
 import com.project.sacabank.user.model.User;
 
 import jakarta.persistence.CascadeType;

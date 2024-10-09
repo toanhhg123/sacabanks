@@ -5,8 +5,6 @@ import java.util.UUID;
 
 import com.project.sacabank.base.BaseDto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
