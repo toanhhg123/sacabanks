@@ -58,7 +58,15 @@ public class ProductCommentController extends BaseController {
     public ResponseEntity<ResponseObject> getProductCommentManager(
             @RequestParam Optional<Integer> page,
             @RequestParam Optional<Integer> limit) {
-        return this.onSuccess(service.getProductCommentManager(page, limit));
+
+        var userId = getUserServiceInfo().getId();
+        var isManager = this.isManager();
+
+        return this.onSuccess(
+                service.getProductCommentManager(
+                        Boolean.TRUE.equals(isManager) ? Optional.empty() : Optional.of(userId),
+                        page,
+                        limit));
 
     }
 

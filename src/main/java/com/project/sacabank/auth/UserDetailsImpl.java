@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.sacabank.enums.EnumNameRole;
 import com.project.sacabank.user.model.User;
 
 import lombok.AllArgsConstructor;
@@ -67,6 +68,11 @@ public class UserDetailsImpl implements UserDetails {
       return false;
     UserDetailsImpl user = (UserDetailsImpl) o;
     return Objects.equals(id, user.id);
+  }
+
+  public EnumNameRole getRole() {
+    return this.authorities.stream().map(GrantedAuthority::getAuthority).map(EnumNameRole::valueOf).findFirst()
+        .orElse(null);
   }
 
   public static UserDetailsImpl build(User user) {

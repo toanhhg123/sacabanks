@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.project.sacabank.auth.UserDetailsImpl;
+import com.project.sacabank.enums.EnumNameRole;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.user.model.User;
 import com.project.sacabank.user.repository.UserRepository;
@@ -53,6 +54,11 @@ public class BaseController {
 
     throw new CustomException("Get user fail");
 
+  }
+
+  public Boolean isManager() {
+    return this.getUserServiceInfo().getRole().equals(EnumNameRole.SUPPER_ADMIN)
+        || this.getUserServiceInfo().getRole().equals(EnumNameRole.ADMIN);
   }
 
   public User getUserInfo() {

@@ -68,6 +68,7 @@ public class ProductCommentService extends BaseService<ProductCommentModel> {
     }
 
     public PaginationResponse getProductCommentManager(
+            Optional<UUID> userId,
             Optional<Integer> page,
             Optional<Integer> pageSize) {
 
@@ -93,23 +94,34 @@ public class ProductCommentService extends BaseService<ProductCommentModel> {
                 	product p
                     LEFT JOIN product_comment pc ON pc.product_id = p.id
                     LEFT JOIN `user` u ON u.id = p.user_id
-                	GROUP BY
-                		p.id
-                    LIMIT
-                """
-                + pageable.getPageSize() + " OFFSET " + pageable.getOffset();
-
-        String countQuery = """
-                SELECT COUNT(product.id) FROM product
                 """;
 
+        var whereClause = userId.isPresent() ? " WHERE p.user_id = :userId " : "";
+        var groupAndPagination = """
+                  GROUP BY
+                p.id
+                  LIMIT
+                  """ + pageable.getPageSize() + " OFFSET " + pageable.getOffset();
+
+        mainQuery += whereClause + groupAndPagination;
+
+        String countQuery = """
+                SELECT COUNT(p.id) FROM product p
+                """ + whereClause;
+
         Query query = repositories.entityManager.createNativeQuery(mainQuery, ProductCommentManagerDto.class);
-        @SuppressWarnings("unchecked")
-        List<ProductCommentManagerDto> results = query.getResultList();
+        Query cQuery = repositories.entityManager.createNativeQuery(countQuery);
+
+        if (userId.isPresent()) {
+            query.setParameter("userId", userId.get());
+            cQuery.setParameter("userId", userId.get());
+        }
 
         // * GET COUNT - TOTAL-PAGE ============
-        Query cQuery = repositories.entityManager.createNativeQuery(countQuery);
+
         var count = (Number) cQuery.getSingleResult();
+        @SuppressWarnings("unchecked")
+        List<ProductCommentManagerDto> results = query.getResultList();
         var totalPage = (int) Math.ceil(count.doubleValue() / size);
         // * ========================
 
