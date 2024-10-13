@@ -55,7 +55,7 @@ public class CategoryService {
   }
 
   @SuppressWarnings("unchecked")
-  public PaginationResponse gets(Optional<String> name, Optional<Integer> page,
+  public PaginationResponse gets(Optional<String> search, Optional<Integer> page,
       Optional<Integer> pageSize) {
 
     var pageNumber = page.isPresent() && page.get() > 0 ? page.get() - 1 : 0;
@@ -64,11 +64,12 @@ public class CategoryService {
     Pageable pageable = PageRequest.of(pageNumber, size);
 
     String countQuery = "SELECT COUNT(DISTINCT c.id) " +
-        "FROM category c ";
+        "FROM category c where c.name like '%" + search.orElse("") + "%'";
 
     String nativeQuery = "SELECT c.*, COUNT(cp.id) as product_quantity " +
         "FROM category c " +
         "LEFT JOIN category_product cp ON c.id = cp.category_id " +
+        "WHERE c.name like '%" + search.orElse("") + "%' " +
         "GROUP BY c.id " +
         "LIMIT " + pageable.getPageSize() + " OFFSET " + pageable.getOffset();
 

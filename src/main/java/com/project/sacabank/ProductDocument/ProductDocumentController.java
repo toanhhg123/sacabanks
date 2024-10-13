@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sacabank.base.BaseController;
-import com.project.sacabank.vendorDocument.VendorDocumentDto;
 
 @RestController
 @RequestMapping(path = PRODUCT_DOCUMENT_API)
@@ -38,17 +37,14 @@ public class ProductDocumentController extends BaseController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> create(
-            @ModelAttribute VendorDocumentDto vendorDocumentDto) {
-        vendorDocumentDto.setUserId(getUserServiceInfo().getId());
+            @ModelAttribute ProductDocumentDto vendorDocumentDto) {
         return this.onSuccess(service.create(vendorDocumentDto));
     }
 
     @PatchMapping(path = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> update(
             @PathVariable("id") UUID id,
-            @ModelAttribute VendorDocumentDto vendorDocumentDto) {
-
-        vendorDocumentDto.setUserId(getUserServiceInfo().getId());
+            @ModelAttribute ProductDocumentDto vendorDocumentDto) {
         return this.onSuccess(service.update(id, vendorDocumentDto));
     }
 
