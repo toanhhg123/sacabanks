@@ -30,9 +30,14 @@ public class OrderController extends BaseController {
   private final OrderService service;
 
   @GetMapping("")
-  public ResponseEntity<ResponseObject> gets(@RequestParam Optional<UUID> userId, @RequestParam Optional<Integer> page,
+  public ResponseEntity<ResponseObject> gets(@RequestParam Optional<Integer> page,
       @RequestParam Optional<Integer> pageSize) {
-    return this.onSuccess(service.getPagination(userId, page, pageSize));
+
+    var userId = this.getUserInfo().getId();
+    var isAdmin = this.isManager();
+
+    return this
+        .onSuccess(service.getPagination(Boolean.TRUE.equals(isAdmin) ? null : Optional.of(userId), page, pageSize));
   }
 
   @GetMapping("/my_order")
