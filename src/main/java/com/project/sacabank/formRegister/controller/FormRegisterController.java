@@ -87,7 +87,11 @@ public class FormRegisterController extends BaseController {
 
     boolean existsByEmail = userRepository.existsByEmail(formRegister.getEmail());
     boolean existsByPhoneNumber = userRepository.existsByPhoneNumber(formRegister.getPhone());
-    if (existsByEmail) {
+
+    boolean existsByPhoneOrEmail = formRegisterRepository.existsByPhoneOrEmail(formRegister.getPhone(),
+        formRegister.getEmail());
+
+    if (existsByEmail || existsByPhoneOrEmail) {
       CustomException.throwError("Địa chỉ email đã tồn tại");
     }
 
