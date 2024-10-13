@@ -29,11 +29,11 @@ public class ProductDocumentController extends BaseController {
 
     @GetMapping("")
     public ResponseEntity<?> gets(
-            @RequestParam Optional<UUID> userId,
+            @RequestParam Optional<UUID> productId,
             @RequestParam Optional<Integer> page,
             @RequestParam Optional<Integer> limit) {
 
-        return this.onSuccess(service.gets(userId, page, limit));
+        return this.onSuccess(service.gets(productId, page, limit));
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
