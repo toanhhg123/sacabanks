@@ -37,7 +37,7 @@ public class OrderController extends BaseController {
     var isAdmin = this.isManager();
 
     return this
-        .onSuccess(service.getPagination(Boolean.TRUE.equals(isAdmin) ? Optional.of(null) : Optional.of(userId), page,
+        .onSuccess(service.getPagination(Boolean.TRUE.equals(isAdmin) ? Optional.empty() : Optional.of(userId), page,
             pageSize));
   }
 
