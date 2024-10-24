@@ -1,7 +1,5 @@
 package com.project.sacabank.cart;
 
-import static com.project.sacabank.utils.Constants.PAGE_SIZE;
-
 import java.util.Optional;
 import java.util.UUID;
 
@@ -9,9 +7,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.project.sacabank.base.BaseDto;
 import com.project.sacabank.base.BaseService;
 import com.project.sacabank.base.FullRepo;
 import com.project.sacabank.base.PaginationResponse;
+import com.project.sacabank.cart.dto.CartDto;
+import static com.project.sacabank.utils.Constants.PAGE_SIZE;
 
 @Service
 public class CartService extends BaseService<CartModel> {
@@ -40,6 +41,24 @@ public class CartService extends BaseService<CartModel> {
         var totalPage = (int) Math.ceil((double) count / size);
 
         return PaginationResponse.builder().totalPage(totalPage).count(count).list(list).build();
+    }
+
+    @Override
+    public CartModel create(BaseDto dto) {
+        CartDto cartDto = (CartDto) dto;
+
+        var cartModel = this.repositories.cartRepository.findByProductIdAndUserId(cartDto.getProductId(),
+                cartDto.getUserId());
+
+        if (cartModel.isPresent()) {
+
+            var cart = cartModel.get();
+            cart.setQuantity(cart.getQuantity() + cartDto.getQuantity());
+            return this.repositories.cartRepository.save(cart);
+
+        }
+
+        return super.create(dto);
     }
 
 }
