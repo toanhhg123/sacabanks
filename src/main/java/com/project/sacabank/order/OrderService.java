@@ -1,7 +1,5 @@
 package com.project.sacabank.order;
 
-import static com.project.sacabank.utils.Constants.PAGE_SIZE;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,10 +22,10 @@ import com.project.sacabank.order.repository.OrderItemRepository;
 import com.project.sacabank.order.repository.OrderRepository;
 import com.project.sacabank.product.repository.ProductRepository;
 import com.project.sacabank.user.repository.UserRepository;
+import static com.project.sacabank.utils.Constants.PAGE_SIZE;
 
 import lombok.RequiredArgsConstructor;
 
-@SuppressWarnings("null")
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -64,7 +62,7 @@ public class OrderService {
   public List<Order> getByUserId(UUID userId, Optional<Integer> page) {
     Specification<Order> spec = Specification.where(null);
     spec = spec.and(OrderSpecifications.userIdIsEqual(userId));
-    var pageNumber = page.isPresent() ? page.get() : 0;
+    var pageNumber = page.orElse(0);
     return orderRepository.findAll(spec, PageRequest.of(pageNumber, PAGE_SIZE));
   }
 

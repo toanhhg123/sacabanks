@@ -1,11 +1,10 @@
 package com.project.sacabank.vendorDocument;
 
-import static com.project.sacabank.utils.Constants.PAGE_SIZE;
+import static com.project.sacabank.utils.Constants.*;
 
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -19,10 +18,10 @@ import com.project.sacabank.file.FilesStorageService;
 @Service
 public class VendorDocumentService extends BaseService<VendorDocumentModel> {
 
-    @Autowired
-    FilesStorageService storageService;
+    private final FilesStorageService storageService;
 
-    public VendorDocumentService(FullRepo fullRepo) {
+    public VendorDocumentService(FullRepo fullRepo, FilesStorageService storageService) {
+        this.storageService = storageService;
         super.InJectRepository(fullRepo.vendorDocumentRepository);
     }
 

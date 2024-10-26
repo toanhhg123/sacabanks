@@ -1,11 +1,8 @@
 package com.project.sacabank.vendorDocument;
 
-import static com.project.sacabank.utils.Constants.VENDOR_DOCUMENT_API;
-
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,31 +16,44 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sacabank.base.BaseController;
+import com.project.sacabank.base.ResponseObject;
+import static com.project.sacabank.utils.Constants.VENDOR_DOCUMENT_API;
+
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping(path = VENDOR_DOCUMENT_API)
+@AllArgsConstructor
 public class VendorDocumentController extends BaseController {
-    @Autowired
-    VendorDocumentService service;
+
+    private final VendorDocumentService service;
 
     @GetMapping("")
-    public ResponseEntity<?> gets(
-            @RequestParam Optional<UUID> userId,
+    public ResponseEntity<ResponseObject> gets(
             @RequestParam Optional<Integer> page,
             @RequestParam Optional<Integer> limit) {
 
-        return this.onSuccess(service.gets(userId, page, limit));
+        Optional<UUID> userIdOptional = Boolean.TRUE.equals(isManager())
+                ? Optional.empty()
+                : Optional.of(getUserServiceInfo().getId());
+
+        return this.onSuccess(service.gets(userIdOptional, page, limit));
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> create(
+    public ResponseEntity<ResponseObject> create(
             @ModelAttribute VendorDocumentDto vendorDocumentDto) {
         vendorDocumentDto.setUserId(getUserServiceInfo().getId());
         return this.onSuccess(service.create(vendorDocumentDto));
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseObject> gets(@PathVariable UUID id) {
+        return this.onSuccess(service.getById(id));
+    }
+
     @PatchMapping(path = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> update(
+    public ResponseEntity<ResponseObject> update(
             @PathVariable("id") UUID id,
             @ModelAttribute VendorDocumentDto vendorDocumentDto) {
 
@@ -52,7 +62,7 @@ public class VendorDocumentController extends BaseController {
     }
 
     @DeleteMapping(path = "{id}")
-    public ResponseEntity<?> delete(
+    public ResponseEntity<ResponseObject> delete(
             @PathVariable("id") UUID id) {
 
         return this.onSuccess(service.removeById(id));

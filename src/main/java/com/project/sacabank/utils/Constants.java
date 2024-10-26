@@ -1,6 +1,10 @@
 package com.project.sacabank.utils;
 
 public class Constants {
+
+  private Constants() {
+  }
+
   public static final String API_USER_PATH = "/api/user";
   public static final String API_CATEGORY_PATH = "/api/category";
   public static final String API_ROLE_PATH = "/api/role";
@@ -21,13 +25,22 @@ public class Constants {
   public static final String WISHLIST_API = "/api/wishlist";
 
   public static class AuthPermissionAll {
+    private AuthPermissionAll() {
+    }
+
     public static final String AUTH_PATH = "/api/auth/**";
     public static final String ROLE_PATH = "/api/role/**";
     public static final String USER_VENDOR = "/api/user/vendor";
     public static final String PRODUCT_PUBLIC = "/api/product/public/**";
-
     public static final String API_REGISTER_VENDOR_PATH = "/api/register_vendor/register";
   }
 
   public static final Integer PAGE_SIZE = 20;
+
+  public static class ErrorMessage {
+    private ErrorMessage() {
+    }
+
+    public static final String NOT_FOUND_PRODUCT = "Không tìm thấy sản phẩm";
+  }
 }

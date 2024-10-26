@@ -1,17 +1,16 @@
 package com.project.sacabank.product.repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.base.Optional;
 import com.project.sacabank.base.BaseRepository;
 import com.project.sacabank.product.model.Product;
-
-import org.springframework.transaction.annotation.Transactional;
 
 public interface ProductRepository extends BaseRepository<Product, UUID> {
 

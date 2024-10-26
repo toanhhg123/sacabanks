@@ -20,15 +20,15 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
   @Nullable
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
       HttpStatusCode status, WebRequest request) {
-    // TODO Auto-generated method stub
+
     Map<String, String> errors = new HashMap<>();
-    ex.getBindingResult().getAllErrors().forEach((error) -> {
+    ex.getBindingResult().getAllErrors().forEach(error -> {
 
       String fieldName = ((FieldError) error).getField();
       String message = error.getDefaultMessage();
       errors.put(fieldName, message);
     });
 
-    return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
   }
 }

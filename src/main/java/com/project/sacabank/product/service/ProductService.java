@@ -1,13 +1,10 @@
 package com.project.sacabank.product.service;
 
-import static com.project.sacabank.utils.Constants.PAGE_SIZE;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -26,27 +23,21 @@ import com.project.sacabank.productCategory.ProductCategoryService;
 import com.project.sacabank.productCategory.dto.ProductCategoryCreate;
 import com.project.sacabank.repositories.CategoryRepository;
 import com.project.sacabank.user.model.User;
+import com.project.sacabank.utils.Constants.ErrorMessage;
+import static com.project.sacabank.utils.Constants.PAGE_SIZE;
+
+import lombok.AllArgsConstructor;
 
 @Service
-@SuppressWarnings("null")
+@AllArgsConstructor
 public class ProductService {
-  @Autowired
-  ProductRepository repository;
 
-  @Autowired
-  ListPhotoRepository listPhotoRepository;
-
-  @Autowired
-  ProductCategoryRepository productCategoryRepository;
-
-  @Autowired
-  CategoryRepository categoryRepository;
-
-  @Autowired
-  ProductCategoryService productCategoryService;
-
-  @Autowired
-  ModelMapper mapper;
+  private final ProductRepository repository;
+  private final ListPhotoRepository listPhotoRepository;
+  private final ProductCategoryRepository productCategoryRepository;
+  private final CategoryRepository categoryRepository;
+  private final ProductCategoryService productCategoryService;
+  private final ModelMapper mapper;
 
   public PaginationResponse getAll(
       Optional<String> search,
@@ -74,7 +65,7 @@ public class ProductService {
     }
 
     if (isNullQuantity.isPresent()) {
-      spec = isNullQuantity.get() == true ? spec.and(ProductSpecifications.isNullQuantity())
+      spec = Boolean.TRUE.equals(isNullQuantity.get()) ? spec.and(ProductSpecifications.isNullQuantity())
           : spec.and(ProductSpecifications.isNotNullQuantity());
     }
 
@@ -132,18 +123,18 @@ public class ProductService {
   public Product findOne(UUID id) {
     var product = repository.findById(id);
 
-    if (!product.isPresent() || product.get() == null) {
-      throw new CustomException("not find product");
+    if (!product.isPresent()) {
+      throw new CustomException(ErrorMessage.NOT_FOUND_PRODUCT);
     }
 
     return product.get();
   }
 
   public Product findBySlug(String slug) {
-    var product = repository.findBySlug(slug);
+    Optional<Product> product = repository.findBySlug(slug);
 
-    if (!product.isPresent() || product.get() == null) {
-      throw new CustomException("not find product");
+    if (!product.isPresent()) {
+      throw new CustomException(ErrorMessage.NOT_FOUND_PRODUCT);
     }
 
     return product.get();
@@ -154,7 +145,7 @@ public class ProductService {
     var product = repository.findById(id);
 
     if (product.isEmpty()) {
-      throw new CustomException("not found product");
+      throw new CustomException(ErrorMessage.NOT_FOUND_PRODUCT);
     }
 
     if (productDto.getSlug() != null && repository.existsBySlug(productDto.getSlug(), id)) {
@@ -186,7 +177,7 @@ public class ProductService {
     var product = repository.findById(id);
 
     if (!product.isPresent() || product.get() == null) {
-      throw new CustomException("not find product");
+      throw new CustomException(ErrorMessage.NOT_FOUND_PRODUCT);
     }
 
     listPhotoRepository.deleteByProductId(id);

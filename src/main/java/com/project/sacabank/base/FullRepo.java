@@ -1,6 +1,5 @@
 package com.project.sacabank.base;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.project.sacabank.ProductDocument.ProductDocumentRepository;
@@ -14,36 +13,29 @@ import com.project.sacabank.vendorDocument.VendorDocumentRepository;
 import com.project.sacabank.wishlist.WishlistRepository;
 
 import jakarta.persistence.EntityManager;
+import lombok.AllArgsConstructor;
 
 @Component
+@AllArgsConstructor
 public class FullRepo {
-  @Autowired
-  public ProductRepository productRepository;
 
-  @Autowired
-  public ProductCategoryRepository productCategoryRepository;
+  public final ProductRepository productRepository;
 
-  @Autowired
-  public BlogRepository blogRepository;
+  public final ProductCategoryRepository productCategoryRepository;
 
-  @Autowired
-  public BannerRepository bannerRepository;
+  public final BlogRepository blogRepository;
 
-  @Autowired
-  public EntityManager entityManager;
+  public final BannerRepository bannerRepository;
 
-  @Autowired
-  public ProductCommentRepository productCommentRepository;
+  public final EntityManager entityManager;
 
-  @Autowired
-  public VendorDocumentRepository vendorDocumentRepository;
+  public final ProductCommentRepository productCommentRepository;
 
-  @Autowired
-  public ProductDocumentRepository productDocumentRepository;
+  public final VendorDocumentRepository vendorDocumentRepository;
 
-  @Autowired
-  public CartRepository cartRepository;
+  public final ProductDocumentRepository productDocumentRepository;
 
-  @Autowired
-  public WishlistRepository wishlistRepository;
+  public final CartRepository cartRepository;
+
+  public final WishlistRepository wishlistRepository;
 }
