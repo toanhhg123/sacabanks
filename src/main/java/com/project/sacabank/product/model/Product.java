@@ -1,6 +1,7 @@
 package com.project.sacabank.product.model;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.project.sacabank.base.BaseModel;
 import com.project.sacabank.category.model.Category;
@@ -45,6 +46,9 @@ public class Product extends BaseModel {
   private String tags;
   @Column(name = "description")
   private String desc;
+
+  @Column(name = "user_id", insertable = false, updatable = false)
+  private UUID userId;
 
   @ManyToOne()
   @JoinColumn(name = "user_id", nullable = true, referencedColumnName = "id")

@@ -39,3 +39,5 @@ build/
 uploads
 
 deploy.sh
+
+ui-demo
