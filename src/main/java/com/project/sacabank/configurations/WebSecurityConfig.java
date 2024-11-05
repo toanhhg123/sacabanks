@@ -64,8 +64,13 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers(AUTH_PATH, API_REGISTER_VENDOR_PATH, ROLE_PATH, USER_VENDOR,
+                                .requestMatchers(
+                                        AUTH_PATH,
+                                        API_REGISTER_VENDOR_PATH,
+                                        ROLE_PATH,
+                                        USER_VENDOR,
                                         PRODUCT_PUBLIC,
+                                        "/actuator",
                                         "/api/upload/**", "/api/upload/callback",
                                         "/v2/api-docs",
                                         "/v3/api-docs",
@@ -79,7 +84,8 @@ public class WebSecurityConfig {
                                         "/swagger-ui/**",
                                         "/static/**")
                                 .permitAll()
-                                .requestMatchers(HttpMethod.GET,
+                                .requestMatchers(
+                                        HttpMethod.GET,
                                         "/xxx/**",
                                         "/uploads/**",
                                         "/api/category/parent/**",
@@ -99,9 +105,12 @@ public class WebSecurityConfig {
                                         "/home",
                                         "/cart",
                                         "/xxx/**",
-                                        "/static/**", "/xxx/styles/**", "/uploads/**")
+                                        "/static/**",
+                                        "/xxx/styles/**",
+                                        "/uploads/**")
                                 .permitAll()
-                                .anyRequest().authenticated());
+                                .anyRequest()
+                                .authenticated());
 
         http.authenticationProvider(authenticationProvider());
 
