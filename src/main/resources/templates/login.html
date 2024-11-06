@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sacabanks - Construction Material Bank."
+    />
+    <meta name="keywords" content="" />
+    <title>Sacabanks - Construction Material Bank</title>
+
+    <!-- Site Favicon -->
+    <link
+      rel="icon"
+      href="/static/assets/img/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Css All Plugins Files -->
+    <link rel="stylesheet" href="/static/assets/css/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/assets/css/vendor/remixicon.css" />
+    <link rel="stylesheet" href="/static/assets/css/vendor/aos.css" />
+    <link
+      rel="stylesheet"
+      href="/static/assets/css/vendor/swiper-bundle.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/static/assets/css/vendor/owl.carousel.min.css"
+    />
+    <link rel="stylesheet" href="/static/assets/css/vendor/slick.min.css" />
+    <link rel="stylesheet" href="/static/assets/css/vendor/animate.min.css" />
+    <link
+      rel="stylesheet"
+      href="/static/assets/css/vendor/jquery-range-ui.css"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="/static/assets/css/style.css" />
+  </head>
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Login -->
+    <section class="section-login padding-tb-50">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div
+              class="section-title bb-center"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
+              <div class="section-detail">
+                <h2 class="bb-title">Đăng <span>Nhập</span></h2>
+                <p>Chào mừng bạn đến với ngân hàng vật liệu xây dựng</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div
+              class="bb-login-contact"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="400"
+            >
+              <form action="/dang-nhap" method="post">
+                <div th:if="${param.error}">
+                  <p>Invalid username or password</p>
+                </div>
+                <div class="bb-login-wrap">
+                  <label for="email">Email*</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="username"
+                    placeholder="Enter Your Email"
+                  />
+                </div>
+                <div class="bb-login-wrap">
+                  <label for="password">Password*</label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter Your Password"
+                  />
+                </div>
+                <div class="bb-login-wrap">
+                  <a href="javascript:void(0)">Forgot Password?</a>
+                </div>
+                <div class="bb-login-button">
+                  <button class="bb-btn-2" type="submit">Login</button>
+                  <a href="register.html">Register</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Back to top  -->
+    <a href="#Top" class="back-to-top result-placeholder">
+      <i class="ri-arrow-up-line"></i>
+      <div class="back-to-top-wrap active-progress">
+        <svg viewBox="-1 -1 102 102">
+          <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+        </svg>
+      </div>
+    </a>
+
+    <!-- Plugins -->
+    <script src="/static/assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/static/assets/js/vendor/jquery.min.js"></script>
+    <script src="/static/assets/js/vendor/jquery.zoom.min.js"></script>
+    <script src="/static/assets/js/vendor/aos.js"></script>
+    <script src="/static/assets/js/vendor/swiper-bundle.min.js"></script>
+    <script src="/static/assets/js/vendor/smoothscroll.min.js"></script>
+    <script src="/static/assets/js/vendor/owl.carousel.min.js"></script>
+    <script src="/static/assets/js/vendor/slick.min.js"></script>
+    <script src="/static/assets/js/vendor/jquery-range-ui.min.js"></script>
+
+    <!-- main-js -->
+    <script src="/static/assets/js/main.js"></script>
+  </body>
+</html>

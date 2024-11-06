@@ -27,6 +27,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private String username;
 
+    private String name;
+
     private String email;
 
     @JsonIgnore
@@ -84,6 +86,7 @@ public class UserDetailsImpl implements UserDetails {
                 .id(user.getId())
                 .authorities(authorities)
                 .username(user.getUsername())
+                .name(user.getUsername())
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
                 .password(user.getPassword())

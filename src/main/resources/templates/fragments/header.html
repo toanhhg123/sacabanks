@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,7 +21,7 @@
                 <div class="cols bb-logo-detail">
                   <!-- Header Logo Start -->
                   <div class="header-logo">
-                    <a href="index.html">
+                    <a href="/">
                       <img
                         src="/static/assets/img/logo/banksdatabase-128.svg"
                         alt="logo"
@@ -94,25 +98,50 @@
                               />
                             </svg>
                           </div>
-                          <div class="bb-btn-desc">
+                          <div
+                            class="bb-btn-desc"
+                            sec:authorize="!isAuthenticated()"
+                          >
                             <span class="bb-btn-title">Tài Khoản</span>
                             <span class="bb-btn-stitle">Đăng Nhập</span>
                           </div>
+                          <div
+                            class="bb-btn-desc"
+                            sec:authorize="isAuthenticated()"
+                          >
+                            <span
+                              class="bb-btn-title"
+                              th:text="${#authentication.name}"
+                              >username</span
+                            >
+                            <span class="bb-btn-stitle">Đã đăng nhập</span>
+                          </div>
                         </a>
                         <ul class="bb-dropdown-menu">
-                          <li>
+                          <li sec:authorize="!isAuthenticated()">
                             <a class="dropdown-item" href="register.html"
                               >Đăng Ký</a
                             >
                           </li>
-                          <li>
-                            <a class="dropdown-item" href="checkout.html"
+                          <li sec:authorize="!isAuthenticated()">
+                            <a class="dropdown-item" href="/dang-nhap"
+                              >Đăng Nhập</a
+                            >
+                          </li>
+
+                          <li sec:authorize="isAuthenticated()">
+                            <a class="dropdown-item" href="/gio-hang"
                               >Giỏ Hàng</a
                             >
                           </li>
-                          <li>
-                            <a class="dropdown-item" href="login.html"
-                              >Đăng Nhập</a
+                          <li sec:authorize="isAuthenticated()">
+                            <a class="dropdown-item" href="/yeu-thich"
+                              >Yêu thích</a
+                            >
+                          </li>
+                          <li sec:authorize="isAuthenticated()">
+                            <a class="dropdown-item" href="/logout"
+                              >Đăng xuất</a
                             >
                           </li>
                         </ul>

@@ -1,8 +1,7 @@
 package com.project.sacabank.auth.controller;
 
-import static com.project.sacabank.utils.Constants.API_AUTH_PATH;
+import static com.project.sacabank.utils.Constants.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,23 +15,24 @@ import com.project.sacabank.auth.service.AuthService;
 import com.project.sacabank.base.ResponseObject;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping(path = API_AUTH_PATH)
+@AllArgsConstructor
 public class AuthController {
 
-  @Autowired
-  AuthService authService;
+  private final AuthService authService;
 
   @PostMapping("register")
-  public ResponseEntity<?> register(@Valid @RequestBody UserRegisterDto userRegisterDto) {
+  public ResponseEntity<ResponseObject> register(@Valid @RequestBody UserRegisterDto userRegisterDto) {
     var data = authService.registerUser(userRegisterDto);
     return this.onSuccess(data);
   }
 
   @PostMapping("login")
-  public ResponseEntity<?> login(@Valid @RequestBody UserLoginDto userLoginDto) {
-    var data = authService.LoginToken(userLoginDto);
+  public ResponseEntity<ResponseObject> login(@Valid @RequestBody UserLoginDto userLoginDto) {
+    var data = authService.loginToken(userLoginDto);
     return this.onSuccess(data);
   }
 

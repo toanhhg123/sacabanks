@@ -18,27 +18,25 @@ import com.project.sacabank.user.model.User;
 import com.project.sacabank.user.repository.UserRepository;
 import com.project.sacabank.utils.JwtUtils;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class AuthService {
-  @Autowired
-  UserRepository userRepository;
 
-  @Autowired
-  PasswordEncoder encoder;
+  private final UserRepository userRepository;
 
-  @Autowired
-  RoleRepository roleRepository;
+  private final PasswordEncoder encoder;
 
-  @Autowired
-  private ModelMapper mapper;
+  private final RoleRepository roleRepository;
 
-  @Autowired
-  AuthenticationManager authenticationManager;
+  private final ModelMapper mapper;
 
-  @Autowired
-  JwtUtils jwtUtils;
+  private final AuthenticationManager authenticationManager;
 
-  public String LoginToken(UserLoginDto userLoginDto) {
+  private final JwtUtils jwtUtils;
+
+  public String loginToken(UserLoginDto userLoginDto) {
 
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
@@ -46,9 +44,7 @@ public class AuthService {
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    String jwt = jwtUtils.generateJwtToken(authentication);
-
-    return jwt;
+    return jwtUtils.generateJwtToken(authentication);
   }
 
   public User registerUser(UserRegisterDto userRegisterDto) {

@@ -22,7 +22,7 @@ public class ControllerExceptionHandler {
         ex.getMessage(),
         request.getDescription(false), null);
 
-    return new ResponseEntity<ErrorMessage>(message, HttpStatus.NOT_FOUND);
+    return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
   }
 
   @ExceptionHandler(CustomException.class)
@@ -32,7 +32,7 @@ public class ControllerExceptionHandler {
         new Date(),
         ex.getMessage(),
         request.getDescription(false), null);
-    return new ResponseEntity<ErrorMessage>(message, HttpStatus.NOT_FOUND);
+    return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
   }
 
   @ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -50,7 +50,7 @@ public class ControllerExceptionHandler {
         .message(null)
         .build();
 
-    return new ResponseEntity<ErrorMessage>(message, HttpStatus.UNPROCESSABLE_ENTITY);
+    return new ResponseEntity<>(message, HttpStatus.UNPROCESSABLE_ENTITY);
   }
 
   @ExceptionHandler(AuthenticationException.class)
@@ -62,7 +62,7 @@ public class ControllerExceptionHandler {
         ex.getMessage(),
         request.getDescription(false), null);
 
-    return new ResponseEntity<ErrorMessage>(message, HttpStatus.UNAUTHORIZED);
+    return new ResponseEntity<>(message, HttpStatus.UNAUTHORIZED);
   }
 
   @ExceptionHandler(Exception.class)
@@ -72,7 +72,7 @@ public class ControllerExceptionHandler {
         new Date(),
         ex.getMessage(),
         request.getDescription(false), null);
-    return new ResponseEntity<ErrorMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+    return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
 }

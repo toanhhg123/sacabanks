@@ -33,6 +33,8 @@ public class Constants {
     public static final String USER_VENDOR = "/api/user/vendor";
     public static final String PRODUCT_PUBLIC = "/api/product/public/**";
     public static final String API_REGISTER_VENDOR_PATH = "/api/register_vendor/register";
+    public static final String PATH_LOGIN_PAGE = "/dang-nhap";
+
   }
 
   public static final Integer PAGE_SIZE = 20;

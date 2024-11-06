@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -227,8 +231,10 @@
                         <div class="inner-img">
                           <img
                             class="main-img"
-                            th:src="${'https://api.sacabanks.vn/uploads/300x300/' + product.mainPhoto}"
+                            th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
                             th:alt="${'Product image - ' + product.id}"
+                            width="300"
+                            height="300"
                             alt="product-1"
                             onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                           />
@@ -446,9 +452,11 @@
                           <div class="inner-img">
                             <img
                               class="main-img"
-                              th:src="${'https://api.sacabanks.vn/uploads/300x300/' + product.mainPhoto}"
+                              th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
                               th:alt="${'Product image - ' + product.id}"
                               alt="product-1"
+                              width="300"
+                              height="300"
                               onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                             />
                             <img
@@ -544,6 +552,8 @@
                               class="main-img"
                               th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
                               th:alt="${'Product image - ' + product.id}"
+                              width="300"
+                              height="300"
                               alt="product-1"
                               onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                             />
@@ -640,6 +650,8 @@
                               class="main-img"
                               th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
                               th:alt="${'Product image - ' + product.id}"
+                              width="300"
+                              height="300"
                               alt="product-1"
                               onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                             />
@@ -736,6 +748,8 @@
                               class="main-img"
                               th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
                               th:alt="${'Product image - ' + product.id}"
+                              width="300"
+                              height="300"
                               alt="product-1"
                               onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                             />
@@ -829,16 +843,25 @@
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-delay="200"
+                th:each="blog: ${blogs}"
               >
                 <div class="blog-img">
-                  <img src="/static/assets/img/blog/7.jpg" alt="blog-7" />
+                  <img
+                    th:src="${'https://api.sacabanks.vn/uploads/' + blog.image}"
+                    alt="blog-7"
+                  />
                 </div>
                 <div class="blog-contact">
-                  <span>June 30,2024 - organic</span>
+                  <span
+                    th:text="${#dates.format(blog.updatedAt, 'dd-MM-yyyy')}"
+                  ></span>
                   <h4>
-                    <a href="blog-detail-left-sidebar.html"
-                      >Marketing Guide: 5 Steps to Success.</a
+                    <a
+                      th:href="${'/bai-dang/' + blog.slug}"
+                      th:text="${blog.title}"
                     >
+                      Marketing Guide: 5 Steps to Success.
+                    </a>
                   </h4>
                 </div>
               </div>
@@ -1602,7 +1625,6 @@
     <script th:src="@{/static/assets/js/vendor/aos.js}"></script>
     <script th:src="@{/static/assets/js/vendor/swiper-bundle.min.js}"></script>
     <script th:src="@{/static/assets/js/vendor/smoothscroll.min.js}"></script>
-    <script th:src="@{/static/assets/js/vendor/countdownTimer.js}"></script>
     <script th:src="@{/static/assets/js/vendor/owl.carousel.min.js}"></script>
     <script th:src="@{/static/assets/js/vendor/slick.min.js}"></script>
     <script
