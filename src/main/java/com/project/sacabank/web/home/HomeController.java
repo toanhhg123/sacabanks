@@ -20,6 +20,7 @@ import com.project.sacabank.cart.dto.CartDto;
 import com.project.sacabank.product.model.Product;
 import com.project.sacabank.product.service.ProductService;
 import com.project.sacabank.repositories.CategoryRepository;
+import com.project.sacabank.user.repository.UserRepository;
 import com.project.sacabank.user.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -35,6 +36,7 @@ public class HomeController extends BaseController {
     private final ProductService productService;
     private final UserService userService;
     private final BlogService blogService;
+    private final UserRepository userRepository;
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
@@ -142,6 +144,17 @@ public class HomeController extends BaseController {
         cartService.removeById(id);
 
         return "redirect:/gio-hang";
+    }
+
+    @GetMapping("/nha-cung-cap")
+    public String viewSupplier(Model model) {
+
+        var suppliers = userRepository.getCompanyNamesByFirstLetter();
+
+        model.addAttribute("suppliers", suppliers);
+
+        return "supplier";
+
     }
 
 }

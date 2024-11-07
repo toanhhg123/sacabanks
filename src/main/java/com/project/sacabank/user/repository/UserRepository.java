@@ -1,5 +1,7 @@
 package com.project.sacabank.user.repository;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,5 +40,14 @@ public interface UserRepository extends BaseRepository<User, UUID> {
 
   @Query("SELECT COUNT(*) FROM User u WHERE u.role.name = :role")
   Long countByRoleName(@Param("role") EnumNameRole role);
+
+  @Query(value = "SELECT LEFT(TRIM(company_name), 1) AS first_letter, " +
+      "       JSON_ARRAYAGG(JSON_OBJECT('name', company_name)) AS company_names " +
+      "FROM user " +
+      "WHERE LEFT(TRIM(company_name), 1) IS NOT NULL " +
+      "  AND TRIM(company_name) <> '' " +
+      "GROUP BY first_letter " +
+      "ORDER BY first_letter", nativeQuery = true)
+  List<Map<String, Object>> getCompanyNamesByFirstLetter();
 
 }
