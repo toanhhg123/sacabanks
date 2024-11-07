@@ -164,12 +164,15 @@
                           </svg>
                           <span class="main-label-note-new"></span>
                         </div>
-                        <div class="bb-btn-desc">
+                        <a href="/gio-hang" class="bb-btn-desc">
                           <span class="bb-btn-title"
-                            ><b class="bb-cart-count">4</b> Mặt Hàng</span
+                            ><b class="bb-cart-count" td:text="${cartItemCount}"
+                              >0</b
+                            >
+                            Mặt Hàng</span
                           >
                           <span class="bb-btn-stitle">Giỏ Hàng</span>
-                        </div>
+                        </a>
                       </a>
                       <a href="javascript:void(0)" class="bb-toggle-menu">
                         <div class="header-icon">
@@ -218,7 +221,7 @@
                 <div class="bb-main-menu" id="navbarSupportedContent">
                   <ul class="navbar-nav">
                     <li class="nav-item">
-                      <a class="nav-link" href="index.html">Trang Chủ</a>
+                      <a class="nav-link" href="/">Trang Chủ</a>
                     </li>
                     <li class="nav-item bb-main-dropdown">
                       <a
@@ -232,31 +235,22 @@
                             <li class="menu_title">
                               <a href="javascript:void(0)">Classic</a>
                             </li>
-                            <li><a href="#">Left sidebar 3 column</a></li>
-                            <li><a href="#">Left sidebar 4 column</a></li>
-                            <li><a href="#">Right sidebar 3 column</a></li>
-                            <li><a href="#">Right sidebar 4 column</a></li>
-                            <li><a href="#">Full width 4 column</a></li>
-                          </ul>
-                          <ul class="mega-block">
-                            <li class="menu_title">
-                              <a href="javascript:void(0)">Banner</a>
-                            </li>
-                            <li><a href="#">left sidebar 3 column</a></li>
-                            <li><a href="#">left sidebar 4 column</a></li>
-                            <li><a href="#">right sidebar 3 column</a></li>
-                            <li><a href="#">right sidebar 4 column</a></li>
-                            <li><a href="#">Full width 4 column</a></li>
+                            <li><a href="#">Chưa có dữ liêu</a></li>
                           </ul>
                         </li>
                       </ul>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Kho Hàng</a>
+                      <a class="nav-link" href="/san-pham">Kho Hàng</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Nhà Cung Cấp</a>
+                      <a class="nav-link" href="/nha-cung-cap">Nhà Cung Cấp</a>
                     </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="/bai-viet">Tin tức</a>
+                    </li>
+
                     <li class="nav-item">
                       <a class="nav-link" href="offer.html">
                         <svg
@@ -332,7 +326,8 @@
           <div class="bb-menu-content">
             <ul>
               <li>
-                <a href="index.html">Trang chủ</a>
+                <a class="nav-link" href="/Trang Chủ">Trang Chủ</a>
+                <a href="/">Trang chủ</a>
               </li>
               <li>
                 <a href="javascript:void(0)">Danh mục</a>
@@ -341,127 +336,17 @@
                     <a href="javascript:void(0)">Classic</a>
                     <ul class="sub-menu">
                       <li>
-                        <a href="shop-left-sidebar-col-3.html"
-                          >Left sidebar 3 column</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-left-sidebar-col-4.html"
-                          >Left sidebar 4 column</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-right-sidebar-col-3.html"
-                          >Right sidebar 3 column</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-right-sidebar-col-4.html"
-                          >Right sidebar 4 column</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-full-width.html">Full width 4 column</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0)">Banner</a>
-                    <ul class="sub-menu">
-                      <li>
-                        <a href="shop-banner-left-sidebar-col-3.html"
-                          >Left sidebar 3 column</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-banner-left-sidebar-col-4.html"
-                          >Left sidebar 4 column</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-banner-right-sidebar-col-3.html"
-                          >Right sidebar 3 column</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-banner-right-sidebar-col-4.html"
-                          >Right sidebar 4 column</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-banner-full-width.html"
-                          >Full width 4 column</a
-                        >
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0)">Columns</a>
-                    <ul class="sub-menu">
-                      <li>
-                        <a href="shop-full-width-col-3.html"
-                          >3 Columns full width</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-full-width-col-4.html"
-                          >4 Columns full width</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-full-width-col-5.html"
-                          >5 Columns full width</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-full-width-col-6.html"
-                          >6 Columns full width</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-banner-full-width-col-3.html"
-                          >Banner 3 Columns</a
-                        >
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0)">List</a>
-                    <ul class="sub-menu">
-                      <li>
-                        <a href="shop-list-left-sidebar.html"
-                          >Shop left sidebar</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-list-right-sidebar.html"
-                          >Shop right sidebar</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-list-banner-left-sidebar.html"
-                          >Banner left sidebar</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-list-banner-right-sidebar.html"
-                          >Banner right sidebar</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-list-full-col-2.html"
-                          >Full width 2 columns</a
-                        >
+                        <a href="#">Chưa có dữ liệu</a>
                       </li>
                     </ul>
                   </li>
                 </ul>
               </li>
               <li>
-                <a href="vendor.html">Nhà cung cấp</a>
+                <a href="/nha-cung-cap">Nhà cung cấp</a>
               </li>
               <li>
-                <a href="stock.html">Kho hàng</a>
+                <a href="/san-pham">Kho hàng</a>
               </li>
             </ul>
           </div>

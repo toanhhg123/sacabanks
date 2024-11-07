@@ -14,35 +14,37 @@ import com.project.sacabank.category.model.Category;
 
 @Repository
 public interface CategoryRepository extends BaseRepository<Category, UUID> {
-  java.util.List<Category> findAll(Specification<Category> spec);
+    java.util.List<Category> findAll(Specification<Category> spec);
 
-  @Query("SELECT c FROM Category c Where c.rank > 0")
-  java.util.List<Category> getWhiteList();
+    @Query("SELECT c FROM Category c Where c.rank > 0")
+    java.util.List<Category> getWhiteList();
 
-  @Query(value = """
-      WITH RECURSIVE category_hierarchy AS (
-          SELECT id, name, category_id,
-                 CONCAT(id) AS path
-          FROM category
-          WHERE id = :uuid
+    @Query(value = """
+            WITH RECURSIVE category_hierarchy AS (
+                SELECT id, name, category_id,
+                       CONCAT(id) AS path
+                FROM category
+                WHERE id = :uuid
 
-          UNION ALL
+                UNION ALL
 
-          SELECT c.id, c.name, c.category_id, c.id
-          FROM category c
-          JOIN category_hierarchy ch ON c.id = ch.category_id
-      )
-      SELECT BIN_TO_UUID(id)
-      FROM category_hierarchy
-      ORDER BY LENGTH(path) DESC, path;
-      """, nativeQuery = true)
-  List<UUID> findCategoryHierarchy(@Param("uuid") UUID uuid);
+                SELECT c.id, c.name, c.category_id, c.id
+                FROM category c
+                JOIN category_hierarchy ch ON c.id = ch.category_id
+            )
+            SELECT BIN_TO_UUID(id)
+            FROM category_hierarchy
+            ORDER BY LENGTH(path) DESC, path;
+            """, nativeQuery = true)
+    List<UUID> findCategoryHierarchy(@Param("uuid") UUID uuid);
 
-  @Query(value = "SELECT c.*, COUNT(cp.id) as product_quantity " +
-      "FROM category c " +
-      "LEFT JOIN category_product cp ON c.id = cp.category_id " +
-      "GROUP BY c.id", nativeQuery = true)
-  List<CategoryWithCountProduct> findAllCategoriesWithProductCount();
+    List<Category> findByCategoryId(UUID categoryId);
+
+    @Query(value = "SELECT c.*, COUNT(cp.id) as product_quantity " +
+            "FROM category c " +
+            "LEFT JOIN category_product cp ON c.id = cp.category_id " +
+            "GROUP BY c.id", nativeQuery = true)
+    List<CategoryWithCountProduct> findAllCategoriesWithProductCount();
 
 }
 

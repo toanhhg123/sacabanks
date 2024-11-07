@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sacabanks - Construction Material Bank."
+    />
+    <meta name="keywords" content="" />
+    <title>Sacabanks - Construction Material Bank</title>
+
+    <!-- Site Favicon -->
+    <link
+      rel="icon"
+      th:href="@{/static/assets/img/favicon/favicon.ico}"
+      type="image/x-icon"
+    />
+
+    <!-- Css All Plugins Files -->
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/bootstrap.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/remixicon.css}"
+    />
+    <link rel="stylesheet" th:href="@{/static/assets/css/vendor/aos.css}" />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/swiper-bundle.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/owl.carousel.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/slick.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/animate.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/jquery-range-ui.css}"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" th:href="@{/static/assets/css/style.css}" />
+  </head>
+
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Breadcrumb -->
+    <section class="section-breadcrumb margin-b-50">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row bb-breadcrumb-inner">
+              <div class="col-md-6 col-sm-12">
+                <h2 class="bb-breadcrumb-title">product Page</h2>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <ul class="bb-breadcrumb-list">
+                  <li class="bb-breadcrumb-item">
+                    <a href="/">Home</a>
+                  </li>
+                  <li><i class="ri-arrow-right-double-fill"></i></li>
+                  <li class="bb-breadcrumb-item active">product Page</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product page -->
+    <section class="section-product padding-tb-50">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="bb-single-pro">
+              <div class="row">
+                <div class="col-lg-5 col-12 mb-24">
+                  <div class="single-pro-slider">
+                    <div class="single-product-cover">
+                      <div class="single-slide zoom-image-hover">
+                        <img
+                          class="img-responsive"
+                          th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                          onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
+                          th:alt="${'Product image - ' + product.id}"
+                        />
+                      </div>
+                      <div
+                        class="single-slide zoom-image-hover"
+                        th:each="photo : ${product.listPhoto}"
+                      >
+                        <img
+                          class="img-responsive"
+                          th:src="${'https://api.sacabanks.vn/uploads/' + photo.photoUrl}"
+                          alt="product-2"
+                        />
+                      </div>
+                    </div>
+                    <div class="single-nav-thumb">
+                      <div
+                        class="single-slide"
+                        th:each="photo : ${product.listPhoto}"
+                      >
+                        <img
+                          class="img-responsive"
+                          th:src="${'https://api.sacabanks.vn/uploads/' + photo.photoUrl}"
+                          alt="product-2"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-7 col-12 mb-24">
+                  <div class="bb-single-pro-contact">
+                    <div class="bb-sub-title">
+                      <h4 th:text="${product.title}">
+                        Ground Nuts Oil Pack 52g
+                      </h4>
+                    </div>
+                    <div class="bb-single-rating">
+                      <span class="bb-pro-rating">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-line"></i>
+                      </span>
+                      <span class="bb-read-review">
+                        |&nbsp;&nbsp;<a href="#bb-spt-nav-review"
+                          >992 Ratings</a
+                        >
+                      </span>
+                    </div>
+                    <p th:text="${product.desc}">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Quas nihil laboriosam voluptatem ab consectetur dolorum
+                      id, soluta sunt at culpa commodi totam quod natus qui!
+                    </p>
+                    <div class="bb-single-price-wrap">
+                      <div class="bb-single-price">
+                        <div class="price">
+                          <h5 th:text="${product.price} + ' VND'"></h5>
+                        </div>
+                      </div>
+                      <!-- <div class="bb-single-price">
+                        <div class="sku">
+                          <h5>SKU#: WH12</h5>
+                        </div>
+                        <div class="stock">
+                          <span>In stock</span>
+                        </div>
+                      </div> -->
+                    </div>
+                    <div class="bb-single-list">
+                      <ul>
+                        <li><span>Closure :</span> Hook & Loop</li>
+                        <li><span>Sole :</span> Polyvinyl Chloride</li>
+                        <li><span>Width :</span> Medium</li>
+                        <li>
+                          <span>Outer Material :</span> A-Grade Standard Quality
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="bb-single-pro-weight">
+                      <div class="pro-title">
+                        <h4>Weight</h4>
+                      </div>
+                      <div class="bb-pro-variation-contant">
+                        <ul>
+                          <li class="active-variation">
+                            <span>250g</span>
+                          </li>
+                          <li>
+                            <span>500g</span>
+                          </li>
+                          <li>
+                            <span>1kg</span>
+                          </li>
+                          <li>
+                            <span>2kg</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <form
+                      class="bb-single-qty"
+                      method="post"
+                      action="/gio-hang/add"
+                    >
+                      <input
+                        hidden
+                        class="qty-input"
+                        type="text"
+                        name="productId"
+                        th:value="${product.id}"
+                      />
+                      <div class="qty-plus-minus">
+                        <input
+                          class="qty-input"
+                          type="text"
+                          name="quantity"
+                          value="1"
+                        />
+                      </div>
+                      <div class="buttons">
+                        <button type="submit" class="bb-btn-2">
+                          Thêm vào giỏ hàng
+                        </button>
+                      </div>
+                      <ul class="bb-pro-actions">
+                        <li class="bb-btn-group">
+                          <a href="javascript:void(0)">
+                            <i class="ri-heart-line"></i>
+                          </a>
+                        </li>
+                        <li class="bb-btn-group">
+                          <a
+                            href="javascript:void(0)"
+                            data-link-action="quickview"
+                            title="Quick view"
+                            data-bs-toggle="modal"
+                            data-bs-target="#bry_quickview_modal"
+                          >
+                            <i class="ri-eye-line"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bey-single-accordion">
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseOne"
+                      aria-expanded="true"
+                      aria-controls="collapseOne"
+                    >
+                      Product Detail
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseOne"
+                    class="accordion-collapse collapse show"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <div class="bb-details">
+                        <p>
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Libero, voluptatum. Vitae dolores alias repellat
+                          eligendi, officiis, exercitationem corporis quisquam
+                          delectus cum non recusandae numquam dignissimos
+                          molestiae magnam hic natus. Cumque.
+                        </p>
+                        <div class="details-info">
+                          <ul>
+                            <li>
+                              Any Product types that You want - Simple,
+                              Configurable
+                            </li>
+                            <li>
+                              Downloadable/Digital Products, Virtual Products
+                            </li>
+                            <li>Inventory Management with Backordered items</li>
+                            <li>Flatlock seams throughout.</li>
+                          </ul>
+                          <ul>
+                            <li><span>Highlights</span>Form FactorWhole</li>
+                            <li><span>Seller</span>No Returns Allowed</li>
+                            <li>
+                              <span>Services</span>Cash on Delivery available
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo"
+                    >
+                      information
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseTwo"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <div class="information">
+                        <ul>
+                          <li><span>Weight</span> 500 g</li>
+                          <li><span>Dimensions</span> 17 × 15 × 3 cm</li>
+                          <li><span>Color</span> black,yellow,red</li>
+                          <li><span>Brand</span> Wonder Fort</li>
+                          <li><span>Form Factor</span>Whole</li>
+                          <li><span>Quantity</span>1</li>
+                          <li><span>Container Type</span>Pouch</li>
+                          <li><span>Shelf Life</span>12 Months</li>
+                          <li>
+                            <span>Ingredients</span>Dalchini, Dhaniya, Badi
+                            Elaichi, Laung
+                          </li>
+                          <li>
+                            <span>Other Features</span>Ingredient Type:
+                            Vegetarian
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseThree"
+                      aria-expanded="false"
+                      aria-controls="collapseThree"
+                    >
+                      Reviews
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseThree"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div class="accordion-body">
+                      <div class="bb-reviews">
+                        <div class="reviews-bb-box">
+                          <div class="inner-image">
+                            <img src="assets/img/reviews/1.jpg" alt="img-1" />
+                          </div>
+                          <div class="inner-contact">
+                            <h4>Mariya Lykra</h4>
+                            <div class="bb-pro-rating">
+                              <i class="ri-star-fill"></i>
+                              <i class="ri-star-fill"></i>
+                              <i class="ri-star-fill"></i>
+                              <i class="ri-star-fill"></i>
+                              <i class="ri-star-line"></i>
+                            </div>
+                            <p>
+                              Lorem ipsum dolor sit amet consectetur adipisicing
+                              elit. Illo, hic expedita asperiores eos neque
+                              cumque impedit quam, placeat laudantium soluta
+                              repellendus possimus a distinctio voluptate
+                              veritatis nostrum perspiciatis est! Commodi!
+                            </p>
+                          </div>
+                        </div>
+                        <div class="reviews-bb-box">
+                          <div class="inner-image">
+                            <img src="assets/img/reviews/2.jpg" alt="img-2" />
+                          </div>
+                          <div class="inner-contact">
+                            <h4>Saddika Alard</h4>
+                            <div class="bb-pro-rating">
+                              <i class="ri-star-fill"></i>
+                              <i class="ri-star-fill"></i>
+                              <i class="ri-star-fill"></i>
+                              <i class="ri-star-fill"></i>
+                              <i class="ri-star-line"></i>
+                            </div>
+                            <p>
+                              Lorem ipsum dolor sit amet consectetur adipisicing
+                              elit. Illo, hic expedita asperiores eos neque
+                              cumque impedit quam, placeat laudantium soluta
+                              repellendus possimus a distinctio voluptate
+                              veritatis nostrum perspiciatis est! Commodi!
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="bb-reviews-form">
+                        <h3>Add a Review</h3>
+                        <div class="bb-review-rating">
+                          <span>Your ratting :</span>
+                          <div class="bb-pro-rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-line"></i>
+                          </div>
+                        </div>
+                        <form action="#">
+                          <div class="input-box">
+                            <input
+                              type="text"
+                              placeholder="Name"
+                              name="your-name"
+                            />
+                          </div>
+                          <div class="input-box">
+                            <input
+                              type="email"
+                              placeholder="Email"
+                              name="your-email"
+                            />
+                          </div>
+                          <div class="input-box">
+                            <textarea
+                              name="your-comment"
+                              placeholder="Enter Your Comment"
+                            ></textarea>
+                          </div>
+                          <div class="input-button">
+                            <a href="javascript:void(0)" class="bb-btn-2"
+                              >View Cart</a
+                            >
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related product section -->
+    <section class="section-related-product padding-tb-50">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div
+              class="section-title bb-center"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
+              <div class="section-detail">
+                <h2 class="bb-title">Sản phẩm <span>liên quan</span></h2>
+                <p>Browse The Collection of Top Products.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="bb-deal-slider">
+              <div class="bb-deal-block owl-carousel">
+                <div
+                  class="bb-deal-card"
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
+                  data-aos-delay="200"
+                  th:each="product : ${products}"
+                >
+                  <div class="bb-pro-box">
+                    <div class="bb-pro-img">
+                      <span class="flags">
+                        <span>New</span>
+                      </span>
+                      <a href="javascript:void(0)">
+                        <div class="inner-img">
+                          <img
+                            class="main-img"
+                            th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                            th:alt="${'Product image - ' + product.id}"
+                            onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
+                          />
+                          <img
+                            class="hover-img"
+                            src="/static/assets/img/logo/Sacabanks.svg"
+                            alt="product-1"
+                          />
+                        </div>
+                      </a>
+                      <ul class="bb-pro-actions">
+                        <li class="bb-btn-group">
+                          <a href="javascript:void(0)">
+                            <i class="ri-heart-line"></i>
+                          </a>
+                        </li>
+                        <li class="bb-btn-group">
+                          <a
+                            href="javascript:void(0)"
+                            data-link-action="quickview"
+                            title="Quick view"
+                            data-bs-toggle="modal"
+                            data-bs-target="#bry_quickview_modal"
+                          >
+                            <i class="ri-eye-line"></i>
+                          </a>
+                        </li>
+                        <li class="bb-btn-group">
+                          <a href="#">
+                            <i class="ri-repeat-line"></i>
+                          </a>
+                        </li>
+                        <li class="bb-btn-group">
+                          <a href="javascript:void(0)">
+                            <i class="ri-shopping-bag-4-line"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="bb-pro-contact">
+                      <div class="bb-pro-subtitle">
+                        <a
+                          th:href="@{'/san-pham/' + ${product.slug}}"
+                          th:text="${product.userProviderName}"
+                          >Chocolates</a
+                        >
+                        <span class="bb-pro-rating">
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-fill"></i>
+                          <i class="ri-star-line"></i>
+                        </span>
+                      </div>
+                      <h4 class="bb-pro-title">
+                        <a
+                          th:href="@{'/san-pham/' + ${product.slug}}"
+                          th:text="${product.title}"
+                          >Mixed Fruits Chocolates Pack</a
+                        >
+                      </h4>
+                      <div class="bb-price">
+                        <div class="inner-price">
+                          <span class="new-price" th:text="${product.price}"
+                            >$15</span
+                          >
+                        </div>
+                        <span class="last-items">Out of stock</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <a href="#Top" class="back-to-top result-placeholder">
+      <i class="ri-arrow-up-line"></i>
+      <div class="back-to-top-wrap active-progress">
+        <svg viewBox="-1 -1 102 102">
+          <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+        </svg>
+      </div>
+    </a>
+
+    <!-- Plugins -->
+    <script
+      th:src="@{/static/assets/js/vendor/bootstrap.bundle.min.js}"
+    ></script>
+    <script th:src="@{/static/assets/js/vendor/jquery.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/jquery.zoom.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/aos.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/swiper-bundle.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/smoothscroll.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/owl.carousel.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/slick.min.js}"></script>
+    <script
+      th:src="@{/static/assets/js/vendor/jquery-range-ui.min.js}"
+    ></script>
+
+    <!-- main-js -->
+    <script th:src="@{/static/assets/js/main.js}"></script>
+  </body>
+</html>

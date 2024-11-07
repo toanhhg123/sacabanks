@@ -227,7 +227,7 @@
                       <span class="flags">
                         <span>New</span>
                       </span>
-                      <a href="javascript:void(0)">
+                      <a th:href="${'/san-pham/' + product.slug}">
                         <div class="inner-img">
                           <img
                             class="main-img"
@@ -252,25 +252,38 @@
                           </a>
                         </li>
                         <li class="bb-btn-group">
-                          <a
-                            href="javascript:void(0)"
-                            data-link-action="quickview"
-                            title="Quick View"
-                            data-bs-toggle="modal"
-                            data-bs-target="#bry_quickview_modal"
-                          >
+                          <a th:href="${'/san-pham/' + product.slug}">
                             <i class="ri-eye-line"></i>
                           </a>
                         </li>
                         <li class="bb-btn-group">
-                          <a href="compare.html" title="Compare">
+                          <a href="#" title="Compare">
                             <i class="ri-repeat-line"></i>
                           </a>
                         </li>
                         <li class="bb-btn-group">
-                          <a href="javascript:void(0)" title="Add To Cart">
-                            <i class="ri-shopping-bag-4-line"></i>
-                          </a>
+                          <form action="/gio-hang/add" method="post">
+                            <input
+                              type="text"
+                              name="quantity"
+                              value="1"
+                              hidden
+                            />
+                            <input
+                              name="productId"
+                              th:value="${product.id}"
+                              hidden
+                            />
+                            <button
+                              style="
+                                border: none;
+                                outline: none;
+                                background: transparent;
+                              "
+                            >
+                              <i class="ri-shopping-bag-4-line"></i>
+                            </button>
+                          </form>
                         </li>
                       </ul>
                     </div>
@@ -448,7 +461,7 @@
                         <span class="flags">
                           <span>New</span>
                         </span>
-                        <a href="javascript:void(0)">
+                        <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
                             <img
                               class="main-img"
@@ -473,32 +486,45 @@
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a
-                              href="javascript:void(0)"
-                              data-link-action="quickview"
-                              title="Quick View"
-                              data-bs-toggle="modal"
-                              data-bs-target="#bry_quickview_modal"
-                            >
+                            <a th:href="${'/san-pham/' + product.slug}">
                               <i class="ri-eye-line"></i>
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="compare.html" title="Compare">
+                            <a href="#" title="Compare">
                               <i class="ri-repeat-line"></i>
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="javascript:void(0)" title="Add To Cart">
-                              <i class="ri-shopping-bag-4-line"></i>
-                            </a>
+                            <form action="/gio-hang/add" method="post">
+                              <input
+                                type="text"
+                                name="quantity"
+                                value="1"
+                                hidden
+                              />
+                              <input
+                                name="productId"
+                                th:value="${product.id}"
+                                hidden
+                              />
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-shopping-bag-4-line"></i>
+                              </button>
+                            </form>
                           </li>
                         </ul>
                       </div>
                       <div class="bb-pro-contact">
                         <div class="bb-pro-subtitle">
                           <a
-                            th:href="@{'/product/' + ${product.slug}}"
+                            th:href="@{'/san-pham/' + ${product.slug}}"
                             th:text="${product.userProviderName}"
                             >Snacks</a
                           >
@@ -512,7 +538,7 @@
                         </div>
                         <h4 class="bb-pro-title">
                           <a
-                            th:href="@{'/product/' + ${product.slug}}"
+                            th:href="@{'/san-pham/' + ${product.slug}}"
                             th:text="${product.title}"
                           >
                             Product Name
@@ -546,7 +572,7 @@
                         <span class="flags">
                           <span>New</span>
                         </span>
-                        <a href="javascript:void(0)">
+                        <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
                             <img
                               class="main-img"
@@ -571,32 +597,45 @@
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a
-                              href="javascript:void(0)"
-                              data-link-action="quickview"
-                              title="Quick View"
-                              data-bs-toggle="modal"
-                              data-bs-target="#bry_quickview_modal"
-                            >
+                            <a th:href="${'/san-pham/' + product.slug}">
                               <i class="ri-eye-line"></i>
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="compare.html" title="Compare">
+                            <a href="#" title="Compare">
                               <i class="ri-repeat-line"></i>
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="javascript:void(0)" title="Add To Cart">
-                              <i class="ri-shopping-bag-4-line"></i>
-                            </a>
+                            <form action="/gio-hang/add" method="post">
+                              <input
+                                type="text"
+                                name="quantity"
+                                value="1"
+                                hidden
+                              />
+                              <input
+                                name="productId"
+                                th:value="${product.id}"
+                                hidden
+                              />
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-shopping-bag-4-line"></i>
+                              </button>
+                            </form>
                           </li>
                         </ul>
                       </div>
                       <div class="bb-pro-contact">
                         <div class="bb-pro-subtitle">
                           <a
-                            th:href="@{'/product/' + ${product.slug}}"
+                            th:href="@{'/san-pham/' + ${product.slug}}"
                             th:text="${product.userProviderName}"
                             >Snacks</a
                           >
@@ -610,7 +649,7 @@
                         </div>
                         <h4 class="bb-pro-title">
                           <a
-                            th:href="@{'/product/' + ${product.slug}}"
+                            th:href="@{'/san-pham/' + ${product.slug}}"
                             th:text="${product.title}"
                           >
                             Product Name
@@ -644,7 +683,7 @@
                         <span class="flags">
                           <span>New</span>
                         </span>
-                        <a href="javascript:void(0)">
+                        <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
                             <img
                               class="main-img"
@@ -669,32 +708,45 @@
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a
-                              href="javascript:void(0)"
-                              data-link-action="quickview"
-                              title="Quick View"
-                              data-bs-toggle="modal"
-                              data-bs-target="#bry_quickview_modal"
-                            >
+                            <a th:href="${'/san-pham/' + product.slug}">
                               <i class="ri-eye-line"></i>
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="compare.html" title="Compare">
+                            <a href="#" title="Compare">
                               <i class="ri-repeat-line"></i>
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="javascript:void(0)" title="Add To Cart">
-                              <i class="ri-shopping-bag-4-line"></i>
-                            </a>
+                            <form action="/gio-hang/add" method="post">
+                              <input
+                                type="text"
+                                name="quantity"
+                                value="1"
+                                hidden
+                              />
+                              <input
+                                name="productId"
+                                th:value="${product.id}"
+                                hidden
+                              />
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-shopping-bag-4-line"></i>
+                              </button>
+                            </form>
                           </li>
                         </ul>
                       </div>
                       <div class="bb-pro-contact">
                         <div class="bb-pro-subtitle">
                           <a
-                            th:href="@{'/product/' + ${product.slug}}"
+                            th:href="@{'/san-pham/' + ${product.slug}}"
                             th:text="${product.userProviderName}"
                             >Snacks</a
                           >
@@ -708,7 +760,7 @@
                         </div>
                         <h4 class="bb-pro-title">
                           <a
-                            th:href="@{'/product/' + ${product.slug}}"
+                            th:href="@{'/san-pham/' + ${product.slug}}"
                             th:text="${product.title}"
                           >
                             Product Name
@@ -742,7 +794,7 @@
                         <span class="flags">
                           <span>New</span>
                         </span>
-                        <a href="javascript:void(0)">
+                        <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
                             <img
                               class="main-img"
@@ -767,32 +819,45 @@
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a
-                              href="javascript:void(0)"
-                              data-link-action="quickview"
-                              title="Quick View"
-                              data-bs-toggle="modal"
-                              data-bs-target="#bry_quickview_modal"
-                            >
+                            <a th:href="${'/san-pham/' + product.slug}">
                               <i class="ri-eye-line"></i>
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="compare.html" title="Compare">
+                            <a href="#" title="Compare">
                               <i class="ri-repeat-line"></i>
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="javascript:void(0)" title="Add To Cart">
-                              <i class="ri-shopping-bag-4-line"></i>
-                            </a>
+                            <form action="/gio-hang/add" method="post">
+                              <input
+                                type="text"
+                                name="quantity"
+                                value="1"
+                                hidden
+                              />
+                              <input
+                                name="productId"
+                                th:value="${product.id}"
+                                hidden
+                              />
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-shopping-bag-4-line"></i>
+                              </button>
+                            </form>
                           </li>
                         </ul>
                       </div>
                       <div class="bb-pro-contact">
                         <div class="bb-pro-subtitle">
                           <a
-                            th:href="@{'/product/' + ${product.slug}}"
+                            th:href="@{'/san-pham/' + ${product.slug}}"
                             th:text="${product.userProviderName}"
                             >Snacks</a
                           >
@@ -806,7 +871,7 @@
                         </div>
                         <h4 class="bb-pro-title">
                           <a
-                            th:href="@{'/product/' + ${product.slug}}"
+                            th:href="@{'/san-pham/' + ${product.slug}}"
                             th:text="${product.title}"
                           >
                             Product Name
@@ -857,7 +922,7 @@
                   ></span>
                   <h4>
                     <a
-                      th:href="${'/bai-dang/' + blog.slug}"
+                      th:href="${'/bai-viet/' + blog.slug}"
                       th:text="${blog.title}"
                     >
                       Marketing Guide: 5 Steps to Success.
@@ -883,12 +948,16 @@
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-delay="200"
+                th:each="vendor: ${vendors}"
               >
                 <div class="instagram-img">
                   <a href="javascript:void(0)">
                     <img
-                      src="/static/assets/img/instagram/1.jpg"
+                      th:src="${'https://api.sacabanks.vn/uploads/' + vendor.avatar}"
                       alt="instagram-1"
+                      width="100"
+                      height="100"
+                      onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                     />
                   </a>
                 </div>
@@ -901,7 +970,7 @@
 
     <div th:replace="~{fragments/footer :: footer}"></div>
 
-    <!-- Cart sidebar -->
+    <!-- Cart sidebar
     <div class="bb-side-cart-overlay"></div>
     <div class="bb-side-cart">
       <div class="row h-full">
@@ -950,7 +1019,7 @@
                       </a>
                     </li>
                     <li class="bb-btn-group">
-                      <a href="compare.html" title="Compare">
+                      <a href="#" title="Compare">
                         <i class="ri-repeat-line"></i>
                       </a>
                     </li>
@@ -1165,7 +1234,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Category Popup -->
     <div class="bb-category-sidebar">

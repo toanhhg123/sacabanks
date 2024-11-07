@@ -10,4 +10,6 @@ public interface CartRepository extends BaseRepository<CartModel, UUID> {
     List<CartModel> findByUserId(UUID userId);
 
     Optional<CartModel> findByProductIdAndUserId(UUID productId, UUID userId);
+
+    long countByUserId(UUID userId);
 }

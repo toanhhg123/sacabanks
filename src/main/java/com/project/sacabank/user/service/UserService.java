@@ -110,6 +110,23 @@ public class UserService {
 
   }
 
+  public List<User> getAllUserVendor(String keyword, Optional<Integer> page, Integer size) {
+    Specification<User> spec = Specification.where(null);
+    var pageNumber = page.isPresent() && page.get() > 0 ? page.get() - 1 : 0;
+
+    if (keyword != null && !keyword.isEmpty()) {
+      spec = spec.and(UserSpecifications.usernameIsLike(keyword));
+      spec = spec.or(UserSpecifications.phoneNumberIsLike(keyword));
+      spec = spec.or(UserSpecifications.emailIsLike(keyword));
+    }
+
+    var role_db = roleRepository.findByName(EnumNameRole.VENDOR);
+    spec = spec.and(UserSpecifications.roleIsEqual(role_db.get()));
+
+    return userRepository.findAll(spec, PageRequest.of(pageNumber, size));
+
+  }
+
   public User create(UserDto userCreate) throws MessagingException {
     boolean existsByEmail = userRepository.existsByEmail(userCreate.getEmail());
     boolean existsByPhoneNumber = userRepository.existsByPhoneNumber(userCreate.getPhoneNumber());

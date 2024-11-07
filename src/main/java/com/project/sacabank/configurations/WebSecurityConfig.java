@@ -77,6 +77,7 @@ public class WebSecurityConfig {
 				.authorizeHttpRequests(
 						auth -> auth
 								.requestMatchers(
+
 										AUTH_PATH,
 										API_REGISTER_VENDOR_PATH,
 										ROLE_PATH,
@@ -95,9 +96,12 @@ public class WebSecurityConfig {
 										"/configuration/security",
 										"/webjars/**",
 										"/swagger-ui/**",
-										"/static/**")
+										"/static/**"
+
+								)
 								.permitAll()
 								.requestMatchers(
+
 										HttpMethod.GET,
 										"/xxx/**",
 										"/uploads/**",
@@ -111,17 +115,25 @@ public class WebSecurityConfig {
 										"/api/blog/**",
 										"/api/banner/**",
 										"/api/product_comment/product/preview/**",
-										"/api/product_document/**")
+										"/api/product_document/**",
+										"/san-pham/**",
+										"/bai-viet/**"
+
+								)
 								.permitAll()
 								.requestMatchers(
+
 										"/",
 										"/home",
+										"/san-pham",
 										"/cart",
 										"/profile",
 										"/xxx/**",
 										"/static/**",
 										"/xxx/styles/**",
-										"/uploads/**")
+										"/uploads/**"
+
+								)
 								.permitAll()
 								.anyRequest()
 								.authenticated())
