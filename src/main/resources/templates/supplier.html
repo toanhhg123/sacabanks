@@ -95,23 +95,21 @@
               data-aos-delay="200"
             >
               <div class="section-detail">
-                <h2 class="bb-title">
-                  frequently asked <span>questions</span>
-                </h2>
-                <p>Customer service management.</p>
+                <h2 class="bb-title">Nhà cung <span>cấp</span></h2>
+                <p>Danh sách những nhà cung cấp trong hệ thông Sacabanks.</p>
               </div>
             </div>
           </div>
-          <div class="col-lg-3 mb-24">
+          <div class="col-lg-12 mb-24">
             <div
               class="bb-faq-contact"
               data-aos="fade-up"
               data-aos-duration="1000"
               data-aos-delay="600"
             >
-              <div class="accordion" id="accordionExample">
+              <div class="accordion row">
                 <div
-                  class="accordion-item"
+                  class="accordion-item col-lg-3 col-sm-6"
                   th:each="item, itemStat : ${suppliers}"
                 >
                   <h2
@@ -123,19 +121,26 @@
                       type="button"
                       data-bs-toggle="collapse"
                       th:data-bs-target="'#collapse' + ${itemStat.index}"
-                      aria-expanded="true"
                       th:aria-controls="'collapse' + ${itemStat.index}"
-                      th:text="${item.title}"
+                      th:text="${item.firstLetter}"
                     ></button>
                   </h2>
                   <div
                     th:id="'collapse' + ${itemStat.index}"
-                    class="accordion-collapse collapse"
-                    th:classappend="${itemStat.index == 0} ? 'show'"
+                    class="accordion-collapse collapse show"
                     th:aria-labelledby="'heading' + ${itemStat.index}"
-                    data-bs-parent="#accordionExample"
                   >
-                    <div class="accordion-body" th:text="${item.content}"></div>
+                    <div class="accordion-body">
+                      <ul>
+                        <li th:each="companyInfo : ${item.companyInfos}">
+                          <a
+                            th:href="${'/nha-cung-cap/' + companyInfo.id}"
+                            th:text="${companyInfo.shortName}"
+                          >
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>

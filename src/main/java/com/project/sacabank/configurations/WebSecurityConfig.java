@@ -117,7 +117,8 @@ public class WebSecurityConfig {
 										"/api/product_comment/product/preview/**",
 										"/api/product_document/**",
 										"/san-pham/**",
-										"/bai-viet/**"
+										"/bai-viet/**",
+										"/nha-cung-cap/**"
 
 								)
 								.permitAll()

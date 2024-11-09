@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.sacabank.base.BaseController;
+import com.project.sacabank.base.PaginationResponse;
 import com.project.sacabank.blog.BlogRepository;
 import com.project.sacabank.blog.BlogService;
 import com.project.sacabank.cart.CartService;
 import com.project.sacabank.cart.dto.CartDto;
+import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.product.model.Product;
 import com.project.sacabank.product.service.ProductService;
 import com.project.sacabank.repositories.CategoryRepository;
+import com.project.sacabank.user.model.User;
 import com.project.sacabank.user.repository.UserRepository;
 import com.project.sacabank.user.service.UserService;
 
@@ -149,11 +152,25 @@ public class HomeController extends BaseController {
     @GetMapping("/nha-cung-cap")
     public String viewSupplier(Model model) {
 
-        var suppliers = userRepository.getCompanyNamesByFirstLetter();
+        var suppliers = homeService.getSupplierGroupFirstName();
 
         model.addAttribute("suppliers", suppliers);
 
         return "supplier";
+
+    }
+
+    @GetMapping("/nha-cung-cap/{id}")
+    public Object viewSupplierDetails(Model model, @PathVariable UUID id) {
+
+        User user = userRepository.findById(id).orElseThrow(() -> new CustomException("Khong tim thay"));
+        PaginationResponse products = productService.getByUserId(user, Optional.empty(), Optional.empty(),
+                Optional.empty());
+
+        model.addAttribute("user", user);
+        model.addAttribute("products", products.getList());
+
+        return products;
 
     }
 

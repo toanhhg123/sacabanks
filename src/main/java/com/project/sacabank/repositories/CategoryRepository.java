@@ -46,6 +46,9 @@ public interface CategoryRepository extends BaseRepository<Category, UUID> {
             "GROUP BY c.id", nativeQuery = true)
     List<CategoryWithCountProduct> findAllCategoriesWithProductCount();
 
+    @Query("SELECT c FROM Category c WHERE c.categoryId IS NULL")
+    List<Category> findCategoriesWithNullCategoryId();
+
 }
 
 // WITH RECURSIVE

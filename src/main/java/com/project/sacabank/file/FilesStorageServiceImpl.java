@@ -3,6 +3,7 @@ package com.project.sacabank.file;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -131,7 +132,6 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
     BufferedImage originalImage = ImageIO.read(filePath.toFile());
 
-    // Resize the image to 250x250 pixels
     BufferedImage resizedImage = resizeImage(originalImage, sizeImage.width(), sizeImage.height());
 
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -145,7 +145,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
   private BufferedImage resizeImage(BufferedImage originalImage, int width, int height) {
     Image resultingImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-    BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
     Graphics2D g2d = outputImage.createGraphics();
     g2d.drawImage(resultingImage, 0, 0, null);
@@ -153,4 +153,5 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
     return outputImage;
   }
+
 }

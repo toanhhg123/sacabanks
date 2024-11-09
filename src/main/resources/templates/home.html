@@ -58,11 +58,7 @@
   </head>
 
   <body>
-    <!-- Loader -->
-    <div class="bb-loader">
-      <img src="/static/assets/img/logo/loader.png" alt="loader" />
-      <span class="loader"></span>
-    </div>
+    <h1 th:text="${categoriesHeader}"></h1>
 
     <div th:replace="~{fragments/header :: header}"></div>
 
