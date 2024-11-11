@@ -227,10 +227,10 @@
                             class="main-img"
                             th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
                             th:alt="${'Product image - ' + product.id}"
+                            onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                             width="300"
                             height="300"
                             alt="product-1"
-                            onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                           />
                           <img
                             class="hover-img"
@@ -1299,32 +1299,11 @@
                 </div>
                 <div class="bb-tags">
                   <ul>
-                    <li>
-                      <a href="javascript:void(0)">Clothes</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)">Fruits</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)">Snacks</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)">Dairy</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)">Seafood</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)">Toys</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)">perfume</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)">jewelry</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)">Bags</a>
+                    <li th:each="category : ${categoriesHeader}">
+                      <a
+                        th:href="${'/san-pham?categoryId=' + category.id}"
+                        th:text="${category.name}"
+                      ></a>
                     </li>
                   </ul>
                 </div>
@@ -1334,119 +1313,71 @@
               <div class="row">
                 <div class="col-12">
                   <div class="sub-title">
-                    <h4>Explore Categories</h4>
-                  </div>
-                </div>
-                <div class="col-xl-2 col-md-4 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-box category-items-1">
-                    <div class="category-image">
-                      <img
-                        src="/static/assets/img/category/1.svg"
-                        alt="category"
-                      />
-                    </div>
-                    <div class="category-sub-contact">
-                      <h5>
-                        <a href="shop-left-sidebar-col-3.html">vegetables</a>
-                      </h5>
-                      <p>485 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-2 col-md-4 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-box category-items-2">
-                    <div class="category-image">
-                      <img
-                        src="/static/assets/img/category/2.svg"
-                        alt="category"
-                      />
-                    </div>
-                    <div class="category-sub-contact">
-                      <h5><a href="shop-left-sidebar-col-3.html">Fruits</a></h5>
-                      <p>291 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-2 col-md-4 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-box category-items-3">
-                    <div class="category-image">
-                      <img
-                        src="/static/assets/img/category/3.svg"
-                        alt="category"
-                      />
-                    </div>
-                    <div class="category-sub-contact">
-                      <h5>
-                        <a href="shop-left-sidebar-col-3.html">Cold Drinks</a>
-                      </h5>
-                      <p>49 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-2 col-md-4 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-box category-items-4">
-                    <div class="category-image">
-                      <img
-                        src="/static/assets/img/category/4.svg"
-                        alt="category"
-                      />
-                    </div>
-                    <div class="category-sub-contact">
-                      <h5><a href="shop-left-sidebar-col-3.html">Bakery</a></h5>
-                      <p>08 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-2 col-md-4 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-box category-items-2">
-                    <div class="category-image">
-                      <img
-                        src="/static/assets/img/category/5.svg"
-                        alt="category"
-                      />
-                    </div>
-                    <div class="category-sub-contact">
-                      <h5>
-                        <a href="shop-left-sidebar-col-3.html">Fast Food</a>
-                      </h5>
-                      <p>291 items</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-2 col-md-4 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-box category-items-3">
-                    <div class="category-image">
-                      <img
-                        src="/static/assets/img/category/6.svg"
-                        alt="category"
-                      />
-                    </div>
-                    <div class="category-sub-contact">
-                      <h5><a href="shop-left-sidebar-col-3.html">Snacks</a></h5>
-                      <p>49 items</p>
-                    </div>
+                    <h4>Danh Mục</h4>
                   </div>
                 </div>
               </div>
             </div>
+
+            <div
+              class="swiper swiper-category-popup"
+              th:unless="${#lists.isEmpty(categoriesHeader)}"
+              style="margin-bottom: 1rem"
+            >
+              <div class="swiper-wrapper">
+                <div
+                  class="swiper-slide"
+                  th:each="category : ${categoriesHeader}"
+                >
+                  <div
+                    class="bb-category-box category-items-1"
+                    style="height: 160px"
+                  >
+                    <div class="category-image">
+                      <img
+                        th:src="${'https://api.sacabanks.vn/uploads/' + category.image}"
+                        th:alt="${'Product image - ' + category.id}"
+                        onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
+                      />
+                    </div>
+                    <div class="category-sub-contact">
+                      <h5>
+                        <a
+                          th:href="${'/san-pham?categoryId=' + category.id}"
+                          th:text="${category.name}"
+                        ></a>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+
             <div class="col-12">
               <div class="row">
                 <div class="col-12">
                   <div class="sub-title">
-                    <h4>Related products</h4>
+                    <h4>Sản phẩm liên quan</h4>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-cart">
+                <div
+                  class="col-lg-4 col-md-6 col-sm-6 col-12 mb-24"
+                  th:each="product : ${products}"
+                >
+                  <div class="bb-category-cart" style="height: 100%">
                     <a href="javascript:void(0)" class="pro-img">
                       <img
-                        src="/static/assets/img/new-product/1.jpg"
-                        alt="new-product-1"
+                        th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                        th:alt="${'Product image - ' + product.id}"
+                        onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                       />
                     </a>
                     <div class="side-contact">
                       <h4 class="bb-pro-title">
-                        <a href="product-left-sidebar.html"
+                        <a
+                          th:href="${'/san-pham/' + product.slug}"
+                          th:text="${product.title}"
                           >Ground Nuts Oil Pack</a
                         >
                       </h4>
@@ -1458,148 +1389,10 @@
                         <i class="ri-star-line"></i>
                       </span>
                       <div class="inner-price">
-                        <span class="new-price">$15</span>
-                        <span class="old-price">$22</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-cart">
-                    <a href="javascript:void(0)" class="pro-img">
-                      <img
-                        src="/static/assets/img/new-product/2.jpg"
-                        alt="new-product-2"
-                      />
-                    </a>
-                    <div class="side-contact">
-                      <h4 class="bb-pro-title">
-                        <a href="product-left-sidebar.html"
-                          >Organic Litchi Juice</a
-                        >
-                      </h4>
-                      <span class="bb-pro-rating">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-line"></i>
-                      </span>
-                      <div class="inner-price">
-                        <span class="new-price">$25</span>
-                        <span class="old-price">$30</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-cart">
-                    <a href="javascript:void(0)" class="pro-img">
-                      <img
-                        src="/static/assets/img/new-product/3.jpg"
-                        alt="new-product-3"
-                      />
-                    </a>
-                    <div class="side-contact">
-                      <h4 class="bb-pro-title">
-                        <a href="product-left-sidebar.html"
-                          >Spicy Banana Chips</a
-                        >
-                      </h4>
-                      <span class="bb-pro-rating">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-line"></i>
-                      </span>
-                      <div class="inner-price">
-                        <span class="new-price">$01</span>
-                        <span class="old-price">$02</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-cart">
-                    <a href="javascript:void(0)" class="pro-img">
-                      <img
-                        src="/static/assets/img/new-product/4.jpg"
-                        alt="new-product-4"
-                      />
-                    </a>
-                    <div class="side-contact">
-                      <h4 class="bb-pro-title">
-                        <a href="product-left-sidebar.html"
-                          >Spicy Potato Chips</a
-                        >
-                      </h4>
-                      <span class="bb-pro-rating">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-line"></i>
-                      </span>
-                      <div class="inner-price">
-                        <span class="new-price">$25</span>
-                        <span class="old-price">$35</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-cart">
-                    <a href="javascript:void(0)" class="pro-img">
-                      <img
-                        src="/static/assets/img/new-product/5.jpg"
-                        alt="new-product-5"
-                      />
-                    </a>
-                    <div class="side-contact">
-                      <h4 class="bb-pro-title">
-                        <a href="product-left-sidebar.html"
-                          >Black Pepper Spice</a
-                        >
-                      </h4>
-                      <span class="bb-pro-rating">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-line"></i>
-                      </span>
-                      <div class="inner-price">
-                        <span class="new-price">$32</span>
-                        <span class="old-price">$35</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-24">
-                  <div class="bb-category-cart">
-                    <a href="javascript:void(0)" class="pro-img">
-                      <img
-                        src="/static/assets/img/new-product/6.jpg"
-                        alt="new-product-6"
-                      />
-                    </a>
-                    <div class="side-contact">
-                      <h4 class="bb-pro-title">
-                        <a href="product-left-sidebar.html"
-                          >Small Chili Spice</a
-                        >
-                      </h4>
-                      <span class="bb-pro-rating">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-line"></i>
-                      </span>
-                      <div class="inner-price">
-                        <span class="new-price">$41</span>
-                        <span class="old-price">$45</span>
+                        <span
+                          class="new-price"
+                          th:text="${'$'+product.price}"
+                        ></span>
                       </div>
                     </div>
                   </div>
@@ -1751,5 +1544,6 @@
 
     <!-- main-js -->
     <script th:src="@{/static/assets/js/main.js}"></script>
+    <script th:src="@{/static/assets/js/slider-category-popup.js}"></script>
   </body>
 </html>

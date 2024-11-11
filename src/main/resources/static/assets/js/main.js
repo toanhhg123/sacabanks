@@ -119,7 +119,7 @@
       delay: 5000,
     },
     effect: "fade",
-    autoplay: false,
+    autoplay: true,
     autoHeight: true,
     speed: 2500,
     pagination: {

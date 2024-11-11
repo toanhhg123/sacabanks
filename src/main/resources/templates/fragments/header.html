@@ -58,6 +58,11 @@
                         <div class="custom-select">
                           <select name="categoryId">
                             <option value="">Tất cả</option>
+                            <option
+                              th:each="category: ${categoriesHeader}"
+                              th:value="${category.id}"
+                              th:text="${category.name}"
+                            ></option>
                           </select>
                         </div>
                       </div>
@@ -219,23 +224,34 @@
                     <li class="nav-item">
                       <a class="nav-link" href="/">Trang Chủ</a>
                     </li>
-                    <!-- <li class="nav-item bb-main-dropdown">
+                    <li class="nav-item bb-main-dropdown">
                       <a
                         class="nav-link bb-dropdown-item"
                         href="javascript:void(0)"
                         >Danh mục</a
                       >
                       <ul class="mega-menu">
-                        <li>
-                          <ul class="mega-block">
-                            <li class="menu_title">
-                              <a href="javascript:void(0)">Classic</a>
+                        <li style="width: 100%">
+                          <ul
+                            class="mega-block"
+                            style="
+                              display: grid;
+                              grid-template-columns: repeat(4, 1fr);
+                              gap: 1rem;
+                              width: 100%;
+                            "
+                          >
+                            <li th:each="category: ${categoriesHeader}">
+                              <a
+                                th:href="${'/san-pham?categoryId=' + category.id}"
+                                th:text="${category.name}"
+                              >
+                              </a>
                             </li>
-                            <li><a href="#">Chưa có dữ liêu</a></li>
                           </ul>
                         </li>
                       </ul>
-                    </li> -->
+                    </li>
                     <li class="nav-item">
                       <a class="nav-link" href="/san-pham">Kho Hàng</a>
                     </li>
