@@ -53,16 +53,11 @@
                 </div>
                 <div class="cols">
                   <div class="header-search">
-                    <form class="bb-btn-group-form" action="#">
+                    <form class="bb-btn-group-form" action="/san-pham">
                       <div class="inner-select">
                         <div class="custom-select">
-                          <select>
-                            <option value="option1">
-                              Genaral Requirements
-                            </option>
-                            <option value="option2">Existing Conditions</option>
-                            <option value="option3">Concrete</option>
-                            <option value="option4">Masonry</option>
+                          <select name="categoryId">
+                            <option value="">Tất cả</option>
                           </select>
                         </div>
                       </div>
@@ -70,6 +65,7 @@
                         class="form-control bb-search-bar"
                         placeholder="Tìm Kiếm Sản Phẩm..."
                         type="text"
+                        name="search"
                       />
                       <button class="submit" type="submit">
                         <i class="ri-search-line"></i>
