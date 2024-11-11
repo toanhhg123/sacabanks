@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sacabanks - Construction Material Bank."
+    />
+    <meta name="keywords" content="" />
+    <title>Sacabanks - Construction Material Bank</title>
+
+    <!-- Site Favicon -->
+    <link
+      rel="icon"
+      th:href="@{/static/assets/img/favicon/favicon.ico}"
+      type="image/x-icon"
+    />
+
+    <!-- Css All Plugins Files -->
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/bootstrap.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/remixicon.css}"
+    />
+    <link rel="stylesheet" th:href="@{/static/assets/css/vendor/aos.css}" />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/swiper-bundle.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/owl.carousel.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/slick.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/animate.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/jquery-range-ui.css}"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" th:href="@{/static/assets/css/style.css}" />
+  </head>
+
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Breadcrumb -->
+    <section class="section-breadcrumb margin-b-50">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row bb-breadcrumb-inner">
+              <div class="col-md-6 col-sm-12">
+                <h2 class="bb-breadcrumb-title">Nhà cung cấp</h2>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <ul class="bb-breadcrumb-list">
+                  <li class="bb-breadcrumb-item">
+                    <a href="/">Trang chủ</a>
+                  </li>
+                  <li><i class="ri-arrow-right-double-fill"></i></li>
+                  <li class="bb-breadcrumb-item active">Nhà cung cấp</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Banner-two -->
+    <section
+      class="section-banner-two margin-tb-50"
+      th:style="'background-image: url(' +  '/' + ${user.banner} + ');'"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col-12 banner-justify-box-contact">
+            <div
+              class="banner-two-box"
+              style="
+                max-width: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+              "
+            >
+              <img
+                th:src="${'https://api.sacabanks.vn/uploads/' + user.avatar}"
+                alt=""
+              />
+              <div>
+                <span th:text="${user.companyName}"></span>
+                <h4 th:text="${user.shortNameCompany}"></h4>
+                <span>Liên hệ</span><br />
+                <span th:text="${user.address}"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Product tab Area -->
+    <section class="section-product-tabs padding-tb-50">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div
+              class="section-title bb-deal"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
+              <div class="section-detail">
+                <h2 class="bb-title">Sản Phẩm Mới</h2>
+              </div>
+              <div class="bb-pro-tab">
+                <ul class="bb-pro-tab-nav nav">
+                  <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#all">All</a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      data-bs-toggle="tab"
+                      href="#snack"
+                      >Vật Liệu</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#fruit"
+                      >Công Nghệ</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#veg"
+                      >Dụng Cụ</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-minus-24">
+          <div class="col">
+            <div class="tab-content">
+              <!-- 1st Product tab start -->
+              <div class="tab-pane fade" id="all">
+                <div class="row" th:if="${!products.empty}">
+                  <div
+                    class="col-xl-3 col-md-4 col-6 mb-24 bb-product-box"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    data-aos-delay="200"
+                    th:each="product : ${products}"
+                  >
+                    <div class="bb-pro-box">
+                      <div class="bb-pro-img">
+                        <span class="flags">
+                          <span>New</span>
+                        </span>
+                        <a th:href="${'/san-pham/' + product.slug}">
+                          <div class="inner-img">
+                            <img
+                              class="main-img"
+                              th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                              th:alt="${'Product image - ' + product.id}"
+                              alt="product-1"
+                              width="300"
+                              height="300"
+                              onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
+                            />
+                            <img
+                              class="hover-img"
+                              src="/static/assets/img/logo/Sacabanks.svg"
+                              alt="product-1"
+                            />
+                          </div>
+                        </a>
+                        <ul class="bb-pro-actions">
+                          <li class="bb-btn-group">
+                            <a href="javascript:void(0)" title="Wishlist">
+                              <i class="ri-heart-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <a th:href="${'/san-pham/' + product.slug}">
+                              <i class="ri-eye-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <a href="#" title="Compare">
+                              <i class="ri-repeat-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <form action="/gio-hang/add" method="post">
+                              <input
+                                type="text"
+                                name="quantity"
+                                value="1"
+                                hidden
+                              />
+                              <input
+                                name="productId"
+                                th:value="${product.id}"
+                                hidden
+                              />
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-shopping-bag-4-line"></i>
+                              </button>
+                            </form>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="bb-pro-contact">
+                        <div class="bb-pro-subtitle">
+                          <a
+                            th:href="@{'/san-pham/' + ${product.slug}}"
+                            th:text="${product.userProviderName}"
+                            >Snacks</a
+                          >
+                          <span class="bb-pro-rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-line"></i>
+                          </span>
+                        </div>
+                        <h4 class="bb-pro-title">
+                          <a
+                            th:href="@{'/san-pham/' + ${product.slug}}"
+                            th:text="${product.title}"
+                          >
+                            Product Name
+                          </a>
+                        </h4>
+                        <div class="bb-price">
+                          <div class="inner-price">
+                            <span class="new-price" th:text="${product.price}"
+                              >$15</span
+                            >
+                          </div>
+                          <span class="last-items">Out of stock</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- 2nd Product tab start -->
+              <div class="tab-pane fade show active" id="snack">
+                <div class="row" th:if="${!products.empty}">
+                  <div
+                    class="col-xl-3 col-md-4 col-6 mb-24 bb-product-box"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    data-aos-delay="200"
+                    th:each="product : ${products}"
+                  >
+                    <div class="bb-pro-box">
+                      <div class="bb-pro-img">
+                        <span class="flags">
+                          <span>New</span>
+                        </span>
+                        <a th:href="${'/san-pham/' + product.slug}">
+                          <div class="inner-img">
+                            <img
+                              class="main-img"
+                              th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                              th:alt="${'Product image - ' + product.id}"
+                              width="300"
+                              height="300"
+                              alt="product-1"
+                              onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
+                            />
+                            <img
+                              class="hover-img"
+                              src="/static/assets/img/logo/Sacabanks.svg"
+                              alt="product-1"
+                            />
+                          </div>
+                        </a>
+                        <ul class="bb-pro-actions">
+                          <li class="bb-btn-group">
+                            <a href="javascript:void(0)" title="Wishlist">
+                              <i class="ri-heart-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <a th:href="${'/san-pham/' + product.slug}">
+                              <i class="ri-eye-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <a href="#" title="Compare">
+                              <i class="ri-repeat-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <form action="/gio-hang/add" method="post">
+                              <input
+                                type="text"
+                                name="quantity"
+                                value="1"
+                                hidden
+                              />
+                              <input
+                                name="productId"
+                                th:value="${product.id}"
+                                hidden
+                              />
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-shopping-bag-4-line"></i>
+                              </button>
+                            </form>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="bb-pro-contact">
+                        <div class="bb-pro-subtitle">
+                          <a
+                            th:href="@{'/san-pham/' + ${product.slug}}"
+                            th:text="${product.userProviderName}"
+                            >Snacks</a
+                          >
+                          <span class="bb-pro-rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-line"></i>
+                          </span>
+                        </div>
+                        <h4 class="bb-pro-title">
+                          <a
+                            th:href="@{'/san-pham/' + ${product.slug}}"
+                            th:text="${product.title}"
+                          >
+                            Product Name
+                          </a>
+                        </h4>
+                        <div class="bb-price">
+                          <div class="inner-price">
+                            <span class="new-price" th:text="${product.price}"
+                              >$15</span
+                            >
+                          </div>
+                          <span class="last-items">Out of stock</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- 3rd Product tab start -->
+              <div class="tab-pane fade" id="fruit">
+                <div class="row" th:if="${!products.empty}">
+                  <div
+                    class="col-xl-3 col-md-4 col-6 mb-24 bb-product-box"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    data-aos-delay="200"
+                    th:each="product : ${products}"
+                  >
+                    <div class="bb-pro-box">
+                      <div class="bb-pro-img">
+                        <span class="flags">
+                          <span>New</span>
+                        </span>
+                        <a th:href="${'/san-pham/' + product.slug}">
+                          <div class="inner-img">
+                            <img
+                              class="main-img"
+                              th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                              th:alt="${'Product image - ' + product.id}"
+                              width="300"
+                              height="300"
+                              alt="product-1"
+                              onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
+                            />
+                            <img
+                              class="hover-img"
+                              src="/static/assets/img/logo/Sacabanks.svg"
+                              alt="product-1"
+                            />
+                          </div>
+                        </a>
+                        <ul class="bb-pro-actions">
+                          <li class="bb-btn-group">
+                            <a href="javascript:void(0)" title="Wishlist">
+                              <i class="ri-heart-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <a th:href="${'/san-pham/' + product.slug}">
+                              <i class="ri-eye-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <a href="#" title="Compare">
+                              <i class="ri-repeat-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <form action="/gio-hang/add" method="post">
+                              <input
+                                type="text"
+                                name="quantity"
+                                value="1"
+                                hidden
+                              />
+                              <input
+                                name="productId"
+                                th:value="${product.id}"
+                                hidden
+                              />
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-shopping-bag-4-line"></i>
+                              </button>
+                            </form>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="bb-pro-contact">
+                        <div class="bb-pro-subtitle">
+                          <a
+                            th:href="@{'/san-pham/' + ${product.slug}}"
+                            th:text="${product.userProviderName}"
+                            >Snacks</a
+                          >
+                          <span class="bb-pro-rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-line"></i>
+                          </span>
+                        </div>
+                        <h4 class="bb-pro-title">
+                          <a
+                            th:href="@{'/san-pham/' + ${product.slug}}"
+                            th:text="${product.title}"
+                          >
+                            Product Name
+                          </a>
+                        </h4>
+                        <div class="bb-price">
+                          <div class="inner-price">
+                            <span class="new-price" th:text="${product.price}"
+                              >$15</span
+                            >
+                          </div>
+                          <span class="last-items">Out of stock</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- 4th Product tab start -->
+              <div class="tab-pane fade" id="veg">
+                <div class="row" th:if="${!products.empty}">
+                  <div
+                    class="col-xl-3 col-md-4 col-6 mb-24 bb-product-box"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    data-aos-delay="200"
+                    th:each="product : ${products}"
+                  >
+                    <div class="bb-pro-box">
+                      <div class="bb-pro-img">
+                        <span class="flags">
+                          <span>New</span>
+                        </span>
+                        <a th:href="${'/san-pham/' + product.slug}">
+                          <div class="inner-img">
+                            <img
+                              class="main-img"
+                              th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                              th:alt="${'Product image - ' + product.id}"
+                              width="300"
+                              height="300"
+                              alt="product-1"
+                              onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
+                            />
+                            <img
+                              class="hover-img"
+                              src="/static/assets/img/logo/Sacabanks.svg"
+                              alt="product-1"
+                            />
+                          </div>
+                        </a>
+                        <ul class="bb-pro-actions">
+                          <li class="bb-btn-group">
+                            <a href="javascript:void(0)" title="Wishlist">
+                              <i class="ri-heart-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <a th:href="${'/san-pham/' + product.slug}">
+                              <i class="ri-eye-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <a href="#" title="Compare">
+                              <i class="ri-repeat-line"></i>
+                            </a>
+                          </li>
+                          <li class="bb-btn-group">
+                            <form action="/gio-hang/add" method="post">
+                              <input
+                                type="text"
+                                name="quantity"
+                                value="1"
+                                hidden
+                              />
+                              <input
+                                name="productId"
+                                th:value="${product.id}"
+                                hidden
+                              />
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-shopping-bag-4-line"></i>
+                              </button>
+                            </form>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="bb-pro-contact">
+                        <div class="bb-pro-subtitle">
+                          <a
+                            th:href="@{'/san-pham/' + ${product.slug}}"
+                            th:text="${product.userProviderName}"
+                            >Snacks</a
+                          >
+                          <span class="bb-pro-rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-line"></i>
+                          </span>
+                        </div>
+                        <h4 class="bb-pro-title">
+                          <a
+                            th:href="@{'/san-pham/' + ${product.slug}}"
+                            th:text="${product.title}"
+                          >
+                            Product Name
+                          </a>
+                        </h4>
+                        <div class="bb-price">
+                          <div class="inner-price">
+                            <span class="new-price" th:text="${product.price}"
+                              >$15</span
+                            >
+                          </div>
+                          <span class="last-items">Out of stock</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <a href="#Top" class="back-to-top result-placeholder">
+      <i class="ri-arrow-up-line"></i>
+      <div class="back-to-top-wrap active-progress">
+        <svg viewBox="-1 -1 102 102">
+          <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+        </svg>
+      </div>
+    </a>
+
+    <!-- Plugins -->
+    <script
+      th:src="@{/static/assets/js/vendor/bootstrap.bundle.min.js}"
+    ></script>
+    <script th:src="@{/static/assets/js/vendor/jquery.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/jquery.zoom.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/aos.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/swiper-bundle.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/smoothscroll.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/owl.carousel.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/slick.min.js}"></script>
+    <script
+      th:src="@{/static/assets/js/vendor/jquery-range-ui.min.js}"
+    ></script>
+
+    <!-- main-js -->
+    <script th:src="@{/static/assets/js/main.js}"></script>
+  </body>
+</html>

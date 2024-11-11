@@ -21,15 +21,18 @@ import com.project.sacabank.cart.dto.CartDto;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.product.model.Product;
 import com.project.sacabank.product.service.ProductService;
+import com.project.sacabank.productCompare.ProductCompare;
+import com.project.sacabank.productCompare.ProductCompareRepository;
 import com.project.sacabank.repositories.CategoryRepository;
 import com.project.sacabank.user.model.User;
-import com.project.sacabank.user.repository.UserRepository;
 import com.project.sacabank.user.service.UserService;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @AllArgsConstructor
+@Slf4j
 public class HomeController extends BaseController {
 
     private final HomeService homeService;
@@ -39,7 +42,7 @@ public class HomeController extends BaseController {
     private final ProductService productService;
     private final UserService userService;
     private final BlogService blogService;
-    private final UserRepository userRepository;
+    private final ProductCompareRepository productCompareRepository;
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
@@ -60,7 +63,8 @@ public class HomeController extends BaseController {
     }
 
     @GetMapping("/san-pham")
-    public String viewProduct(@RequestParam(name = "categoryId", required = false) UUID categoryId,
+    public String viewProduct(
+            @RequestParam(name = "categoryId", required = false) UUID categoryId,
             @RequestParam(name = "type", required = false) String type,
             @RequestParam Optional<String> search,
             @RequestParam(defaultValue = "1") Optional<Integer> page,
@@ -70,6 +74,7 @@ public class HomeController extends BaseController {
             Model model) {
 
         var categories = categoryRepository.findByCategoryId(categoryId);
+
         var products = productService.getAll(
                 search,
                 page,
@@ -161,16 +166,61 @@ public class HomeController extends BaseController {
     }
 
     @GetMapping("/nha-cung-cap/{id}")
-    public Object viewSupplierDetails(Model model, @PathVariable UUID id) {
+    public String viewSupplierDetails(Model model, @PathVariable UUID id) {
 
         User user = userRepository.findById(id).orElseThrow(() -> new CustomException("Khong tim thay"));
-        PaginationResponse products = productService.getByUserId(user, Optional.empty(), Optional.empty(),
-                Optional.empty());
+
+        if (user.getBanner() == null || user.getBanner().isEmpty())
+            user.setBanner("static/assets/img/hero/hero-2.png");
+
+        var products = homeService.getProductHome(user.getId());
 
         model.addAttribute("user", user);
-        model.addAttribute("products", products.getList());
+        model.addAttribute("products", products);
 
-        return products;
+        log.info("banner is: {}", user.getBanner());
+
+        return "supplier-details";
+
+    }
+
+    @PostMapping("/compare/{productId}")
+    public String addProductCompare(@PathVariable UUID productId) {
+
+        var isExist = productCompareRepository.existsByUserIdAndProductId(getUserServiceInfo().getId(), productId);
+
+        if (!isExist) {
+
+            ProductCompare productCompare = ProductCompare.builder()
+                    .userId(getUserServiceInfo().getId())
+                    .productId(productId)
+                    .build();
+
+            productCompareRepository.save(productCompare);
+
+        }
+
+        return "redirect:/trinh-vat-lieu";
+    }
+
+    @GetMapping("/trinh-vat-lieu")
+    public String viewCompare(Model model) {
+
+        var productCompares = productCompareRepository.findByUserId(getUserServiceInfo().getId());
+
+        model.addAttribute("productCompares", productCompares);
+
+        return "compare-product";
+
+    }
+
+    @PostMapping("/trinh-vat-lieu/delete/{id}")
+    public String deleteProductCompare(@PathVariable UUID id) {
+
+        productCompareRepository.findById(id)
+                .ifPresent(productCompareRepository::delete);
+
+        return "redirect:/trinh-vat-lieu";
 
     }
 

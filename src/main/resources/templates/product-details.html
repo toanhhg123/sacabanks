@@ -199,50 +199,41 @@
                         </ul>
                       </div>
                     </div>
-                    <form
-                      class="bb-single-qty"
-                      method="post"
-                      action="/gio-hang/add"
-                    >
-                      <input
-                        hidden
-                        class="qty-input"
-                        type="text"
-                        name="productId"
-                        th:value="${product.id}"
-                      />
-                      <div class="qty-plus-minus">
+                    <div style="display: flex">
+                      <form
+                        class="bb-single-qty"
+                        method="post"
+                        action="/gio-hang/add"
+                      >
                         <input
+                          hidden
                           class="qty-input"
                           type="text"
-                          name="quantity"
-                          value="1"
+                          name="productId"
+                          th:value="${product.id}"
                         />
-                      </div>
-                      <div class="buttons">
-                        <button type="submit" class="bb-btn-2">
-                          Thêm vào giỏ hàng
-                        </button>
-                      </div>
-                      <ul class="bb-pro-actions">
-                        <li class="bb-btn-group">
-                          <a href="javascript:void(0)">
-                            <i class="ri-heart-line"></i>
-                          </a>
-                        </li>
-                        <li class="bb-btn-group">
-                          <a
-                            href="javascript:void(0)"
-                            data-link-action="quickview"
-                            title="Quick view"
-                            data-bs-toggle="modal"
-                            data-bs-target="#bry_quickview_modal"
-                          >
-                            <i class="ri-eye-line"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </form>
+                        <div class="qty-plus-minus">
+                          <input
+                            class="qty-input"
+                            type="text"
+                            name="quantity"
+                            value="1"
+                          />
+                        </div>
+                        <div class="buttons">
+                          <button type="submit" class="bb-btn-2">
+                            Lấy báo giá
+                          </button>
+                        </div>
+                      </form>
+                      <form
+                        th:action="${'/compare/' + product.id}"
+                        style="margin-left: 1rem"
+                        method="post"
+                      >
+                        <button class="bb-btn-1">Trình vật liệu</button>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -527,9 +518,28 @@
                           </a>
                         </li>
                         <li class="bb-btn-group">
-                          <a href="javascript:void(0)">
-                            <i class="ri-shopping-bag-4-line"></i>
-                          </a>
+                          <form action="/gio-hang/add" method="post">
+                            <input
+                              type="text"
+                              name="quantity"
+                              value="1"
+                              hidden
+                            />
+                            <input
+                              name="productId"
+                              th:value="${product.id}"
+                              hidden
+                            />
+                            <button
+                              style="
+                                border: none;
+                                outline: none;
+                                background: transparent;
+                              "
+                            >
+                              <i class="ri-shopping-bag-4-line"></i>
+                            </button>
+                          </form>
                         </li>
                       </ul>
                     </div>

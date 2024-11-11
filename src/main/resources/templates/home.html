@@ -58,8 +58,6 @@
   </head>
 
   <body>
-    <h1 th:text="${categoriesHeader}"></h1>
-
     <div th:replace="~{fragments/header :: header}"></div>
 
     <!-- Hero -->
@@ -243,7 +241,7 @@
                       </a>
                       <ul class="bb-pro-actions">
                         <li class="bb-btn-group">
-                          <a href="javascript:void(0)" title="Wishlist">
+                          <a th:href="${'/san-pham/' + product.slug}">
                             <i class="ri-heart-line"></i>
                           </a>
                         </li>
@@ -253,9 +251,20 @@
                           </a>
                         </li>
                         <li class="bb-btn-group">
-                          <a href="#" title="Compare">
-                            <i class="ri-repeat-line"></i>
-                          </a>
+                          <form
+                            th:action="${'/compare/' + product.id}"
+                            method="post"
+                          >
+                            <button
+                              style="
+                                border: none;
+                                outline: none;
+                                background: transparent;
+                              "
+                            >
+                              <i class="ri-repeat-line"></i>
+                            </button>
+                          </form>
                         </li>
                         <li class="bb-btn-group">
                           <form action="/gio-hang/add" method="post">
@@ -477,7 +486,7 @@
                         </a>
                         <ul class="bb-pro-actions">
                           <li class="bb-btn-group">
-                            <a href="javascript:void(0)" title="Wishlist">
+                            <a th:href="${'/san-pham/' + product.slug}">
                               <i class="ri-heart-line"></i>
                             </a>
                           </li>
@@ -487,9 +496,20 @@
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="#" title="Compare">
-                              <i class="ri-repeat-line"></i>
-                            </a>
+                            <form
+                              th:action="${'/compare/' + product.id}"
+                              method="post"
+                            >
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-repeat-line"></i>
+                              </button>
+                            </form>
                           </li>
                           <li class="bb-btn-group">
                             <form action="/gio-hang/add" method="post">
@@ -588,7 +608,7 @@
                         </a>
                         <ul class="bb-pro-actions">
                           <li class="bb-btn-group">
-                            <a href="javascript:void(0)" title="Wishlist">
+                            <a th:href="${'/san-pham/' + product.slug}">
                               <i class="ri-heart-line"></i>
                             </a>
                           </li>
@@ -598,9 +618,20 @@
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="#" title="Compare">
-                              <i class="ri-repeat-line"></i>
-                            </a>
+                            <form
+                              th:action="${'/compare/' + product.id}"
+                              method="post"
+                            >
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-repeat-line"></i>
+                              </button>
+                            </form>
                           </li>
                           <li class="bb-btn-group">
                             <form action="/gio-hang/add" method="post">
@@ -699,7 +730,7 @@
                         </a>
                         <ul class="bb-pro-actions">
                           <li class="bb-btn-group">
-                            <a href="javascript:void(0)" title="Wishlist">
+                            <a th:href="${'/san-pham/' + product.slug}">
                               <i class="ri-heart-line"></i>
                             </a>
                           </li>
@@ -709,9 +740,20 @@
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="#" title="Compare">
-                              <i class="ri-repeat-line"></i>
-                            </a>
+                            <form
+                              th:action="${'/compare/' + product.id}"
+                              method="post"
+                            >
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-repeat-line"></i>
+                              </button>
+                            </form>
                           </li>
                           <li class="bb-btn-group">
                             <form action="/gio-hang/add" method="post">
@@ -810,7 +852,7 @@
                         </a>
                         <ul class="bb-pro-actions">
                           <li class="bb-btn-group">
-                            <a href="javascript:void(0)" title="Wishlist">
+                            <a th:href="${'/san-pham/' + product.slug}">
                               <i class="ri-heart-line"></i>
                             </a>
                           </li>
@@ -820,9 +862,20 @@
                             </a>
                           </li>
                           <li class="bb-btn-group">
-                            <a href="#" title="Compare">
-                              <i class="ri-repeat-line"></i>
-                            </a>
+                            <form
+                              th:action="${'/compare/' + product.id}"
+                              method="post"
+                            >
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-repeat-line"></i>
+                              </button>
+                            </form>
                           </li>
                           <li class="bb-btn-group">
                             <form action="/gio-hang/add" method="post">

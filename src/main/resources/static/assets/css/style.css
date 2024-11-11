@@ -8165,6 +8165,7 @@ ul.bb-shop-tags li.active-tags a {
   position: relative;
   background-color: #fff;
 }
+
 .bb-compare ul.bb-compare-main-box ul.bb-compare-inner-box .inner-image .bb-remove-compare {
   position: absolute;
   top: 20px;
@@ -8179,6 +8180,22 @@ ul.bb-shop-tags li.active-tags a {
 .bb-compare ul.bb-compare-main-box ul.bb-compare-inner-box .inner-image .bb-remove-compare i:hover {
   color: #262262;
 }
+
+.bb-compare ul.bb-compare-main-box ul.bb-compare-inner-box .inner-image .bb-remove-compare-custom {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.bb-compare ul.bb-compare-main-box ul.bb-compare-inner-box .inner-image .bb-remove-compare-custom i {
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  font-size: 22px;
+  color: #686e7d;
+}
+.bb-compare ul.bb-compare-main-box ul.bb-compare-inner-box .inner-image .bb-remove-compare-custom i:hover {
+  color: #262262;
+}
+
 
 .compare-pro-img {
   height: 250px;

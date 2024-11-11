@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 public class BaseController {
 
   @Autowired
-  UserRepository userRepository;
+  protected UserRepository userRepository;
 
   // @Autowired
   // protected TService service;

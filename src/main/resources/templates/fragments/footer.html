@@ -33,14 +33,6 @@
                     Sacabanks là Ngân hàng vật liệu xây dựng đầu tiên với hơn
                     1000 loại sản phảm và 500 công ty đối tác
                   </p>
-                  <!-- <div class="bb-app-store">
-                                    <a href="javascript:void(0)" class="app-img">
-                                        <img src="/static/assets/img/app/android.png" class="adroid" alt="apple">
-                                    </a>
-                                    <a href="javascript:void(0)" class="app-img">
-                                        <img src="/static/assets/img/app/apple.png" class="apple" alt="apple">
-                                    </a>
-                                </div> -->
                 </div>
               </div>
               <div class="col-sm-12 col-lg-2 bb-footer-info">
@@ -212,6 +204,112 @@
           </div>
         </div>
       </div>
+
+      <style>
+        #snackbar {
+          visibility: hidden;
+          min-width: 250px;
+          margin-left: -125px;
+          background-color: #333;
+          color: #fff;
+          text-align: center;
+          border-radius: 2px;
+          padding: 16px;
+          position: fixed;
+          z-index: 1;
+          left: 50%;
+          bottom: 30px;
+        }
+
+        #snackbar.show {
+          visibility: visible;
+          -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+          animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        #snackbar.success {
+          background-color: #4caf50;
+        }
+        #snackbar.success::before {
+          content: "✔️ ";
+          font-size: 18px;
+        }
+
+        #snackbar.error {
+          background-color: #f44336;
+        }
+        #snackbar.error::before {
+          content: "⚠️ ";
+          font-size: 18px;
+        }
+
+        /* Info Snackbar */
+        #snackbar.info {
+          background-color: #2196f3;
+        }
+        #snackbar.info::before {
+          content: "ℹ️ ";
+          font-size: 18px;
+        }
+
+        @-webkit-keyframes fadein {
+          from {
+            bottom: 0;
+            opacity: 0;
+          }
+          to {
+            bottom: 30px;
+            opacity: 1;
+          }
+        }
+
+        @keyframes fadein {
+          from {
+            bottom: 0;
+            opacity: 0;
+          }
+          to {
+            bottom: 30px;
+            opacity: 1;
+          }
+        }
+
+        @-webkit-keyframes fadeout {
+          from {
+            bottom: 30px;
+            opacity: 1;
+          }
+          to {
+            bottom: 0;
+            opacity: 0;
+          }
+        }
+
+        @keyframes fadeout {
+          from {
+            bottom: 30px;
+            opacity: 1;
+          }
+          to {
+            bottom: 0;
+            opacity: 0;
+          }
+        }
+      </style>
+      <!-- <div id="snackbar" class="success">Some text some message..</div> -->
+
+      <script>
+        function showSnackBar() {
+          var x = document.getElementById("snackbar");
+          if (!x) return;
+          x.className = x.className + " show";
+          setTimeout(function () {
+            x.className = x.className.replace("show", "");
+          }, 3000);
+        }
+
+        showSnackBar();
+      </script>
     </footer>
   </body>
 </html>

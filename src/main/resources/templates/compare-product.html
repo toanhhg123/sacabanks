@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sacabanks - Construction Material Bank."
+    />
+    <meta name="keywords" content="" />
+    <title>Sacabanks - Construction Material Bank</title>
+
+    <!-- Site Favicon -->
+    <link
+      rel="icon"
+      th:href="@{/static/assets/img/favicon/favicon.ico}"
+      type="image/x-icon"
+    />
+
+    <!-- Css All Plugins Files -->
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/bootstrap.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/remixicon.css}"
+    />
+    <link rel="stylesheet" th:href="@{/static/assets/css/vendor/aos.css}" />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/swiper-bundle.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/owl.carousel.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/slick.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/animate.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/jquery-range-ui.css}"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" th:href="@{/static/assets/css/style.css}" />
+  </head>
+
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Breadcrumb -->
+    <section class="section-breadcrumb margin-b-50">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row bb-breadcrumb-inner">
+              <div class="col-md-6 col-sm-12">
+                <h2 class="bb-breadcrumb-title">Trình vật liệu</h2>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <ul class="bb-breadcrumb-list">
+                  <li class="bb-breadcrumb-item">
+                    <a href="/">Trang chủ</a>
+                  </li>
+                  <li><i class="ri-arrow-right-double-fill"></i></li>
+                  <li class="bb-breadcrumb-item active">Trình vật liệu</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div
+      th:if="${#lists.isEmpty(productCompares)}"
+      class="alert alert-info container"
+    >
+      Chưa có sản phẩm nào
+      <a href="/san-pham" class="alert-link"
+        >Nhấp vào đây để tới tranng sản phẩm</a
+      >
+    </div>
+
+    <!-- Compare -->
+    <section
+      class="section-compare padding-tb-50"
+      th:if="${!productCompares.empty}"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="bb-compare">
+              <ul class="bb-compare-main-box">
+                <li class="bb-compare-inner-rows">
+                  <ul class="bb-compare-inner-box">
+                    <li>
+                      <div class="compare-pro-img">
+                        <p>Products image</p>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="compare-pro-title">
+                        <h5>Tên</h5>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="compare-pro-title">
+                        <h5>Nhà cung cấp</h5>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="compare-pro-title">
+                        <h5>Giá</h5>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="compare-pro-title">
+                        <h5>Chất liệu</h5>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="compare-pro-title">
+                        <h5>Hoàn thiện</h5>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="compare-pro-title">
+                        <h5>dimensionL</h5>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="compare-pro-title">
+                        <h5>dimensionW</h5>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="compare-pro-title">
+                        <h5>dimensionH</h5>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="compare-pro-title">
+                        <h5>netWeight</h5>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="compare-pro-title compare-description">
+                        <h5>Description</h5>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li
+                  class="bb-compare-inner-rows bb-compare-box"
+                  th:each="productCompare: ${productCompares}"
+                >
+                  <ul class="bb-compare-inner-box">
+                    <li class="inner-image">
+                      <form
+                        class="bb-remove-compare-custom"
+                        method="post"
+                        th:action="${'/trinh-vat-lieu/delete/' + productCompare.id}"
+                      >
+                        <button
+                          type="submit"
+                          style="
+                            width: max-content;
+                            padding: 0;
+                            margin: 0;
+                            background: transparent;
+                            border: none;
+                          "
+                        >
+                          <i class="ri-close-circle-fill"></i>
+                        </button>
+                      </form>
+                      <div class="compare-pro-img">
+                        <img
+                          th:src="${'https://api.sacabanks.vn/uploads/' + productCompare.product.mainPhoto}"
+                          alt="products-1"
+                          width="250"
+                          height="250"
+                          onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
+                        />
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="compare-pro-detail"
+                        style="width: max-content"
+                      >
+                        <p th:text="${productCompare.product.title}"></p>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="compare-pro-detail"
+                        style="width: max-content"
+                      >
+                        <p
+                          th:text="${productCompare.product.user.shortNameCompany}"
+                        ></p>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="compare-pro-detail"
+                        style="width: max-content"
+                      >
+                        <p th:text="${productCompare.product.price}"></p>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="compare-pro-detail"
+                        style="width: max-content"
+                      >
+                        <p th:text="${productCompare.product.material}"></p>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="compare-pro-detail"
+                        style="width: max-content"
+                      >
+                        <p th:text="${productCompare.product.finishing}"></p>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="compare-pro-detail"
+                        style="width: max-content"
+                      >
+                        <p th:text="${productCompare.product.dimensionL}"></p>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="compare-pro-detail"
+                        style="width: max-content"
+                      >
+                        <p th:text="${productCompare.product.dimensionW}"></p>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="compare-pro-detail"
+                        style="width: max-content"
+                      >
+                        <p th:text="${productCompare.product.dimensionH}"></p>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="compare-pro-detail"
+                        style="width: max-content"
+                      >
+                        <p th:text="${productCompare.product.netWeight}"></p>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="compare-pro-detail"
+                        style="width: max-content"
+                      >
+                        <p
+                          style="max-width: 300px"
+                          th:text="${productCompare.product.desc}"
+                        ></p>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Back to top  -->
+    <a href="#Top" class="back-to-top result-placeholder">
+      <i class="ri-arrow-up-line"></i>
+      <div class="back-to-top-wrap active-progress">
+        <svg viewBox="-1 -1 102 102">
+          <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+        </svg>
+      </div>
+    </a>
+
+    <!-- Plugins -->
+    <script
+      th:src="@{/static/assets/js/vendor/bootstrap.bundle.min.js}"
+    ></script>
+    <script th:src="@{/static/assets/js/vendor/jquery.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/jquery.zoom.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/aos.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/swiper-bundle.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/smoothscroll.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/owl.carousel.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/slick.min.js}"></script>
+    <script
+      th:src="@{/static/assets/js/vendor/jquery-range-ui.min.js}"
+    ></script>
+
+    <!-- main-js -->
+    <script th:src="@{/static/assets/js/main.js}"></script>
+  </body>
+</html>

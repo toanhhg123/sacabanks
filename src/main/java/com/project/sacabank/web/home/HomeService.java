@@ -1,6 +1,7 @@
 package com.project.sacabank.web.home;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,27 @@ public class HomeService {
 
         return entityManager.createQuery(sqlString, ProductDtoHomeQuery.class)
                 .setMaxResults(8)
+                .getResultList();
+    }
+
+    public List<ProductDtoHomeQuery> getProductHome(UUID userId) {
+
+        String sqlString = """
+                SELECT NEW com.project.sacabank.web.home.dto.ProductDtoHomeQuery(
+                    p.id,
+                    p.title,
+                    p.slug,
+                    u.username,
+                    p.mainPhoto,
+                    p.price)
+                FROM Product p
+                LEFT JOIN User u on p.userId = u.id
+                WHERE u.id = :userId
+                """;
+
+        return entityManager.createQuery(sqlString, ProductDtoHomeQuery.class)
+                .setParameter("userId", userId)
+                .setMaxResults(50)
                 .getResultList();
     }
 

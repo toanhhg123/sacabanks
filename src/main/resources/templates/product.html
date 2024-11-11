@@ -123,7 +123,10 @@
             <div class="bb-shop-wrap">
               <div class="bb-sidebar-block">
                 <div class="bb-sidebar-title">
-                  <h3>Lọc</h3>
+                  <div style="display: flex; justify-content: space-between">
+                    <h3>Lọc</h3>
+                    <a href="/san-pham">làm mới</a>
+                  </div>
                 </div>
                 <div class="bb-sidebar-contact">
                   <ul>
@@ -146,32 +149,22 @@
                   </ul>
                 </div>
               </div>
-              <div class="bb-sidebar-block">
-                <div class="bb-sidebar-title">
-                  <h3>Nhà cung cấp</h3>
-                </div>
-                <div class="bb-sidebar-contact">
-                  <ul>
-                    <li th:each="vendor : ${vendors}">
-                      <div class="bb-sidebar-block-item">
-                        <input type="checkbox" />
-                        <a
-                          href="javascript:void(0)"
-                          th:text="${vendor.companyName}"
-                          >200gm pack</a
-                        >
-                        <span class="checked"></span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+
               <div class="bb-sidebar-block">
                 <div class="bb-sidebar-title">
                   <h3>Danh mục</h3>
                 </div>
-                <div class="bb-color-contact">
-                  <ul></ul>
+                <div class="bb-sidebar-contact">
+                  <ul>
+                    <li th:each="category : ${categories}">
+                      <a
+                        class="bb-sidebar-block-item"
+                        th:href="@{/san-pham(categoryId=${category.id})}"
+                      >
+                        <span th:text="${category.name}"> </span>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -241,25 +234,30 @@
                       </a>
                       <ul class="bb-pro-actions">
                         <li class="bb-btn-group">
-                          <a href="javascript:void(0)">
+                          <a th:href="${'/san-pham/' + product.slug}">
                             <i class="ri-heart-line"></i>
                           </a>
                         </li>
                         <li class="bb-btn-group">
-                          <a
-                            href="javascript:void(0)"
-                            data-link-action="quickview"
-                            title="Quick view"
-                            data-bs-toggle="modal"
-                            data-bs-target="#bry_quickview_modal"
-                          >
+                          <a th:href="${'/san-pham/' + product.slug}">
                             <i class="ri-eye-line"></i>
                           </a>
                         </li>
                         <li class="bb-btn-group">
-                          <a href="#">
-                            <i class="ri-repeat-line"></i>
-                          </a>
+                          <form
+                            th:action="${'/compare/' + product.id}"
+                            method="post"
+                          >
+                            <button
+                              style="
+                                border: none;
+                                outline: none;
+                                background: transparent;
+                              "
+                            >
+                              <i class="ri-repeat-line"></i>
+                            </button>
+                          </form>
                         </li>
                         <li class="bb-btn-group">
                           <form action="/gio-hang/add" method="post">
