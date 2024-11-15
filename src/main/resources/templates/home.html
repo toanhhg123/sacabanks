@@ -160,26 +160,36 @@
               >
                 <h2>Danh Mục Sản Phẩm</h2>
               </div>
+
+              <!-- todo: render category -->
+
               <div class="bb-category-block owl-carousel">
-                <!-- <div
+                <div
+                  th:each="category: ${categoriesHeader}"
                   class="bb-category-box category-items-1"
                   data-aos="flip-left"
                   data-aos-duration="1000"
                   data-aos-delay="200"
+                  style="height: 150px"
                 >
                   <div class="category-image">
                     <img
-                      src="/static/assets/img/category/1.svg"
-                      alt="category"
+                      th:src="${'https://api.sacabanks.vn/uploads/' + category.image}"
+                      th:alt="${'Product image - ' + category.id}"
+                      onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                     />
                   </div>
                   <div class="category-sub-contact">
                     <h5>
-                      <a href="shop-left-sidebar-col-3.html">vegetables</a>
+                      <a
+                        href="shop-left-sidebar-col-3.html"
+                        th:text="${category.name}"
+                        >vegetables</a
+                      >
                     </h5>
                     <p>485 items</p>
                   </div>
-                </div> -->
+                </div>
               </div>
             </div>
           </div>
@@ -423,24 +433,26 @@
               <div class="bb-pro-tab">
                 <ul class="bb-pro-tab-nav nav">
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#all">All</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#all"
+                      >Tất cả</a
+                    >
                   </li>
                   <li class="nav-item">
                     <a
                       class="nav-link active"
                       data-bs-toggle="tab"
                       href="#snack"
-                      >Vật Liệu</a
+                      >Mới nhất</a
                     >
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#fruit"
-                      >Công Nghệ</a
+                      >Xem nhiều nhất</a
                     >
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#veg"
-                      >Dụng Cụ</a
+                      >Bán chạy</a
                     >
                   </li>
                 </ul>
@@ -464,7 +476,7 @@
                     <div class="bb-pro-box">
                       <div class="bb-pro-img">
                         <span class="flags">
-                          <span>New</span>
+                          <span th:text="${product.tags}">New</span>
                         </span>
                         <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
@@ -575,18 +587,18 @@
               </div>
               <!-- 2nd Product tab start -->
               <div class="tab-pane fade show active" id="snack">
-                <div class="row" th:if="${!products.empty}">
+                <div class="row" th:if="${!productsNew.empty}">
                   <div
                     class="col-xl-3 col-md-4 col-6 mb-24 bb-product-box"
                     data-aos="fade-up"
                     data-aos-duration="1000"
                     data-aos-delay="200"
-                    th:each="product : ${products}"
+                    th:each="product : ${productsNew}"
                   >
                     <div class="bb-pro-box">
                       <div class="bb-pro-img">
                         <span class="flags">
-                          <span>New</span>
+                          <span th:text="${product.tags}">New</span>
                         </span>
                         <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
@@ -697,18 +709,18 @@
               </div>
               <!-- 3rd Product tab start -->
               <div class="tab-pane fade" id="fruit">
-                <div class="row" th:if="${!products.empty}">
+                <div class="row" th:if="${!productsHot.empty}">
                   <div
                     class="col-xl-3 col-md-4 col-6 mb-24 bb-product-box"
                     data-aos="fade-up"
                     data-aos-duration="1000"
                     data-aos-delay="200"
-                    th:each="product : ${products}"
+                    th:each="product : ${productsHot}"
                   >
                     <div class="bb-pro-box">
                       <div class="bb-pro-img">
                         <span class="flags">
-                          <span>New</span>
+                          <span th:text="${product.tags}">New</span>
                         </span>
                         <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
@@ -825,12 +837,12 @@
                     data-aos="fade-up"
                     data-aos-duration="1000"
                     data-aos-delay="200"
-                    th:each="product : ${products}"
+                    th:each="product : ${productsBestSeller}"
                   >
                     <div class="bb-pro-box">
                       <div class="bb-pro-img">
                         <span class="flags">
-                          <span>New</span>
+                          <span th:text="${product.tags}">New</span>
                         </span>
                         <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
@@ -1284,125 +1296,6 @@
         </div>
       </div>
     </div> -->
-
-    <!-- Category Popup -->
-    <div class="bb-category-sidebar">
-      <div class="bb-category-overlay"></div>
-      <div class="category-sidebar">
-        <button type="button" class="bb-category-close" title="Close"></button>
-        <div class="container-fluid">
-          <div class="row mb-minus-24">
-            <div class="col-12">
-              <div class="bb-category-tags">
-                <div class="sub-title">
-                  <h4>keywords</h4>
-                </div>
-                <div class="bb-tags">
-                  <ul>
-                    <li th:each="category : ${categoriesHeader}">
-                      <a
-                        th:href="${'/san-pham?categoryId=' + category.id}"
-                        th:text="${category.name}"
-                      ></a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="row">
-                <div class="col-12">
-                  <div class="sub-title">
-                    <h4>Danh Mục</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="swiper swiper-category-popup"
-              th:unless="${#lists.isEmpty(categoriesHeader)}"
-              style="margin-bottom: 1rem"
-            >
-              <div class="swiper-wrapper">
-                <div
-                  class="swiper-slide"
-                  th:each="category : ${categoriesHeader}"
-                >
-                  <div
-                    class="bb-category-box category-items-1"
-                    style="height: 160px"
-                  >
-                    <div class="category-image">
-                      <img
-                        th:src="${'https://api.sacabanks.vn/uploads/' + category.image}"
-                        th:alt="${'Product image - ' + category.id}"
-                        onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
-                      />
-                    </div>
-                    <div class="category-sub-contact">
-                      <h5>
-                        <a
-                          th:href="${'/san-pham?categoryId=' + category.id}"
-                          th:text="${category.name}"
-                        ></a>
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
-
-            <div class="col-12">
-              <div class="row">
-                <div class="col-12">
-                  <div class="sub-title">
-                    <h4>Sản phẩm liên quan</h4>
-                  </div>
-                </div>
-                <div
-                  class="col-lg-4 col-md-6 col-sm-6 col-12 mb-24"
-                  th:each="product : ${products}"
-                >
-                  <div class="bb-category-cart" style="height: 100%">
-                    <a href="javascript:void(0)" class="pro-img">
-                      <img
-                        th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
-                        th:alt="${'Product image - ' + product.id}"
-                        onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
-                      />
-                    </a>
-                    <div class="side-contact">
-                      <h4 class="bb-pro-title">
-                        <a
-                          th:href="${'/san-pham/' + product.slug}"
-                          th:text="${product.title}"
-                          >Ground Nuts Oil Pack</a
-                        >
-                      </h4>
-                      <span class="bb-pro-rating">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-line"></i>
-                      </span>
-                      <div class="inner-price">
-                        <span
-                          class="new-price"
-                          th:text="${'$'+product.price}"
-                        ></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Quick view Modal -->
     <div

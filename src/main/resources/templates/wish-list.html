@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sacabanks - Construction Material Bank."
+    />
+    <meta name="keywords" content="" />
+    <title>Sacabanks - Construction Material Bank</title>
+
+    <!-- Site Favicon -->
+    <link
+      rel="icon"
+      th:href="@{/static/assets/img/favicon/favicon.ico}"
+      type="image/x-icon"
+    />
+
+    <!-- Css All Plugins Files -->
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/bootstrap.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/remixicon.css}"
+    />
+    <link rel="stylesheet" th:href="@{/static/assets/css/vendor/aos.css}" />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/swiper-bundle.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/owl.carousel.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/slick.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/animate.min.css}"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{/static/assets/css/vendor/jquery-range-ui.css}"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" th:href="@{/static/assets/css/style.css}" />
+  </head>
+
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <!-- Breadcrumb -->
+    <section class="section-breadcrumb margin-b-50">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row bb-breadcrumb-inner">
+              <div class="col-md-6 col-sm-12">
+                <h2 class="bb-breadcrumb-title">Yêu thích</h2>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <ul class="bb-breadcrumb-list">
+                  <li class="bb-breadcrumb-item">
+                    <a href="/">Trang chủ</a>
+                  </li>
+                  <li><i class="ri-arrow-right-double-fill"></i></li>
+                  <li class="bb-breadcrumb-item active">Yêu thích</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-offer">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div
+              class="section-title bb-center"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+            >
+              <div class="section-detail">
+                <h2 class="bb-title">Danh sách<span> yêu thích</span></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- wishlist -->
+    <section class="section-wishlist padding-tb-50">
+      <div class="container">
+        <div class="row mb-minus-24 bb-wish-rightside">
+          <div
+            class="col-lg-3 col-md-6 col-12 mb-24 bb-wishlist"
+            th:each="product : ${products}"
+          >
+            <div class="bb-pro-box">
+              <div class="bb-pro-img">
+                <div class="bb-remove-wish-custom">
+                  <form
+                    class="bb-remove-compare-custom"
+                    method="post"
+                    th:action="${'/yeu-thich/delete/' + product.id}"
+                    style="display: flex; justify-content: end"
+                  >
+                    <button
+                      type="submit"
+                      style="
+                        width: max-content;
+                        padding: 0;
+                        margin: 0;
+                        background: transparent;
+                        border: none;
+                        margin: 0.5rem;
+                        font-size: 1.3rem;
+                        color: grey;
+                      "
+                    >
+                      <i class="ri-close-circle-fill"></i>
+                    </button>
+                  </form>
+                </div>
+                <span class="flags">
+                  <span>New</span>
+                </span>
+                <a href="javascript:void(0)">
+                  <div class="inner-img">
+                    <img
+                      class="main-img"
+                      th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                      th:alt="${'Product image - ' + product.id}"
+                      onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
+                      width="300"
+                      height="300"
+                    />
+                    <img
+                      class="hover-img"
+                      src="/static/assets/img/logo/Sacabanks.svg"
+                      alt="product-1"
+                      width="300"
+                      height="300"
+                    />
+                  </div>
+                </a>
+                <ul class="bb-pro-actions">
+                  <li class="bb-btn-group">
+                    <a th:href="${'/san-pham/' + product.slug}">
+                      <i class="ri-heart-line"></i>
+                    </a>
+                  </li>
+                  <li class="bb-btn-group">
+                    <a th:href="${'/san-pham/' + product.slug}">
+                      <i class="ri-eye-line"></i>
+                    </a>
+                  </li>
+                  <li class="bb-btn-group">
+                    <form th:action="${'/compare/' + product.id}" method="post">
+                      <button
+                        style="
+                          border: none;
+                          outline: none;
+                          background: transparent;
+                        "
+                      >
+                        <i class="ri-repeat-line"></i>
+                      </button>
+                    </form>
+                  </li>
+                  <li class="bb-btn-group">
+                    <form action="/gio-hang/add" method="post">
+                      <input type="text" name="quantity" value="1" hidden />
+                      <input name="productId" th:value="${product.id}" hidden />
+                      <button
+                        style="
+                          border: none;
+                          outline: none;
+                          background: transparent;
+                        "
+                      >
+                        <i class="ri-shopping-bag-4-line"></i>
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+              <div
+                class="timer1 timer dealend-timer"
+                data-date="September 30, 2025 19:15:10 PDT"
+              ></div>
+              <div class="bb-pro-contact">
+                <div class="bb-pro-subtitle">
+                  <span class="bb-pro-rating">
+                    <i class="ri-star-fill"></i>
+                    <i class="ri-star-fill"></i>
+                    <i class="ri-star-fill"></i>
+                    <i class="ri-star-fill"></i>
+                    <i class="ri-star-line"></i>
+                  </span>
+                </div>
+
+                <h4 class="bb-pro-title">
+                  <a
+                    href="product-left-sidebar.html"
+                    th:text="${product.title}"
+                  ></a>
+                </h4>
+                <div class="bb-price">
+                  <div class="inner-price">
+                    <span class="new-price" th:text="${product.price}"></span>
+                  </div>
+                  <span class="last-items">Out of stock</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Back to top  -->
+    <a href="#Top" class="back-to-top result-placeholder">
+      <i class="ri-arrow-up-line"></i>
+      <div class="back-to-top-wrap active-progress">
+        <svg viewBox="-1 -1 102 102">
+          <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+        </svg>
+      </div>
+    </a>
+
+    <!-- Plugins -->
+    <script
+      th:src="@{/static/assets/js/vendor/bootstrap.bundle.min.js}"
+    ></script>
+    <script th:src="@{/static/assets/js/vendor/jquery.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/jquery.zoom.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/aos.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/swiper-bundle.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/smoothscroll.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/owl.carousel.min.js}"></script>
+    <script th:src="@{/static/assets/js/vendor/slick.min.js}"></script>
+    <script
+      th:src="@{/static/assets/js/vendor/jquery-range-ui.min.js}"
+    ></script>
+
+    <!-- main-js -->
+    <script th:src="@{/static/assets/js/main.js}"></script>
+    <script th:src="@{/static/assets/js/slider-category-popup.js}"></script>
+  </body>
+</html>

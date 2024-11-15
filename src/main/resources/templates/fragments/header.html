@@ -136,6 +136,11 @@
                             >
                           </li>
                           <li sec:authorize="isAuthenticated()">
+                            <a class="dropdown-item" href="/yeu-thich"
+                              >Yêu thích</a
+                            >
+                          </li>
+                          <li sec:authorize="isAuthenticated()">
                             <a class="dropdown-item" href="/trinh-vat-lieu"
                               >Trình vật liệu</a
                             >
@@ -264,7 +269,7 @@
                     </li>
 
                     <li class="nav-item">
-                      <a class="nav-link" href="/trinh-vat-lieu">
+                      <a class="nav-link" href="/chuong-trinh-khuyen-mai">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           version="1.1"
@@ -292,7 +297,7 @@
                             ></path>
                           </g>
                         </svg>
-                        Trình vật liệu
+                        Chương trình khuyến mãi
                       </a>
                     </li>
                   </ul>

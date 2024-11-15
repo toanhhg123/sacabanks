@@ -321,19 +321,6 @@
     },
   });
 
-  /* Remove product on wishlist page */
-  $(".bb-remove-wish").on("click", function () {
-    $(this).parents(".bb-wishlist").remove();
-    var wish_product_count = $(".bb-wishlist").length;
-    if (wish_product_count == 0) {
-      $(".bb-wish-rightside").html(
-        '<p class="bb-wishlist-msg">Your wishlist is empty!</p>'
-      );
-    }
-  });
-
-  /* Remove product on compare page */
-
   /* Footer Toggle */
   $(document).ready(function () {
     $(".bb-footer-links").addClass("bb-footer-dropdown");
@@ -481,15 +468,16 @@
     $(".bb-side-cart-overlay").fadeOut();
     $(".bb-side-cart").removeClass("bb-open-cart");
   });
-  $(".cart-remove-item").on("click", function (e) {
-    $(this).parents(".cart-sidebar-list").remove();
-    var wish_product_count = $(".cart-sidebar-list").length;
-    if (wish_product_count == 0) {
-      $(".bb-cart-items").html(
-        '<p class="bb-wishlist-msg">Your Cart is empty!</p>'
-      );
-    }
-  });
+
+  // $(".cart-remove-item").on("click", function (e) {
+  //   $(this).parents(".cart-sidebar-list").remove();
+  //   var wish_product_count = $(".cart-sidebar-list").length;
+  //   if (wish_product_count == 0) {
+  //     $(".bb-cart-items").html(
+  //       '<p class="bb-wishlist-msg">Your Cart is empty!</p>'
+  //     );
+  //   }
+  // });
 
   /* Category sidebar JS */
   $(".bb-category-toggle").on("click", function (e) {

@@ -103,6 +103,7 @@
               "
             >
               <img
+                width="200"
                 th:src="${'https://api.sacabanks.vn/uploads/' + user.avatar}"
                 alt=""
               />
@@ -135,24 +136,26 @@
               <div class="bb-pro-tab">
                 <ul class="bb-pro-tab-nav nav">
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#all">All</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#all"
+                      >Tất cả</a
+                    >
                   </li>
                   <li class="nav-item">
                     <a
                       class="nav-link active"
                       data-bs-toggle="tab"
                       href="#snack"
-                      >Vật Liệu</a
+                      >Mới</a
                     >
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#fruit"
-                      >Công Nghệ</a
+                      >Xem nhiều nhất</a
                     >
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#veg"
-                      >Dụng Cụ</a
+                      >Bán chạy</a
                     >
                   </li>
                 </ul>
@@ -176,7 +179,7 @@
                     <div class="bb-pro-box">
                       <div class="bb-pro-img">
                         <span class="flags">
-                          <span>New</span>
+                          <span th:text="${product.tags}">New</span>
                         </span>
                         <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
@@ -276,18 +279,18 @@
               </div>
               <!-- 2nd Product tab start -->
               <div class="tab-pane fade show active" id="snack">
-                <div class="row" th:if="${!products.empty}">
+                <div class="row" th:if="${!productsNew.empty}">
                   <div
                     class="col-xl-3 col-md-4 col-6 mb-24 bb-product-box"
                     data-aos="fade-up"
                     data-aos-duration="1000"
                     data-aos-delay="200"
-                    th:each="product : ${products}"
+                    th:each="product : ${productsNew}"
                   >
                     <div class="bb-pro-box">
                       <div class="bb-pro-img">
                         <span class="flags">
-                          <span>New</span>
+                          <span th:text="${product.tags}">New</span>
                         </span>
                         <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
@@ -387,18 +390,18 @@
               </div>
               <!-- 3rd Product tab start -->
               <div class="tab-pane fade" id="fruit">
-                <div class="row" th:if="${!products.empty}">
+                <div class="row" th:if="${!productsHot.empty}">
                   <div
                     class="col-xl-3 col-md-4 col-6 mb-24 bb-product-box"
                     data-aos="fade-up"
                     data-aos-duration="1000"
                     data-aos-delay="200"
-                    th:each="product : ${products}"
+                    th:each="product : ${productsHot}"
                   >
                     <div class="bb-pro-box">
                       <div class="bb-pro-img">
                         <span class="flags">
-                          <span>New</span>
+                          <span th:text="${product.tags}">New</span>
                         </span>
                         <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
@@ -498,18 +501,18 @@
               </div>
               <!-- 4th Product tab start -->
               <div class="tab-pane fade" id="veg">
-                <div class="row" th:if="${!products.empty}">
+                <div class="row" th:if="${!productsBestSeller.empty}">
                   <div
                     class="col-xl-3 col-md-4 col-6 mb-24 bb-product-box"
                     data-aos="fade-up"
                     data-aos-duration="1000"
                     data-aos-delay="200"
-                    th:each="product : ${products}"
+                    th:each="product : ${productsBestSeller}"
                   >
                     <div class="bb-pro-box">
                       <div class="bb-pro-img">
                         <span class="flags">
-                          <span>New</span>
+                          <span th:text="${product.tags}">New</span>
                         </span>
                         <a th:href="${'/san-pham/' + product.slug}">
                           <div class="inner-img">
@@ -641,5 +644,6 @@
 
     <!-- main-js -->
     <script th:src="@{/static/assets/js/main.js}"></script>
+    <script th:src="@{/static/assets/js/slider-category-popup.js}"></script>
   </body>
 </html>

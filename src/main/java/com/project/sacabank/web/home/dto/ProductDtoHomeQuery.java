@@ -14,4 +14,5 @@ public class ProductDtoHomeQuery {
     private String userProviderName;
     private String mainPhoto;
     private Double price;
+    private String tags;
 }

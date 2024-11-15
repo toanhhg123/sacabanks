@@ -1,5 +1,6 @@
 package com.project.sacabank.web.home;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.sacabank.base.BaseController;
-import com.project.sacabank.base.PaginationResponse;
 import com.project.sacabank.blog.BlogRepository;
 import com.project.sacabank.blog.BlogService;
 import com.project.sacabank.cart.CartService;
@@ -26,6 +26,10 @@ import com.project.sacabank.productCompare.ProductCompareRepository;
 import com.project.sacabank.repositories.CategoryRepository;
 import com.project.sacabank.user.model.User;
 import com.project.sacabank.user.service.UserService;
+import com.project.sacabank.wishlist.WishlistModel;
+import com.project.sacabank.wishlist.WishlistRepository;
+import com.project.sacabank.wishlist.WishlistService;
+import com.project.sacabank.wishlist.dto.WishlistDto;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HomeController extends BaseController {
 
+    private final int DEFAULT_NUMBER_ITEM = 8;
+
     private final HomeService homeService;
     private final BlogRepository blogRepository;
     private final CartService cartService;
@@ -43,16 +49,26 @@ public class HomeController extends BaseController {
     private final UserService userService;
     private final BlogService blogService;
     private final ProductCompareRepository productCompareRepository;
+    private final WishlistService wishlistService;
+    private final WishlistRepository wishlistRepository;
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
         var products = homeService.getProductHome();
+        var productsNew = homeService.getProductNew(DEFAULT_NUMBER_ITEM);
+        var productsHot = homeService.getProductHot(DEFAULT_NUMBER_ITEM);
+        var productsBestSeller = homeService.getProductBestSeller(DEFAULT_NUMBER_ITEM);
+
         var blogs = blogRepository.findAll(Specification.where(null), PageRequest.of(0, 8));
         var vendors = userService.getAllUserVendor("", Optional.empty(), 10);
 
         model.addAttribute("products", products);
         model.addAttribute("blogs", blogs);
         model.addAttribute("vendors", vendors);
+
+        model.addAttribute("productsNew", productsNew);
+        model.addAttribute("productsHot", productsHot);
+        model.addAttribute("productsBestSeller", productsBestSeller);
 
         return "home";
     }
@@ -174,9 +190,15 @@ public class HomeController extends BaseController {
             user.setBanner("static/assets/img/hero/hero-2.png");
 
         var products = homeService.getProductHome(user.getId());
+        var productsNew = products.stream().filter(p -> p.getTags().contains("NEW")).toList();
+        var productsHot = products.stream().filter(p -> p.getTags().contains("HOT")).toList();
+        var productsBestSeller = products.stream().filter(p -> p.getTags().contains("BESTSELLER")).toList();
 
         model.addAttribute("user", user);
         model.addAttribute("products", products);
+        model.addAttribute("productsNew", productsNew);
+        model.addAttribute("productsHot", productsHot);
+        model.addAttribute("productsBestSeller", productsBestSeller);
 
         log.info("banner is: {}", user.getBanner());
 
@@ -221,6 +243,58 @@ public class HomeController extends BaseController {
                 .ifPresent(productCompareRepository::delete);
 
         return "redirect:/trinh-vat-lieu";
+
+    }
+
+    @GetMapping("/chuong-trinh-khuyen-mai")
+    public String viewPromotional(Model model) {
+
+        var products = homeService.getProductHome();
+        model.addAttribute("products", products);
+
+        return "promotional";
+
+    }
+
+    @GetMapping("/yeu-thich")
+    public String viewWishList(Model model) {
+
+        var productWishList = wishlistService.getWishlistPagination(
+                getUserServiceInfo().getId(),
+                Optional.empty(),
+                Optional.empty(),
+                Optional.of(100));
+
+        var list = (List<WishlistModel>) productWishList.getList();
+        var products = list.stream().map(WishlistModel::getProduct);
+
+        model.addAttribute("products", products);
+
+        return "wish-list";
+
+    }
+
+    @PostMapping("/yeu-thich/delete/{id}")
+    public String deleteWishList(@PathVariable UUID id) {
+
+        wishlistRepository.removeByProductIdAndUserId(id, getUserInfo().getId());
+
+        return "redirect:/yeu-thich";
+
+    }
+
+    @PostMapping("/yeu-thich/{id}")
+    public String addWishList(@PathVariable UUID id) {
+
+        WishlistDto wishlistDto = WishlistDto
+                .builder()
+                .userId(getUserInfo().getId())
+                .productId(id)
+                .build();
+
+        wishlistService.create(wishlistDto);
+
+        return "redirect:/yeu-thich";
 
     }
 

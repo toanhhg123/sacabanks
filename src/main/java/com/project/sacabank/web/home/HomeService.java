@@ -17,8 +17,7 @@ import lombok.AllArgsConstructor;
 public class HomeService {
     private final EntityManager entityManager;
 
-    public List<ProductDtoHomeQuery> getProductHome() {
-
+    public List<ProductDtoHomeQuery> getProductPreview(int limit) {
         String sqlString = """
                 SELECT NEW com.project.sacabank.web.home.dto.ProductDtoHomeQuery(
                     p.id,
@@ -26,14 +25,75 @@ public class HomeService {
                     p.slug,
                     u.username,
                     p.mainPhoto,
-                    p.price)
+                    p.price, p.tags)
                 FROM Product p
                 LEFT JOIN User u on p.userId = u.id
                 """;
 
         return entityManager.createQuery(sqlString, ProductDtoHomeQuery.class)
-                .setMaxResults(8)
+                .setMaxResults(limit)
                 .getResultList();
+    }
+
+    public List<ProductDtoHomeQuery> getProductNew(int limit) {
+        String sqlString = """
+                SELECT NEW com.project.sacabank.web.home.dto.ProductDtoHomeQuery(
+                    p.id,
+                    p.title,
+                    p.slug,
+                    u.username,
+                    p.mainPhoto,
+                    p.price, p.tags)
+                FROM Product p
+                LEFT JOIN User u on p.userId = u.id
+                WHERE p.tags = 'NEW'
+                """;
+
+        return entityManager.createQuery(sqlString, ProductDtoHomeQuery.class)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public List<ProductDtoHomeQuery> getProductHot(int limit) {
+        String sqlString = """
+                SELECT NEW com.project.sacabank.web.home.dto.ProductDtoHomeQuery(
+                    p.id,
+                    p.title,
+                    p.slug,
+                    u.username,
+                    p.mainPhoto,
+                    p.price, p.tags)
+                FROM Product p
+                LEFT JOIN User u on p.userId = u.id
+                WHERE p.tags = 'HOT'
+                """;
+
+        return entityManager.createQuery(sqlString, ProductDtoHomeQuery.class)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public List<ProductDtoHomeQuery> getProductBestSeller(int limit) {
+        String sqlString = """
+                SELECT NEW com.project.sacabank.web.home.dto.ProductDtoHomeQuery(
+                    p.id,
+                    p.title,
+                    p.slug,
+                    u.username,
+                    p.mainPhoto,
+                    p.price, p.tags)
+                FROM Product p
+                LEFT JOIN User u on p.userId = u.id
+                WHERE p.tags = 'BESTSELLER'
+                """;
+
+        return entityManager.createQuery(sqlString, ProductDtoHomeQuery.class)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public List<ProductDtoHomeQuery> getProductHome() {
+        return getProductPreview(8);
     }
 
     public List<ProductDtoHomeQuery> getProductHome(UUID userId) {
@@ -45,7 +105,8 @@ public class HomeService {
                     p.slug,
                     u.username,
                     p.mainPhoto,
-                    p.price)
+                    p.price,
+                    p.tags)
                 FROM Product p
                 LEFT JOIN User u on p.userId = u.id
                 WHERE u.id = :userId
