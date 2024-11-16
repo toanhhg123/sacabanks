@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.project.sacabank.formRegister.repository.FormRegisterRepository;
+import com.project.sacabank.web.home.HomeService;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SacabankApplicationTests {
@@ -14,16 +17,19 @@ class SacabankApplicationTests {
 	@Autowired
 	FormRegisterRepository formRegisterRepository;
 
+	@Autowired
+	HomeService homeService;
+
 	@Test
 	void contextLoads() {
 	}
 
 	@Test
-	void testExistsByPhoneOrEmail() {
+	void getCategoryFilter() {
 
-		var result = formRegisterRepository.existsByPhoneOrEmail("cc", "contact.vgdat@gmail.com");
+		var result = homeService.getCategoryFilter();
 		// then
-		assertThat(result).isFalse();
+		assertNotEquals(20, result.size());
 	}
 
 }

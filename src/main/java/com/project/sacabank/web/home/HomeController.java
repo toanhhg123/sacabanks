@@ -89,7 +89,9 @@ public class HomeController extends BaseController {
             @RequestParam Optional<Boolean> isNullQuantity,
             Model model) {
 
-        var categories = categoryRepository.findByCategoryId(categoryId);
+        var categories = categoryId != null
+                ? homeService.getCategoryFilter(categoryId)
+                : homeService.getCategoryFilter();
 
         var products = productService.getAll(
                 search,

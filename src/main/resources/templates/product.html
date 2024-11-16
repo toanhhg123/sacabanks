@@ -95,6 +95,7 @@
                 data-aos="flip-left"
                 data-aos-duration="1000"
                 data-aos-delay="500"
+                style="height: 150px"
                 th:each="category : ${categories}"
               >
                 <div class="category-image">
@@ -124,8 +125,7 @@
               <div class="bb-sidebar-block">
                 <div class="bb-sidebar-title">
                   <div style="display: flex; justify-content: space-between">
-                    <h3>Lọc</h3>
-                    <a href="/san-pham">làm mới</a>
+                    <h3>Phân loại</h3>
                   </div>
                 </div>
                 <div class="bb-sidebar-contact">
@@ -155,16 +155,63 @@
                   <h3>Danh mục</h3>
                 </div>
                 <div class="bb-sidebar-contact">
-                  <ul>
-                    <li th:each="category : ${categories}">
-                      <a
-                        class="bb-sidebar-block-item"
-                        th:href="@{/san-pham(categoryId=${category.id})}"
+                  <div
+                    class="bb-faq-contact"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    data-aos-delay="600"
+                  >
+                    <div class="accordion row">
+                      <div
+                        class="accordion-item"
+                        th:each="item, itemStat : ${categories}"
                       >
-                        <span th:text="${category.name}"> </span>
-                      </a>
-                    </li>
-                  </ul>
+                        <h2
+                          class="accordion-header"
+                          th:id="'heading' + ${itemStat.index}"
+                        >
+                          <div style="display: flex; align-items: start">
+                            <a
+                              th:text="${item.name}"
+                              th:href="${'/san-pham?categoryId=' + item.id}"
+                              style="flex: 1"
+                            >
+                            </a>
+
+                            <button
+                              style="
+                                border: none;
+                                padding: 0;
+                                width: max-content;
+                              "
+                              class="accordion-button"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              th:data-bs-target="'#collapse' + ${itemStat.index}"
+                              th:aria-controls="'collapse' + ${itemStat.index}"
+                            ></button>
+                          </div>
+                        </h2>
+                        <div
+                          th:id="'collapse' + ${itemStat.index}"
+                          class="accordion-collapse collapse"
+                          th:aria-labelledby="'heading' + ${itemStat.index}"
+                        >
+                          <div class="accordion-body">
+                            <ul>
+                              <li th:each="child : ${item.children}">
+                                <a
+                                  th:href="${'/san-pham?categoryId=' + child.id}"
+                                  th:text="${child.name}"
+                                >
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

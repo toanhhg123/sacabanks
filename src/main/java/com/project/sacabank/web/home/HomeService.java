@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.project.sacabank.web.home.dto.CategoryFilterProductDto;
 import com.project.sacabank.web.home.dto.ProductDtoHomeQuery;
 import com.project.sacabank.web.home.dto.SupplierDto;
 
@@ -156,7 +157,52 @@ public class HomeService {
 
         Query nativeQuery = entityManager.createNativeQuery(queryString, SupplierDto.class);
 
-        return (List<SupplierDto>) nativeQuery.getResultList();
+        return nativeQuery.getResultList();
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<CategoryFilterProductDto> getCategoryFilter() {
+        String queryString = """
+                SELECT
+                    c.id,
+                    c.name,
+                    c.image,
+                    JSON_ARRAYAGG(JSON_OBJECT('id', BIN_TO_UUID(c2.id), 'name', c2.name, 'image', c2.image)) as children
+                FROM category c
+                join category c2 on c2.category_id = c.id
+                GROUP by c.id
+                    """;
+
+        Query nativeQuery = entityManager.createNativeQuery(queryString, CategoryFilterProductDto.class);
+
+        return nativeQuery.getResultList();
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<CategoryFilterProductDto> getCategoryFilter(UUID categoryId) {
+        String queryString = """
+                SELECT
+                    c.id,
+                    c.name,
+                    c.image,
+                    CASE
+                        WHEN COUNT(c2.id) = 0 THEN '[]'
+                        ELSE JSON_ARRAYAGG(
+                            JSON_OBJECT('id', BIN_TO_UUID(c2.id), 'name', c2.name, 'image', c2.image)
+                        )
+                    END as children
+                FROM category c
+                left join category c2 on c2.category_id = c.id
+                where c.category_id = :categoryId
+                GROUP by c.id
+                    """;
+
+        Query nativeQuery = entityManager.createNativeQuery(queryString, CategoryFilterProductDto.class)
+                .setParameter("categoryId", categoryId);
+
+        return nativeQuery.getResultList();
 
     }
 
