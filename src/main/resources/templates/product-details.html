@@ -170,11 +170,21 @@
                     </div>
                     <div class="bb-single-list">
                       <ul>
-                        <li><span>chiều dài :</span> Hook & Loop</li>
-                        <li><span>chiều rộng :</span> Polyvinyl Chloride</li>
-                        <li><span>Width :</span> Medium</li>
                         <li>
-                          <span>Outer Material :</span> A-Grade Standard Quality
+                          <span>chiều dài :</span>
+                          <span th:text="${product.dimensionL}"></span>
+                        </li>
+                        <li>
+                          <span>chiều rộng :</span>
+                          <span th:text="${product.dimensionW}"></span>
+                        </li>
+                        <li>
+                          <span>chiều cao :</span>
+                          <span th:text="${product.dimensionH}"></span>
+                        </li>
+                        <li>
+                          <span>Khối lượng :</span>
+                          <span th:text="${product.netWeight}"></span>
                         </li>
                       </ul>
                     </div>

@@ -19,6 +19,7 @@ import com.project.sacabank.blog.BlogService;
 import com.project.sacabank.cart.CartService;
 import com.project.sacabank.cart.dto.CartDto;
 import com.project.sacabank.exception.CustomException;
+import com.project.sacabank.order.OrderService;
 import com.project.sacabank.product.model.Product;
 import com.project.sacabank.product.service.ProductService;
 import com.project.sacabank.productCompare.ProductCompare;
@@ -44,13 +45,13 @@ public class HomeController extends BaseController {
     private final HomeService homeService;
     private final BlogRepository blogRepository;
     private final CartService cartService;
-    private final CategoryRepository categoryRepository;
     private final ProductService productService;
     private final UserService userService;
     private final BlogService blogService;
     private final ProductCompareRepository productCompareRepository;
     private final WishlistService wishlistService;
     private final WishlistRepository wishlistRepository;
+    private final OrderService orderService;
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
@@ -297,6 +298,22 @@ public class HomeController extends BaseController {
         wishlistService.create(wishlistDto);
 
         return "redirect:/yeu-thich";
+
+    }
+
+    @PostMapping("/xac-nhan-hoa-don")
+    public String acceptOrder() {
+
+        orderService.addOrderAllCart(getUserServiceInfo().getId());
+
+        return "redirect:/xac-nhan-hoa-don-thanh-cong";
+
+    }
+
+    @GetMapping("/xac-nhan-hoa-don-thanh-cong")
+    public String orderSuccess() {
+
+        return "order-success";
 
     }
 

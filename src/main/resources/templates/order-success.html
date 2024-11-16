@@ -61,95 +61,11 @@
     <div th:replace="~{fragments/header :: header}"></div>
 
     <div class="container" style="margin-top: 2rem">
-      <div th:if="${#lists.isEmpty(carts)}" class="alert alert-info">
-        Chưa có sản phẩm nào
+      <div class="alert alert-success">
+        Order thành công
         <a href="/san-pham" class="alert-link"
           >Nhấp vào đây để tới tranng sản phẩm</a
         >
-      </div>
-
-      <div th:unless="${#lists.isEmpty(carts)}" class="card">
-        <div class="card-body conatiner">
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="item : ${carts}">
-                  <!-- Product Info -->
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img
-                        alt=""
-                        th:src="${'https://api.sacabanks.vn/uploads/' + item.product.mainPhoto}"
-                        onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
-                        class="img-thumbnail me-3"
-                        style="width: 80px; height: 80px; object-fit: cover"
-                      />
-                      <div>
-                        <h6 class="mb-0" th:text="${item.product.title}">
-                          Product Name
-                        </h6>
-                        <small class="text-muted" th:text="${item.product.tags}"
-                          >SKU</small
-                        >
-                      </div>
-                    </div>
-                  </td>
-
-                  <!-- Price -->
-                  <td><span>0</span>đ</td>
-
-                  <!-- Quantity Controls -->
-                  <td>
-                    <div class="input-group" style="width: 130px">
-                      <input
-                        class="form-control text-center"
-                        th:value="${item.quantity > 0 ? item.quantity : 1 }"
-                        readonly
-                      />
-                    </div>
-                  </td>
-
-                  <!-- Total -->
-                  <td><span>0</span>đ</td>
-
-                  <!-- Actions -->
-                  <td>
-                    <form
-                      class="pro-remove"
-                      th:action="${'/gio-hang/remove/' + item.id}"
-                      method="post"
-                    >
-                      <button class="btn" type="submit">
-                        <i class="ri-delete-bin-line"></i>
-                      </button>
-                    </form>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Cart Actions -->
-          <form
-            method="post"
-            action="/xac-nhan-hoa-don"
-            class="d-flex justify-content-between align-items-center mt-4"
-          >
-            <button type="submit" class="bb-btn-2">
-              <i class="bi bi-arrow-left"></i>
-              Xác nhận hoá đơn
-            </button>
-          </form>
-        </div>
       </div>
     </div>
 
