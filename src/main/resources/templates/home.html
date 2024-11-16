@@ -975,6 +975,7 @@
                   <img
                     th:src="${'https://api.sacabanks.vn/uploads/' + blog.image}"
                     alt="blog-7"
+                    height="200"
                   />
                 </div>
                 <div class="blog-contact">
@@ -985,6 +986,14 @@
                     <a
                       th:href="${'/bai-viet/' + blog.slug}"
                       th:text="${blog.title}"
+                      style="
+                        display: -webkit-box;
+                        -webkit-line-clamp: 1;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        word-break: break-word;
+                      "
                     >
                       Marketing Guide: 5 Steps to Success.
                     </a>

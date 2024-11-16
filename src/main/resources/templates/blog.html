@@ -100,15 +100,35 @@
                 <img
                   th:src="${'https://api.sacabanks.vn/uploads/' + blog.image}"
                   alt="blog-7"
+                  height="250"
                 />
               </div>
               <div class="blog-contact">
-                <h5>
+                <h5
+                  style="
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-break: break-word;
+                  "
+                >
                   <a th:href="${'/blog/' + blog.slug}" th:text="${blog.title}"
                     >Marketing Guide: 5 Steps to Success.</a
                   >
                 </h5>
-                <p th:text="${blog.shortDesc}">
+                <p
+                  th:text="${blog.shortDesc}"
+                  style="
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-break: break-word;
+                  "
+                >
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                   Dicta ab illum maiores error neque amet rem quod consequuntur?
                   Iste, rerum.
