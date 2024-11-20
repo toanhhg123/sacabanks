@@ -55,6 +55,7 @@
 
     <!-- Main Style -->
     <link rel="stylesheet" th:href="@{/static/assets/css/style.css}" />
+    <link rel="stylesheet" href="/static/assets/css/custom.css" />
   </head>
 
   <body>
@@ -106,7 +107,21 @@
                   />
                 </div>
                 <div class="category-sub-contact">
-                  <h5><a href="#" th:text="${category.name}">vegetables</a></h5>
+                  <h5>
+                    <a
+                      href="#"
+                      th:text="${category.name}"
+                      style="
+                        display: -webkit-box;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        word-break: break-word;
+                      "
+                      >vegetables</a
+                    >
+                  </h5>
                   <!-- <p>485 items</p> -->
                 </div>
               </div>
@@ -184,7 +199,7 @@
                                 padding: 0;
                                 width: max-content;
                               "
-                              class="accordion-button"
+                              class="accordion-button collapsed"
                               type="button"
                               data-bs-toggle="collapse"
                               th:data-bs-target="'#collapse' + ${itemStat.index}"
@@ -235,21 +250,6 @@
                           </button>
                         </div>
                       </div>
-                      <div class="col-6">
-                        <div class="bb-select-inner">
-                          <div class="custom-select">
-                            <select>
-                              <option selected disabled>Sort by</option>
-                              <option value="1">Position</option>
-                              <option value="2">Relevance</option>
-                              <option value="3">Name, A to Z</option>
-                              <option value="4">Name, Z to A</option>
-                              <option value="5">Price, low to high</option>
-                              <option value="6">Price, high to low</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -281,9 +281,20 @@
                       </a>
                       <ul class="bb-pro-actions">
                         <li class="bb-btn-group">
-                          <a th:href="${'/san-pham/' + product.slug}">
-                            <i class="ri-heart-line"></i>
-                          </a>
+                          <form
+                            th:action="${'/yeu-thich/' + product.id}"
+                            method="post"
+                          >
+                            <button
+                              style="
+                                border: none;
+                                outline: none;
+                                background: transparent;
+                              "
+                            >
+                              <i class="ri-heart-line"></i>
+                            </button>
+                          </form>
                         </li>
                         <li class="bb-btn-group">
                           <a th:href="${'/san-pham/' + product.slug}">
@@ -360,8 +371,15 @@
 
                       <div class="bb-price">
                         <div class="inner-price">
-                          <span class="new-price">$15</span>
-                          <span class="old-price">$22</span>
+                          <span class="new-price" th:text="${product.price}"
+                            >$15</span
+                          >
+                          <span
+                            class="new-price old-price"
+                            th:text="${product.price}"
+                            style="font-size: smaller; font-weight: 500"
+                            >$22</span
+                          >
                         </div>
                         <span class="last-items">500g</span>
                       </div>

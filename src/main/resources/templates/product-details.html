@@ -67,15 +67,15 @@
           <div class="col-12">
             <div class="row bb-breadcrumb-inner">
               <div class="col-md-6 col-sm-12">
-                <h2 class="bb-breadcrumb-title">product Page</h2>
+                <h2 class="bb-breadcrumb-title">Sản phẩm</h2>
               </div>
               <div class="col-md-6 col-sm-12">
                 <ul class="bb-breadcrumb-list">
                   <li class="bb-breadcrumb-item">
-                    <a href="/">Home</a>
+                    <a href="/">Trang chủ</a>
                   </li>
                   <li><i class="ri-arrow-right-double-fill"></i></li>
-                  <li class="bb-breadcrumb-item active">product Page</li>
+                  <li class="bb-breadcrumb-item active">Sản phẩm</li>
                 </ul>
               </div>
             </div>
@@ -110,10 +110,21 @@
                           class="img-responsive"
                           th:src="${'https://api.sacabanks.vn/uploads/' + photo.photoUrl}"
                           alt="product-2"
+                          height="150"
                         />
                       </div>
                     </div>
                     <div class="single-nav-thumb">
+                      <div class="single-slide">
+                        <img
+                          class="img-responsive"
+                          th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                          alt="product-2"
+                          height="60"
+                          width="60"
+                        />
+                      </div>
+
                       <div
                         class="single-slide"
                         th:each="photo : ${product.listPhoto}"
@@ -122,6 +133,8 @@
                           class="img-responsive"
                           th:src="${'https://api.sacabanks.vn/uploads/' + photo.photoUrl}"
                           alt="product-2"
+                          height="60"
+                          width="60"
                         />
                       </div>
                     </div>
@@ -156,17 +169,9 @@
                     <div class="bb-single-price-wrap">
                       <div class="bb-single-price">
                         <div class="price">
-                          <h5 th:text="${product.price} + ' VND'"></h5>
+                          <h5 th:text="${product.price}" class="new-price"></h5>
                         </div>
                       </div>
-                      <!-- <div class="bb-single-price">
-                        <div class="sku">
-                          <h5>SKU#: WH12</h5>
-                        </div>
-                        <div class="stock">
-                          <span>In stock</span>
-                        </div>
-                      </div> -->
                     </div>
                     <div class="bb-single-list">
                       <ul>
@@ -236,10 +241,10 @@
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseOne"
-                      aria-expanded="true"
+                      aria-expanded="false"
                       aria-controls="collapseOne"
                     >
-                      Product Detail
+                      Chi tiết
                     </button>
                   </h2>
                   <div
@@ -249,30 +254,31 @@
                   >
                     <div class="accordion-body">
                       <div class="bb-details">
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Libero, voluptatum. Vitae dolores alias repellat
-                          eligendi, officiis, exercitationem corporis quisquam
-                          delectus cum non recusandae numquam dignissimos
-                          molestiae magnam hic natus. Cumque.
-                        </p>
                         <div class="details-info">
                           <ul>
                             <li>
-                              Any Product types that You want - Simple,
-                              Configurable
+                              <span>Chiều dài</span>
+                              <span th:text="${product.dimensionL}"></span>
                             </li>
                             <li>
-                              Downloadable/Digital Products, Virtual Products
+                              <span>Chiều rộng</span>
+                              <span th:text="${product.dimensionW}"></span>
                             </li>
-                            <li>Inventory Management with Backordered items</li>
-                            <li>Flatlock seams throughout.</li>
-                          </ul>
-                          <ul>
-                            <li><span>Highlights</span>Form FactorWhole</li>
-                            <li><span>Seller</span>No Returns Allowed</li>
                             <li>
-                              <span>Services</span>Cash on Delivery available
+                              <span>Chiều cao</span>
+                              <span th:text="${product.dimensionH}"></span>
+                            </li>
+                            <li>
+                              <span>Khối lượng</span>
+                              <span th:text="${product.netWeight}"></span>
+                            </li>
+                            <li>
+                              <span>Chất liệu</span>
+                              <span th:text="${product.material}"></span>
+                            </li>
+                            <li>
+                              <span>Số lượng</span>
+                              <span th:text="${product.quantity}"></span>
                             </li>
                           </ul>
                         </div>
@@ -290,7 +296,7 @@
                       aria-expanded="false"
                       aria-controls="collapseTwo"
                     >
-                      information
+                      Tài liệu
                     </button>
                   </h2>
                   <div
@@ -301,21 +307,20 @@
                     <div class="accordion-body">
                       <div class="information">
                         <ul>
-                          <li><span>Weight</span> 500 g</li>
-                          <li><span>Dimensions</span> 17 × 15 × 3 cm</li>
-                          <li><span>Color</span> black,yellow,red</li>
-                          <li><span>Brand</span> Wonder Fort</li>
-                          <li><span>Form Factor</span>Whole</li>
-                          <li><span>Quantity</span>1</li>
-                          <li><span>Container Type</span>Pouch</li>
-                          <li><span>Shelf Life</span>12 Months</li>
-                          <li>
-                            <span>Ingredients</span>Dalchini, Dhaniya, Badi
-                            Elaichi, Laung
-                          </li>
-                          <li>
-                            <span>Other Features</span>Ingredient Type:
-                            Vegetarian
+                          <li
+                            th:each="productDocument : ${productDocuments}"
+                            style="
+                              display: flex;
+                              justify-content: space-between;
+                            "
+                          >
+                            <span th:text="${productDocument.title}"></span>
+                            <a
+                              th:href="${'https://api.sacabanks.vn/uploads/' + productDocument.file}"
+                              download
+                              class="btn bb-btn-1"
+                              >Download</a
+                            >
                           </li>
                         </ul>
                       </div>
@@ -332,7 +337,7 @@
                       aria-expanded="false"
                       aria-controls="collapseThree"
                     >
-                      Reviews
+                      Bình luận
                     </button>
                   </h2>
                   <div
@@ -342,88 +347,44 @@
                   >
                     <div class="accordion-body">
                       <div class="bb-reviews">
-                        <div class="reviews-bb-box">
+                        <div
+                          class="reviews-bb-box"
+                          th:each="productComment :${productComments}"
+                        >
                           <div class="inner-image">
-                            <img src="assets/img/reviews/1.jpg" alt="img-1" />
+                            <img
+                              th:src="${'https://api.sacabanks.vn/uploads/' + productComment.user.avatar}"
+                              onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
+                              alt=""
+                            />
                           </div>
                           <div class="inner-contact">
-                            <h4>Mariya Lykra</h4>
-                            <div class="bb-pro-rating">
-                              <i class="ri-star-fill"></i>
-                              <i class="ri-star-fill"></i>
-                              <i class="ri-star-fill"></i>
-                              <i class="ri-star-fill"></i>
-                              <i class="ri-star-line"></i>
-                            </div>
-                            <p>
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Illo, hic expedita asperiores eos neque
-                              cumque impedit quam, placeat laudantium soluta
-                              repellendus possimus a distinctio voluptate
-                              veritatis nostrum perspiciatis est! Commodi!
-                            </p>
-                          </div>
-                        </div>
-                        <div class="reviews-bb-box">
-                          <div class="inner-image">
-                            <img src="assets/img/reviews/2.jpg" alt="img-2" />
-                          </div>
-                          <div class="inner-contact">
-                            <h4>Saddika Alard</h4>
-                            <div class="bb-pro-rating">
-                              <i class="ri-star-fill"></i>
-                              <i class="ri-star-fill"></i>
-                              <i class="ri-star-fill"></i>
-                              <i class="ri-star-fill"></i>
-                              <i class="ri-star-line"></i>
-                            </div>
-                            <p>
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Illo, hic expedita asperiores eos neque
-                              cumque impedit quam, placeat laudantium soluta
-                              repellendus possimus a distinctio voluptate
-                              veritatis nostrum perspiciatis est! Commodi!
-                            </p>
+                            <h4 th:text="${productComment.user.username}">
+                              Mariya Lykra
+                            </h4>
+                            <p th:text="${productComment.content}"></p>
                           </div>
                         </div>
                       </div>
                       <div class="bb-reviews-form">
-                        <h3>Add a Review</h3>
-                        <div class="bb-review-rating">
-                          <span>Your ratting :</span>
-                          <div class="bb-pro-rating">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-line"></i>
-                          </div>
-                        </div>
-                        <form action="#">
-                          <div class="input-box">
-                            <input
-                              type="text"
-                              placeholder="Name"
-                              name="your-name"
-                            />
-                          </div>
-                          <div class="input-box">
-                            <input
-                              type="email"
-                              placeholder="Email"
-                              name="your-email"
-                            />
-                          </div>
+                        <h3>Thêm bình luận</h3>
+                        <form action="/product-comment" method="post">
+                          <input
+                            type="text"
+                            name="productId"
+                            th:value="${product.id}"
+                            hidden
+                          />
                           <div class="input-box">
                             <textarea
-                              name="your-comment"
+                              name="content"
                               placeholder="Enter Your Comment"
                             ></textarea>
                           </div>
                           <div class="input-button">
-                            <a href="javascript:void(0)" class="bb-btn-2"
-                              >View Cart</a
-                            >
+                            <button type="submit" class="bb-btn-2">
+                              Thêm bình luận
+                            </button>
                           </div>
                         </form>
                       </div>
@@ -486,25 +447,41 @@
                       </a>
                       <ul class="bb-pro-actions">
                         <li class="bb-btn-group">
-                          <a href="javascript:void(0)">
-                            <i class="ri-heart-line"></i>
-                          </a>
+                          <form
+                            th:action="${'/yeu-thich/' + product.id}"
+                            method="post"
+                          >
+                            <button
+                              style="
+                                border: none;
+                                outline: none;
+                                background: transparent;
+                              "
+                            >
+                              <i class="ri-heart-line"></i>
+                            </button>
+                          </form>
                         </li>
                         <li class="bb-btn-group">
-                          <a
-                            href="javascript:void(0)"
-                            data-link-action="quickview"
-                            title="Quick view"
-                            data-bs-toggle="modal"
-                            data-bs-target="#bry_quickview_modal"
-                          >
+                          <a th:href="${'/san-pham/' + product.slug}">
                             <i class="ri-eye-line"></i>
                           </a>
                         </li>
                         <li class="bb-btn-group">
-                          <a href="#">
-                            <i class="ri-repeat-line"></i>
-                          </a>
+                          <form
+                            th:action="${'/compare/' + product.id}"
+                            method="post"
+                          >
+                            <button
+                              style="
+                                border: none;
+                                outline: none;
+                                background: transparent;
+                              "
+                            >
+                              <i class="ri-repeat-line"></i>
+                            </button>
+                          </form>
                         </li>
                         <li class="bb-btn-group">
                           <form action="/gio-hang/add" method="post">

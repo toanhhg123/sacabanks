@@ -100,6 +100,12 @@
       th:if="${!productCompares.empty}"
     >
       <div class="container">
+        <div style="display: flex; justify-content: end; margin-bottom: 0.5rem">
+          <a href="/trinh-vat-lieu/download" class="btn bb-btn-2">
+            Tải xuống
+          </a>
+        </div>
+
         <div class="row">
           <div class="col-12">
             <div class="bb-compare">
@@ -119,6 +125,11 @@
                     <li>
                       <div class="compare-pro-title">
                         <h5>Nhà cung cấp</h5>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="compare-pro-title">
+                        <h5>Số lượng</h5>
                       </div>
                     </li>
                     <li>
@@ -220,7 +231,18 @@
                         class="compare-pro-detail"
                         style="width: max-content"
                       >
-                        <p th:text="${productCompare.product.price}"></p>
+                        <p th:text="${productCompare.product.quantity}"></p>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="compare-pro-detail"
+                        style="width: max-content"
+                      >
+                        <p
+                          class="new-price"
+                          th:text="${productCompare.product.price}"
+                        ></p>
                       </div>
                     </li>
                     <li>

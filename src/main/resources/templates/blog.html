@@ -93,7 +93,7 @@
             data-aos="fade-up"
             data-aos-duration="1000"
             data-aos-delay="200"
-            th:each="blog: ${blogs}"
+            th:each="blog, blogStat: ${blogs}"
           >
             <div class="bb-blog-card">
               <div class="blog-image">
@@ -114,7 +114,9 @@
                     word-break: break-word;
                   "
                 >
-                  <a th:href="${'/blog/' + blog.slug}" th:text="${blog.title}"
+                  <a
+                    th:href="${'/bai-viet/' + blog.slug + '?index=' + blogStat.index}"
+                    th:text="${blog.title}"
                     >Marketing Guide: 5 Steps to Success.</a
                   >
                 </h5>
@@ -134,7 +136,9 @@
                   Iste, rerum.
                 </p>
                 <div class="blog-btn">
-                  <a th:href="${'/bai-viet/' + blog.slug}" class="bb-btn-2"
+                  <a
+                    th:href="${'/bai-viet/' + blog.slug + '?index=' + blogStat.index}"
+                    class="bb-btn-2"
                     >Xem chi tiết</a
                   >
                 </div>

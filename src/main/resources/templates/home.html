@@ -184,10 +184,17 @@
                       <a
                         href="shop-left-sidebar-col-3.html"
                         th:text="${category.name}"
+                        style="
+                          display: -webkit-box;
+                          -webkit-line-clamp: 2;
+                          -webkit-box-orient: vertical;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          word-break: break-word;
+                        "
                         >vegetables</a
                       >
                     </h5>
-                    <p>485 items</p>
                   </div>
                 </div>
               </div>
@@ -244,16 +251,29 @@
                           />
                           <img
                             class="hover-img"
-                            src="/static/assets/img/logo/Sacabanks.svg"
+                            th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                            th:alt="${'Product image - ' + product.id}"
+                            onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                             alt="product-1"
                           />
                         </div>
                       </a>
                       <ul class="bb-pro-actions">
                         <li class="bb-btn-group">
-                          <a th:href="${'/san-pham/' + product.slug}">
-                            <i class="ri-heart-line"></i>
-                          </a>
+                          <form
+                            th:action="${'/yeu-thich/' + product.id}"
+                            method="post"
+                          >
+                            <button
+                              style="
+                                border: none;
+                                outline: none;
+                                background: transparent;
+                              "
+                            >
+                              <i class="ri-heart-line"></i>
+                            </button>
+                          </form>
                         </li>
                         <li class="bb-btn-group">
                           <a th:href="${'/san-pham/' + product.slug}">
@@ -484,23 +504,36 @@
                               class="main-img"
                               th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
                               th:alt="${'Product image - ' + product.id}"
+                              onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                               alt="product-1"
                               width="300"
                               height="300"
-                              onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                             />
                             <img
                               class="hover-img"
-                              src="/static/assets/img/logo/Sacabanks.svg"
+                              th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                              th:alt="${'Product image - ' + product.id}"
+                              onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                               alt="product-1"
                             />
                           </div>
                         </a>
                         <ul class="bb-pro-actions">
                           <li class="bb-btn-group">
-                            <a th:href="${'/san-pham/' + product.slug}">
-                              <i class="ri-heart-line"></i>
-                            </a>
+                            <form
+                              th:action="${'/yeu-thich/' + product.id}"
+                              method="post"
+                            >
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-heart-line"></i>
+                              </button>
+                            </form>
                           </li>
                           <li class="bb-btn-group">
                             <a th:href="${'/san-pham/' + product.slug}">
@@ -613,16 +646,28 @@
                             />
                             <img
                               class="hover-img"
-                              src="/static/assets/img/logo/Sacabanks.svg"
-                              alt="product-1"
+                              th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                              th:alt="${'Product image - ' + product.id}"
+                              onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                             />
                           </div>
                         </a>
                         <ul class="bb-pro-actions">
                           <li class="bb-btn-group">
-                            <a th:href="${'/san-pham/' + product.slug}">
-                              <i class="ri-heart-line"></i>
-                            </a>
+                            <form
+                              th:action="${'/yeu-thich/' + product.id}"
+                              method="post"
+                            >
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-heart-line"></i>
+                              </button>
+                            </form>
                           </li>
                           <li class="bb-btn-group">
                             <a th:href="${'/san-pham/' + product.slug}">
@@ -735,16 +780,28 @@
                             />
                             <img
                               class="hover-img"
-                              src="/static/assets/img/logo/Sacabanks.svg"
-                              alt="product-1"
+                              th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                              th:alt="${'Product image - ' + product.id}"
+                              onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                             />
                           </div>
                         </a>
                         <ul class="bb-pro-actions">
                           <li class="bb-btn-group">
-                            <a th:href="${'/san-pham/' + product.slug}">
-                              <i class="ri-heart-line"></i>
-                            </a>
+                            <form
+                              th:action="${'/yeu-thich/' + product.id}"
+                              method="post"
+                            >
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-heart-line"></i>
+                              </button>
+                            </form>
                           </li>
                           <li class="bb-btn-group">
                             <a th:href="${'/san-pham/' + product.slug}">
@@ -858,15 +915,28 @@
                             <img
                               class="hover-img"
                               src="/static/assets/img/logo/Sacabanks.svg"
-                              alt="product-1"
+                              th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                              th:alt="${'Product image - ' + product.id}"
+                              onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                             />
                           </div>
                         </a>
                         <ul class="bb-pro-actions">
                           <li class="bb-btn-group">
-                            <a th:href="${'/san-pham/' + product.slug}">
-                              <i class="ri-heart-line"></i>
-                            </a>
+                            <form
+                              th:action="${'/yeu-thich/' + product.id}"
+                              method="post"
+                            >
+                              <button
+                                style="
+                                  border: none;
+                                  outline: none;
+                                  background: transparent;
+                                "
+                              >
+                                <i class="ri-heart-line"></i>
+                              </button>
+                            </form>
                           </li>
                           <li class="bb-btn-group">
                             <a th:href="${'/san-pham/' + product.slug}">
@@ -963,12 +1033,54 @@
         <h2 class="bb-title my-4">Tin Tức <span>Mới</span></h2>
         <div class="row">
           <div class="col-12">
+            <div class="row gap-2">
+              <div
+                class="blog-2-card col-xl-3 col-md-4 col-6"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-delay="200"
+                th:if="${blogs.size()} <= 3"
+                th:each="blog: ${blogs}"
+              >
+                <div class="blog-img">
+                  <img
+                    th:src="${'https://api.sacabanks.vn/uploads/' + blog.image}"
+                    alt="blog-7"
+                    height="200"
+                    style="width: 100%"
+                  />
+                </div>
+                <div class="blog-contact">
+                  <span
+                    th:text="${#dates.format(blog.updatedAt, 'dd-MM-yyyy')}"
+                  ></span>
+                  <h4>
+                    <a
+                      th:href="${'/bai-viet/' + blog.slug}"
+                      th:text="${blog.title}"
+                      style="
+                        display: -webkit-box;
+                        -webkit-line-clamp: 1;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        word-break: break-word;
+                      "
+                    >
+                      Marketing Guide: 5 Steps to Success.
+                    </a>
+                  </h4>
+                </div>
+              </div>
+            </div>
+
             <div class="blog-2-slider owl-carousel">
               <div
                 class="blog-2-card"
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 data-aos-delay="200"
+                th:if="${blogs.size()} > 3"
                 th:each="blog: ${blogs}"
               >
                 <div class="blog-img">
@@ -1039,385 +1151,6 @@
     </section>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
-
-    <!-- Cart sidebar
-    <div class="bb-side-cart-overlay"></div>
-    <div class="bb-side-cart">
-      <div class="row h-full">
-        <div class="col-md-5 col-12 d-none-767">
-          <div class="bb-top-contact">
-            <div class="bb-cart-title">
-              <h4>Related Items</h4>
-            </div>
-          </div>
-          <div class="bb-cart-box mb-minus-24 cart-related bb-border-right">
-            <div class="bb-deal-card mb-24">
-              <div class="bb-pro-box">
-                <div class="bb-pro-img">
-                  <span class="flags">
-                    <span>Hot</span>
-                  </span>
-                  <a href="javascript:void(0)">
-                    <div class="inner-img">
-                      <img
-                        class="main-img"
-                        src="/static/assets/img/product/2.jpg"
-                        alt="product-2"
-                      />
-                      <img
-                        class="hover-img"
-                        src="/static/assets/img/product/back-2.jpg"
-                        alt="product-2"
-                      />
-                    </div>
-                  </a>
-                  <ul class="bb-pro-actions">
-                    <li class="bb-btn-group">
-                      <a href="javascript:void(0)" title="Wishlist">
-                        <i class="ri-heart-line"></i>
-                      </a>
-                    </li>
-                    <li class="bb-btn-group">
-                      <a
-                        href="javascript:void(0)"
-                        data-link-action="quickview"
-                        title="Quick View"
-                        data-bs-toggle="modal"
-                        data-bs-target="#bry_quickview_modal"
-                      >
-                        <i class="ri-eye-line"></i>
-                      </a>
-                    </li>
-                    <li class="bb-btn-group">
-                      <a href="#" title="Compare">
-                        <i class="ri-repeat-line"></i>
-                      </a>
-                    </li>
-                    <li class="bb-btn-group">
-                      <a href="javascript:void(0)" title="Add To Cart">
-                        <i class="ri-shopping-bag-4-line"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="bb-pro-contact">
-                  <div class="bb-pro-subtitle">
-                    <a href="shop-left-sidebar-col-3.html">Juice</a>
-                    <span class="bb-pro-rating">
-                      <i class="ri-star-fill"></i>
-                      <i class="ri-star-fill"></i>
-                      <i class="ri-star-fill"></i>
-                      <i class="ri-star-fill"></i>
-                      <i class="ri-star-line"></i>
-                    </span>
-                  </div>
-                  <h4 class="bb-pro-title">
-                    <a href="product-left-sidebar.html"
-                      >Organic Apple Juice Pack</a
-                    >
-                  </h4>
-                  <div class="bb-price">
-                    <div class="inner-price">
-                      <span class="new-price">$15</span>
-                      <span class="item-left">3 Left</span>
-                    </div>
-                    <span class="last-items">100 ml</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="bb-cart-banner mb-24">
-              <div class="banner">
-                <img
-                  src="/static/assets/img/category/cart-banner.jpg"
-                  alt="cart-banner"
-                />
-                <div class="detail">
-                  <h4>Organic & Fresh</h4>
-                  <h3>Vegetables</h3>
-                  <a href="shop-left-sidebar-col-3.html">Buy Now</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-7 col-12">
-          <div class="bb-inner-cart">
-            <div class="bb-top-contact">
-              <div class="bb-cart-title">
-                <h4>My cart</h4>
-                <a
-                  href="javascript:void(0)"
-                  class="bb-cart-close"
-                  title="Close Cart"
-                ></a>
-              </div>
-            </div>
-            <div class="bb-cart-box item">
-              <ul class="bb-cart-items">
-                <li class="cart-sidebar-list">
-                  <a href="javascript:void(0)" class="cart-remove-item"
-                    ><i class="ri-close-line"></i
-                  ></a>
-                  <a href="javascript:void(0)" class="bb-cart-pro-img">
-                    <img
-                      src="/static/assets/img/new-product/1.jpg"
-                      alt="product-img-1"
-                    />
-                  </a>
-                  <div class="bb-cart-contact">
-                    <a
-                      href="product-left-sidebar.html"
-                      class="bb-cart-sub-title"
-                      >Ground Nuts Oil Pack</a
-                    >
-                    <span class="cart-price">
-                      <span class="new-price">$15</span>
-                      x 500 g
-                    </span>
-                    <div class="qty-plus-minus">
-                      <input
-                        class="qty-input"
-                        type="text"
-                        name="bb-qtybtn"
-                        value="1"
-                      />
-                    </div>
-                  </div>
-                </li>
-                <li class="cart-sidebar-list">
-                  <a href="javascript:void(0)" class="cart-remove-item"
-                    ><i class="ri-close-line"></i
-                  ></a>
-                  <a href="javascript:void(0)" class="bb-cart-pro-img">
-                    <img
-                      src="/static/assets/img/new-product/2.jpg"
-                      alt="product-img-2"
-                    />
-                  </a>
-                  <div class="bb-cart-contact">
-                    <a
-                      href="product-left-sidebar.html"
-                      class="bb-cart-sub-title"
-                      >Organic Litchi Juice Pack</a
-                    >
-                    <span class="cart-price">
-                      <span class="new-price">$25</span>
-                      x 500 ml
-                    </span>
-                    <div class="qty-plus-minus">
-                      <input
-                        class="qty-input"
-                        type="text"
-                        name="bb-qtybtn"
-                        value="1"
-                      />
-                    </div>
-                  </div>
-                </li>
-                <li class="cart-sidebar-list">
-                  <a href="javascript:void(0)" class="cart-remove-item"
-                    ><i class="ri-close-line"></i
-                  ></a>
-                  <a href="javascript:void(0)" class="bb-cart-pro-img">
-                    <img
-                      src="/static/assets/img/new-product/3.jpg"
-                      alt="product-img-3"
-                    />
-                  </a>
-                  <div class="bb-cart-contact">
-                    <a
-                      href="product-left-sidebar.html"
-                      class="bb-cart-sub-title"
-                      >Crunchy Banana Chips</a
-                    >
-                    <span class="cart-price">
-                      <span class="new-price">$1</span>
-                      x 500 g
-                    </span>
-                    <div class="qty-plus-minus">
-                      <input
-                        class="qty-input"
-                        type="text"
-                        name="bb-qtybtn"
-                        value="1"
-                      />
-                    </div>
-                  </div>
-                </li>
-                <li class="cart-sidebar-list">
-                  <a href="javascript:void(0)" class="cart-remove-item"
-                    ><i class="ri-close-line"></i
-                  ></a>
-                  <a href="javascript:void(0)" class="bb-cart-pro-img">
-                    <img
-                      src="/static/assets/img/new-product/6.jpg"
-                      alt="product-img-3"
-                    />
-                  </a>
-                  <div class="bb-cart-contact">
-                    <a
-                      href="product-left-sidebar.html"
-                      class="bb-cart-sub-title"
-                      >Small Cardamom Spice Pack</a
-                    >
-                    <span class="cart-price">
-                      <span class="new-price">$4</span>
-                      x 500 g
-                    </span>
-                    <div class="qty-plus-minus">
-                      <input
-                        class="qty-input"
-                        type="text"
-                        name="bb-qtybtn"
-                        value="1"
-                      />
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="bb-bottom-cart">
-              <div class="cart-sub-total">
-                <table class="table cart-table">
-                  <tbody>
-                    <tr>
-                      <td class="title">Sub-Total :</td>
-                      <td class="price">$300.00</td>
-                    </tr>
-                    <tr>
-                      <td class="title">VAT (20%) :</td>
-                      <td class="price">$60.00</td>
-                    </tr>
-                    <tr>
-                      <td class="title">Total :</td>
-                      <td class="price">$360.00</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="cart-btn">
-                <a href="cart.html" class="bb-btn-1">View Cart</a>
-                <a href="checkout.html" class="bb-btn-2">Checkout</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- Quick view Modal -->
-    <div
-      class="modal fade quickview-modal"
-      id="bry_quickview_modal"
-      tabindex="-1"
-      role="dialog"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <button
-            type="button"
-            class="qty-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            title="Close"
-          ></button>
-          <div class="modal-body">
-            <div class="row mb-minus-24">
-              <div class="col-md-5 col-sm-12 col-xs-12 mb-24">
-                <div class="single-pro-img single-pro-img-no-sidebar">
-                  <div class="single-product-scroll">
-                    <div class="single-slide zoom-image-hover">
-                      <img
-                        class="img-responsive"
-                        src="/static/assets/img/product/1.jpg"
-                        alt="product-img-1"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-7 col-sm-12 col-xs-12 mb-24">
-                <div class="quickview-pro-content">
-                  <h5 class="bb-quick-title">
-                    <a href="product-left-sidebar.html"
-                      >Mix nuts premium quality organic dried fruit 250g pack</a
-                    >
-                  </h5>
-                  <div class="bb-pro-rating">
-                    <i class="ri-star-fill"></i>
-                    <i class="ri-star-fill"></i>
-                    <i class="ri-star-fill"></i>
-                    <i class="ri-star-fill"></i>
-                    <i class="ri-star-line"></i>
-                  </div>
-                  <div class="bb-quickview-desc">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1900s,
-                  </div>
-                  <div class="bb-quickview-price">
-                    <span class="new-price">$50.00</span>
-                    <span class="old-price">$62.00</span>
-                  </div>
-                  <div class="bb-pro-variation">
-                    <ul>
-                      <li class="active">
-                        <a
-                          href="javascript:void(0)"
-                          class="bb-opt-sz"
-                          data-tooltip="Small"
-                          >250g</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="bb-opt-sz"
-                          data-tooltip="Medium"
-                          >500g</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="bb-opt-sz"
-                          data-tooltip="Large"
-                          >1kg</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          class="bb-opt-sz"
-                          data-tooltip="Extra Large"
-                          >2kg</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="bb-quickview-qty">
-                    <div class="qty-plus-minus">
-                      <input
-                        class="qty-input"
-                        type="text"
-                        name="bb-qtybtn"
-                        value="1"
-                      />
-                    </div>
-                    <div class="bb-quickview-cart">
-                      <button type="button" class="bb-btn-1">
-                        <i class="ri-shopping-bag-line"></i>Add To Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Back to top  -->
     <a href="#Top" class="back-to-top result-placeholder">

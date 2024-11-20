@@ -67,6 +67,30 @@ public class ProductCommentService extends BaseService<ProductCommentModel> {
 
     }
 
+    public List<ProductCommentQueryDto> getByProductIdActive(UUID productId) {
+
+        String nativeQuery = """
+                SELECT
+                    product_comment.*,
+                    JSON_OBJECT("id", BIN_TO_UUID(u.id), "username", u.username, "email", u.email, "avatar", u.avatar) as user,
+                    JSON_OBJECT("id", BIN_TO_UUID(product.id), "title", product.title, "slug", product.slug, "mainPhoto", product.main_photo) as product
+                FROM
+                    product_comment
+                    JOIN `user` u ON u.id = product_comment.user_id
+                    JOIN product ON product_comment.product_id = product.id
+                WHERE product.id = :id and product_comment.is_active = true
+                """;
+
+        Query query = repositories.entityManager.createNativeQuery(nativeQuery, ProductCommentQueryDto.class);
+        query.setParameter("id", productId);
+
+        @SuppressWarnings("unchecked")
+        List<ProductCommentQueryDto> results = query.getResultList();
+
+        return results;
+
+    }
+
     public PaginationResponse getProductCommentManager(
             Optional<UUID> userId,
             Optional<Integer> page,

@@ -1,0 +1,21 @@
+.accordion-button:after {
+  background-image: none;
+  -webkit-transform: none;
+  transform: none;
+  font-family: "remixicon";
+  font-size: 20px;
+  content: "\ea13";
+  font-weight: 500;
+  color: #3d4750;
+}
+
+.accordion-button:not(.collapsed):after {
+  background-image: none;
+  -webkit-transform: none;
+  transform: none;
+  font-family: "remixicon";
+  content: "\f1af";
+  font-size: 20px;
+  font-weight: 500;
+  color: #3d4750;
+}

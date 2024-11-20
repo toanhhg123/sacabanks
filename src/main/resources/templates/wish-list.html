@@ -161,9 +161,20 @@
                 </a>
                 <ul class="bb-pro-actions">
                   <li class="bb-btn-group">
-                    <a th:href="${'/san-pham/' + product.slug}">
-                      <i class="ri-heart-line"></i>
-                    </a>
+                    <form
+                      th:action="${'/yeu-thich/' + product.id}"
+                      method="post"
+                    >
+                      <button
+                        style="
+                          border: none;
+                          outline: none;
+                          background: transparent;
+                        "
+                      >
+                        <i class="ri-heart-line"></i>
+                      </button>
+                    </form>
                   </li>
                   <li class="bb-btn-group">
                     <a th:href="${'/san-pham/' + product.slug}">

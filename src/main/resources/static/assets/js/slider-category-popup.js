@@ -30,3 +30,11 @@ new Swiper(".swiper-category-popup", {
     },
   },
 });
+
+const elementPrices = document.querySelectorAll(".new-price");
+const priceFormats = document.querySelectorAll(".price-format");
+
+[...elementPrices, ...priceFormats].forEach((e) => {
+  const valueString = e.textContent || "0";
+  e.textContent = Number(valueString).toLocaleString();
+});

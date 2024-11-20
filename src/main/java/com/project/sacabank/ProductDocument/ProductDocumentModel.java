@@ -5,7 +5,6 @@ import java.util.UUID;
 import com.google.auto.value.AutoValue.Builder;
 import com.project.sacabank.base.BaseDto;
 import com.project.sacabank.base.BaseModel;
-import com.project.sacabank.vendorDocument.VendorDocumentDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

@@ -1,11 +1,4 @@
------------------------------------------------------------------------------------
 
-Item Name: Blueberry - eCommerce html template.
-Author: Maraviya Infotech
-Version: 1
-Copyright 2024
-
------------------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------------
     Included CSS INDEX
 -----------------------------------------------------------------------------------
@@ -183,7 +176,7 @@ Copyright 2024
   font-weight: 100;
   font-style: italic;
 }
-}
+
 @font-face {
   font-family: "Roboto, sans-serif";
   src: url("../fonts/Roboto/Roboto-Light.ttf") format("truetype");
@@ -3874,21 +3867,21 @@ button.btn-close.qty_close {
   -webkit-animation-name: fadeOutDown;
   animation-name: fadeOutDown;
 }
-> .hero-contact:nth-child(1) {
+.swiper-slide-active > .hero-contact:nth-child(1) {
   webkit-animation-name: fadeInUp;
   -webkit-animation-name: fadeInUp;
   animation-name: fadeInUp;
   -webkit-animation-delay: 3s;
   animation-delay: 3s;
 }
-> .hero-contact:nth-child(2) {
+.swiper-slide-active > .hero-contact:nth-child(2) {
   webkit-animation-name: fadeInUp;
   -webkit-animation-name: fadeInUp;
   animation-name: fadeInUp;
   -webkit-animation-delay: 2s;
   animation-delay: 2s;
 }
-> .hero-contact:nth-child(3) {
+.swiper-slide-active > .hero-contact:nth-child(3) {
   webkit-animation-name: fadeInUp;
   -webkit-animation-name: fadeInUp;
   animation-name: fadeInUp;
@@ -7643,17 +7636,18 @@ ul.bb-shop-tags li.active-tags a {
   -webkit-transform: none;
           transform: none;
   font-family: "remixicon";
-  content: "\f1af";
   font-size: 20px;
+  content: "\ea13";
   font-weight: 500;
   color: #3d4750;
 }
+
 .accordion-button:not(.collapsed):after {
   background-image: none;
   -webkit-transform: none;
           transform: none;
   font-family: "remixicon";
-  content: "\ea13";
+  content: "\f1af";
   font-size: 20px;
   font-weight: 500;
   color: #3d4750;

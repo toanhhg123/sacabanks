@@ -247,6 +247,7 @@
   $(".blog-2-slider").owlCarousel({
     margin: 24,
     loop: true,
+    autoWidth: false,
     dots: false,
     nav: false,
     smartSpeed: 500,

@@ -110,6 +110,22 @@
                 </h4>
 
                 <p th:utext="${blog.content}"></p>
+
+                <div style="display: flex; justify-content: end; gap: 10px">
+                  <a
+                    class="btn bb-btn-1"
+                    th:if="${index >0 }"
+                    th:href="${'/bai-viet/index/' + (index - 1)}"
+                  >
+                    <i class="ri-arrow-left-double-line"></i>
+                  </a>
+                  <a
+                    class="btn bb-btn-1"
+                    th:href="${'/bai-viet/index/' + (index + 1)}"
+                  >
+                    <i class="ri-arrow-right-double-line"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

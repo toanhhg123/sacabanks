@@ -1,6 +1,8 @@
 package com.project.sacabank.product.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -11,6 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.sacabank.base.BaseRepository;
 import com.project.sacabank.product.model.Product;
+import com.project.sacabank.web.home.dto.ProductDtoHomeQuery;
+
+import jakarta.persistence.ColumnResult;
+import jakarta.persistence.ConstructorResult;
+import jakarta.persistence.SqlResultSetMapping;
 
 public interface ProductRepository extends BaseRepository<Product, UUID> {
 
@@ -34,4 +41,5 @@ public interface ProductRepository extends BaseRepository<Product, UUID> {
 
   @Query("SELECT p FROM Product p WHERE p.id IN (:ids)")
   List<Product> findInIds(@Param("ids") List<UUID> ids);
+
 }

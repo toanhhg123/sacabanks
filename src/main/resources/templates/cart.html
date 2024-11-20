@@ -82,7 +82,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr th:each="item : ${carts}">
+                <tr th:each="item : ${carts}" class="row-cart">
                   <!-- Product Info -->
                   <td>
                     <div class="d-flex align-items-center">
@@ -105,21 +105,33 @@
                   </td>
 
                   <!-- Price -->
-                  <td><span>0</span>đ</td>
+                  <td
+                    th:text="${item.product.price}"
+                    class="new-price cart-price"
+                  ></td>
 
                   <!-- Quantity Controls -->
                   <td>
                     <div class="input-group" style="width: 130px">
                       <input
-                        class="form-control text-center"
+                        class="form-control text-center input-quantity-cart"
                         th:value="${item.quantity > 0 ? item.quantity : 1 }"
-                        readonly
+                        type="number"
+                        min="1"
+                      />
+                      <input
+                        class="cart-product-id"
+                        th:value="${item.product.id}"
+                        hidden
                       />
                     </div>
                   </td>
 
                   <!-- Total -->
-                  <td><span>0</span>đ</td>
+                  <td
+                    class="cart-total new-price"
+                    th:text="${item.quantity * item.product.price}"
+                  ></td>
 
                   <!-- Actions -->
                   <td>
@@ -146,7 +158,7 @@
           >
             <button type="submit" class="bb-btn-2">
               <i class="bi bi-arrow-left"></i>
-              Xác nhận hoá đơn
+              xác nhận đơn hàng
             </button>
           </form>
         </div>
@@ -183,5 +195,35 @@
     <!-- main-js -->
     <script th:src="@{/static/assets/js/main.js}"></script>
     <script th:src="@{/static/assets/js/slider-category-popup.js}"></script>
+    <script>
+      const rowsCart = document.querySelectorAll(".row-cart");
+
+      rowsCart.forEach((row) => {
+        const inputQuantity = row.querySelector(".input-quantity-cart");
+        const cartTotal = row.querySelector(".cart-total");
+        const price = +row
+          .querySelector(".cart-price")
+          .textContent.replaceAll(",", "");
+
+        console.log({ price });
+        const tdTotal = row.querySelector(".cart-total");
+        const productId = row.querySelector(".cart-product-id").value;
+
+        inputQuantity.onchange = (e) => {
+          const quantity = +e.target.value;
+          console.log(quantity, +price);
+          tdTotal.textContent = (quantity * +price).toLocaleString();
+
+          const formData = new FormData();
+          formData.append("productId", productId);
+          formData.append("quantity", quantity);
+
+          fetch("/gio-hang/add", {
+            method: "POST",
+            body: formData,
+          });
+        };
+      });
+    </script>
   </body>
 </html>

@@ -53,7 +53,7 @@ public class CartService extends BaseService<CartModel> {
         if (cartModel.isPresent()) {
 
             var cart = cartModel.get();
-            cart.setQuantity(cart.getQuantity() + cartDto.getQuantity());
+            cart.setQuantity(cartDto.getQuantity());
             return this.repositories.cartRepository.save(cart);
 
         }

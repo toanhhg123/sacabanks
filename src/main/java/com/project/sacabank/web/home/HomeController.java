@@ -1,11 +1,24 @@
 package com.project.sacabank.web.home;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +26,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.sacabank.ProductDocument.ProductDocumentService;
 import com.project.sacabank.base.BaseController;
+import com.project.sacabank.base.PaginationResponse;
+import com.project.sacabank.blog.BlogModel;
 import com.project.sacabank.blog.BlogRepository;
 import com.project.sacabank.blog.BlogService;
 import com.project.sacabank.cart.CartService;
@@ -21,10 +37,14 @@ import com.project.sacabank.cart.dto.CartDto;
 import com.project.sacabank.exception.CustomException;
 import com.project.sacabank.order.OrderService;
 import com.project.sacabank.product.model.Product;
+import com.project.sacabank.product.repository.ProductRepository;
 import com.project.sacabank.product.service.ProductService;
+import com.project.sacabank.productComment.ProductCommentModel;
+import com.project.sacabank.productComment.ProductCommentService;
+import com.project.sacabank.productComment.dto.ProductCommentDto;
+import com.project.sacabank.productComment.dto.ProductCommentQueryDto;
 import com.project.sacabank.productCompare.ProductCompare;
 import com.project.sacabank.productCompare.ProductCompareRepository;
-import com.project.sacabank.repositories.CategoryRepository;
 import com.project.sacabank.user.model.User;
 import com.project.sacabank.user.service.UserService;
 import com.project.sacabank.wishlist.WishlistModel;
@@ -52,6 +72,9 @@ public class HomeController extends BaseController {
     private final WishlistService wishlistService;
     private final WishlistRepository wishlistRepository;
     private final OrderService orderService;
+    private final ProductDocumentService productDocumentService;
+    private final ProductCommentService productCommentService;
+    private final ProductRepository productRepository;
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
@@ -115,12 +138,34 @@ public class HomeController extends BaseController {
     public String getProductDetails(@PathVariable String slug, Model model) {
 
         Product product = productService.findBySlug(slug);
-        var products = homeService.getProductHome();
+        var productsRelated = homeService.getProductsRelated(product.getId());
+        PaginationResponse productDocuments = productDocumentService.gets(
+                Optional.of(product.getId()),
+                Optional.of(0),
+                Optional.of(100));
+        List<ProductCommentQueryDto> productComments = productCommentService
+                .getByProductIdActive(product.getId());
 
         model.addAttribute("product", product);
-        model.addAttribute("products", products);
+        model.addAttribute("products", productsRelated);
+        model.addAttribute("productDocuments", productDocuments.getList());
+        model.addAttribute("productComments", productComments);
 
         return "product-details";
+    }
+
+    @PostMapping("/product-comment")
+    public String addProductComment(ProductCommentDto productCommentDto) {
+
+        productCommentDto.setUserId(getUserInfo().getId());
+        productCommentDto.setIsActive(false);
+        ProductCommentModel productComment = productCommentService.create(productCommentDto);
+
+        Product product = productRepository
+                .findById(productComment.getProductId())
+                .orElseThrow(() -> new CustomException(""));
+
+        return "redirect:/san-pham/" + product.getSlug();
     }
 
     @GetMapping("/bai-viet")
@@ -132,14 +177,32 @@ public class HomeController extends BaseController {
     }
 
     @GetMapping("/bai-viet/{slug}")
-    public String getBlogs(@PathVariable String slug, Model model) {
+    public String getBlogs(@PathVariable String slug, Model model, @RequestParam int index) {
         var blog = blogService.getBySlug(slug);
         var blogs = blogService.getAll();
 
         model.addAttribute("blogs", blogs);
         model.addAttribute("blog", blog);
+        model.addAttribute("index", index);
 
         return "blog-details";
+    }
+
+    @GetMapping("/bai-viet/index/{index}")
+    public String getBlogSkipIndex(@PathVariable(required = true) int index) {
+        var count = blogRepository.count();
+
+        if (index >= count) {
+            index = 0;
+        }
+
+        PageRequest pageable = PageRequest.of(index, 1);
+        Page<BlogModel> blogPage = blogRepository.findAll(pageable);
+
+        BlogModel blog = blogPage.getContent().get(0);
+
+        return "redirect:/bai-viet/" + blog.getSlug() + "?index=" + index;
+
     }
 
     @GetMapping("/gio-hang")
@@ -232,10 +295,26 @@ public class HomeController extends BaseController {
     public String viewCompare(Model model) {
 
         var productCompares = productCompareRepository.findByUserId(getUserServiceInfo().getId());
-
         model.addAttribute("productCompares", productCompares);
 
         return "compare-product";
+
+    }
+
+    @GetMapping("/trinh-vat-lieu/download")
+    public ResponseEntity<ByteArrayResource> compareDownload(Model model) throws IOException {
+
+        byte[] fileData = homeService.exportCompareProduct(getUserInfo().getId());
+
+        ByteArrayResource resource = new ByteArrayResource(fileData);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=product-compare.xlsx");
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(headers)
+                .body(resource);
 
     }
 
