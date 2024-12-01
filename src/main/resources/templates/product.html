@@ -274,8 +274,9 @@
                           />
                           <img
                             class="hover-img"
-                            src="/static/assets/img/logo/Sacabanks.svg"
-                            alt="product-1"
+                            th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                            th:alt="${'Product image - ' + product.id}"
+                            onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                           />
                         </div>
                       </a>

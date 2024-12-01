@@ -127,7 +127,9 @@
                     />
                     <img
                       class="hover-img"
-                      src="/static/assets/img/logo/Sacabanks.svg"
+                      th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                      th:alt="${'Product image - ' + product.id}"
+                      onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                       alt="product-1"
                       width="300"
                       height="300"
@@ -261,8 +263,9 @@
                           />
                           <img
                             class="hover-img"
-                            src="/static/assets/img/logo/Sacabanks.svg"
-                            alt="product-1"
+                            th:src="${'https://api.sacabanks.vn/uploads/' + product.mainPhoto}"
+                            th:alt="${'Product image - ' + product.id}"
+                            onerror="this.onerror=null; this.src='/static/assets/img/logo/Sacabanks.svg';"
                             width="300"
                             height="300"
                           />
